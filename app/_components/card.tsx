@@ -6,8 +6,8 @@ import Link from "next/link";
 interface CardProps {
   id: number;
   poster_path: string;
-  title?: string | undefined;
-  name?: string | undefined;
+  title?: string;
+  name?: string;
   vote_average: number;
   href: string;
 }
@@ -27,7 +27,7 @@ export function Card({
           <div className="relative aspect-square w-full">
             <Image
               src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-              alt={title || name}
+              alt={poster_path}
               width={0}
               height={0}
               quality={100}
