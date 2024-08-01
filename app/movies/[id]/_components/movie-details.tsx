@@ -3,19 +3,12 @@
 import { apiKey } from "@/app/utils/api-key";
 import { useEffect, useState } from "react";
 import { MovieImage } from "./movie-image";
-import { Button } from "@/app/_components/ui/button";
-import {
-  ChevronRightIcon,
-  Film,
-  Image as ImageLucide,
-  Smile,
-  Users
-} from "lucide-react";
+import { Film, Image as ImageLucide, Smile, Users } from "lucide-react";
 import { RecommendedMovies } from "./recommended-movies";
 import { SimilarMovies } from "./similar-movies";
-import { GiRevolver } from "react-icons/gi";
-import { FaRegSadCry } from "react-icons/fa";
 import { Cast } from "./cast";
+import { Images } from "./images";
+import { Videos } from "./videos";
 
 interface MovieDetailsProps {
   id: number;
@@ -34,6 +27,8 @@ export function MovieDetails({ id }: MovieDetailsProps) {
   const [error, setError] = useState<string | null>(null);
 
   const [showActors, setShowActors] = useState(true);
+  const [showImages, setShowImages] = useState(false);
+  const [showVideos, setShowVideos] = useState(false);
 
   useEffect(() => {
     fetchMovieDetail();
@@ -59,6 +54,24 @@ export function MovieDetails({ id }: MovieDetailsProps) {
     return <p>{error}</p>;
   }
 
+  function toggleActors() {
+    setShowActors(true);
+    setShowImages(false);
+    setShowVideos(false);
+  }
+
+  function toggleImages() {
+    setShowActors(false);
+    setShowImages(true);
+    setShowVideos(false);
+  }
+
+  function toggleVideos() {
+    setShowVideos(true);
+    setShowActors(false);
+    setShowImages(false);
+  }
+
   return (
     <div>
       {movieDetails ? (
@@ -79,68 +92,68 @@ export function MovieDetails({ id }: MovieDetailsProps) {
               </p>
             </div>
 
-            <div className="flex  gap-4 overflow-x-scroll px-5 lg:hidden  [&::-webkit-scrollbar]:hidden pt-10">
-              <div className="flex items-center justify-center gap-3 rounded-full bg-white px-4 py-3 shadow-md">
+            <div className="flex gap-4 overflow-x-scroll px-5 lg:hidden [&::-webkit-scrollbar]:hidden pt-10">
+              <button
+                type="button"
+                className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
+                  showActors
+                    ? "bg-[#3a3cff] text-white active:bg-[#3a3cff]"
+                    : "bg-white text-[#323232] hover:bg-[#3a3cff] hover:text-white"
+                }`}
+                onClick={toggleActors}
+              >
                 <Users size={20} />
-                <span className="text-sm font-semibold text-[#323232]">
-                  Atores
-                </span>
-              </div>
-              <div className="flex items-center justify-center gap-3 rounded-full bg-white px-4 py-3 shadow-md">
+                <span className="text-sm font-semibold">Elenco</span>
+              </button>
+              <button
+                type="button"
+                className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
+                  showImages
+                    ? "bg-[#3a3cff] text-white active:bg-[#3a3cff]"
+                    : "bg-white text-[#323232] hover:bg-[#3a3cff] hover:text-white"
+                }`}
+                onClick={toggleImages}
+              >
                 <ImageLucide size={20} />
-                <span className="text-sm font-semibold text-[#323232]">
-                  Imagens
-                </span>
-              </div>
-              <div className="flex items-center justify-center gap-3 rounded-full bg-white px-4 py-3 shadow-md">
+                <span className="text-sm font-semibold">Imagens</span>
+              </button>
+              <button
+                type="button"
+                className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
+                  showVideos
+                    ? "bg-[#3a3cff] text-white active:bg-[#3a3cff]"
+                    : "bg-white text-[#323232] hover:bg-[#3a3cff] hover:text-white"
+                }`}
+                onClick={toggleVideos}
+              >
                 <Film size={20} />
-                <span className="text-sm font-semibold text-[#323232]">
-                  Videos
-                </span>
-              </div>
+                <span className="text-sm font-semibold">Videos</span>
+              </button>
             </div>
 
-            <div className="pt-10 px-5">
-              <Cast id={id} />
-            </div>
+            {showActors && (
+              <div className="pt-10 px-5">
+                <Cast id={id} />
+              </div>
+            )}
+
+            {showImages && (
+              <div className="pt-10 px-5">
+                <Images id={id} />
+              </div>
+            )}
+
+            {showVideos && (
+              <div className="pt-10 px-5">
+                <Videos id={id} />
+              </div>
+            )}
 
             <div className="space-y-4 pt-10 px-5 lg:px-32">
-              <div className="flex items-center justify-between lg:px-0">
-                <h2 className="font-semibold text-[#323232]">
-                  Filmes recomendados
-                </h2>
-
-                <Button
-                  variant="ghost"
-                  className="h-fit p-0 text-[#3a3cff] hover:bg-transparent"
-                  asChild
-                >
-                  <span>
-                    Ver todos
-                    <ChevronRightIcon size={16} />
-                  </span>
-                </Button>
-              </div>
               <RecommendedMovies id={id} />
             </div>
 
             <div className="space-y-4 pt-10 px-5 lg:px-32">
-              <div className="flex items-center justify-between lg:px-0">
-                <h2 className="font-semibold text-[#323232]">
-                  Filmes como este
-                </h2>
-
-                <Button
-                  variant="ghost"
-                  className="h-fit p-0 text-[#3a3cff] hover:bg-transparent"
-                  asChild
-                >
-                  <span>
-                    Ver todos
-                    <ChevronRightIcon size={16} />
-                  </span>
-                </Button>
-              </div>
               <SimilarMovies id={id} />
             </div>
           </div>
