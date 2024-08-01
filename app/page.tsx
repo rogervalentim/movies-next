@@ -1,43 +1,34 @@
 import { Button } from "./_components/ui/button";
-import { ChevronRightIcon, Ghost, Heart, Search, Smile } from "lucide-react";
+import { ChevronRightIcon, Ghost, Heart, Smile } from "lucide-react";
 import { Header } from "./_components/header";
 import { GiRevolver } from "react-icons/gi";
 import { FaRegSadCry } from "react-icons/fa";
 import { MoviesTrending } from "./_components/movies-trending";
 import { SeriesTrending } from "./_components/series-trending";
 import { Hero } from "./_components/hero";
+import { Footer } from "./_components/footer";
+import { Search } from "./_components/search";
+import { CategoriesList } from "./_components/categories-list";
 
 export default function Home() {
   return (
     <>
       <Header />
 
-      <Hero />
+      <div className="px-5 pt-6 lg:hidden">
+        <Search />
+      </div>
 
-      <div className="hidden lg:flex  gap-4 overflow-x-scroll px-5 lg:gap-5 lg:px-32 [&::-webkit-scrollbar]:hidden pt-10">
-        <div className="flex items-center justify-center gap-3 rounded-full bg-white px-4 py-3 shadow-md">
-          <GiRevolver size={20} />
-          <span className="text-sm font-semibold text-[#323232]">Ação</span>
-        </div>
-        <div className="flex items-center justify-center gap-3 rounded-full bg-white px-4 py-3 shadow-md">
-          <Smile size={20} />
-          <span className="text-sm font-semibold text-[#323232]">Comédia</span>
-        </div>
-        <div className="flex items-center justify-center gap-3 rounded-full bg-white px-4 py-3 shadow-md">
-          <FaRegSadCry size={20} />
-          <span className="text-sm font-semibold text-[#323232]">Drama</span>
-        </div>
-        <div className="flex items-center justify-center gap-3 rounded-full bg-white px-4 py-3 shadow-md">
-          <Heart size={20} className="text-red-600 fill-red-600" />
-          <span className="text-sm font-semibold text-[#323232]">Romance</span>
-        </div>
-        <div className="flex items-center justify-center gap-3 rounded-full bg-white px-4 py-3 shadow-md">
-          <span className="text-sm font-semibold text-[#323232]">Suspense</span>
-        </div>
-        <div className="flex items-center justify-center gap-3 rounded-full bg-white px-4 py-3 shadow-md">
-          <Ghost size={20} />
-          <span className="text-sm font-semibold text-[#323232]">Terror</span>
-        </div>
+      <div className="flex lg:hidden gap-4 overflow-x-scroll px-5 lg:gap-5 lg:px-32 [&::-webkit-scrollbar]:hidden pt-6">
+        <CategoriesList />
+      </div>
+
+      <div className="pt-6">
+        <Hero />
+      </div>
+
+      <div className="hidden lg:flex gap-4 overflow-x-scroll px-5 lg:gap-5 lg:px-32 [&::-webkit-scrollbar]:hidden pt-10">
+        <CategoriesList />
       </div>
 
       <div className="space-y-4 pt-10 px-5 lg:px-32">
@@ -75,6 +66,8 @@ export default function Home() {
         </div>
         <SeriesTrending />
       </div>
+
+      <Footer />
     </>
   );
 }
