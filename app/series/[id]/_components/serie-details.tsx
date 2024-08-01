@@ -1,8 +1,14 @@
 "use client";
 
 import { apiKey } from "@/app/utils/api-key";
-import Image from "next/image";
 import { useEffect, useState } from "react";
+import { SimilarSeries } from "./similar-series";
+import { RecommendedSeries } from "./recommended-series";
+import { SerieImage } from "./serie-image";
+import { Users, Image as ImageLucide, Film } from "lucide-react";
+import { Cast } from "./cast";
+import { Videos } from "./videos";
+import { Images } from "./images";
 
 interface SerieDetailsProps {
   id: number;
@@ -15,10 +21,14 @@ interface SerieDetailsData {
 }
 
 export function SerieDetails({ id }: SerieDetailsProps) {
-  const [movieDetails, setMovieDetails] = useState<SerieDetailsData | null>(
+  const [serieDetails, setSerieDetails] = useState<SerieDetailsData | null>(
     null
   );
   const [error, setError] = useState<string | null>(null);
+
+  const [showActors, setShowActors] = useState(true);
+  const [showImages, setShowImages] = useState(false);
+  const [showVideos, setShowVideos] = useState(false);
 
   useEffect(() => {
     fetchMovieDetail();
@@ -33,7 +43,7 @@ export function SerieDetails({ id }: SerieDetailsProps) {
         throw new Error("Failed to fetch");
       }
       const data = await response.json();
-      setMovieDetails(data);
+      setSerieDetails(data);
     } catch (error) {
       setError("Error fetching movie details.");
       console.error(error);
@@ -44,18 +54,108 @@ export function SerieDetails({ id }: SerieDetailsProps) {
     return <p>{error}</p>;
   }
 
+  function toggleActors() {
+    setShowActors(true);
+    setShowImages(false);
+    setShowVideos(false);
+  }
+
+  function toggleImages() {
+    setShowActors(false);
+    setShowImages(true);
+    setShowVideos(false);
+  }
+
+  function toggleVideos() {
+    setShowVideos(true);
+    setShowActors(false);
+    setShowImages(false);
+  }
+
   return (
     <div>
-      {movieDetails ? (
+      {serieDetails ? (
         <>
-          <Image
-            src={`https://image.tmdb.org/t/p/w500/${movieDetails.backdrop_path}`}
-            alt={movieDetails.name}
-            width={300}
-            height={300}
+          <SerieImage
+            backdrop_path={serieDetails.backdrop_path}
+            name={serieDetails.name}
           />
-          <h1>{movieDetails.name}</h1>
-          <p>{movieDetails.overview}</p>
+          <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white py-5 lg:hidden ">
+            <div className="px-5 space-y-2">
+              <h1 className="mb-3 mt-1 text-xl font-semibold">
+                {serieDetails.name}
+              </h1>
+              <h3 className="font-semibold">Descrição</h3>
+              <p className="text-sm text-muted-foreground">
+                {serieDetails.overview}
+              </p>
+            </div>
+
+            <div className="flex gap-4 overflow-x-scroll px-5 lg:hidden [&::-webkit-scrollbar]:hidden pt-10">
+              <button
+                type="button"
+                className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
+                  showActors
+                    ? "bg-[#3a3cff] text-white active:bg-[#3a3cff]"
+                    : "bg-white text-[#323232] hover:bg-[#3a3cff] hover:text-white"
+                }`}
+                onClick={toggleActors}
+              >
+                <Users size={20} />
+                <span className="text-sm font-semibold">Elenco</span>
+              </button>
+              <button
+                type="button"
+                className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
+                  showImages
+                    ? "bg-[#3a3cff] text-white active:bg-[#3a3cff]"
+                    : "bg-white text-[#323232] hover:bg-[#3a3cff] hover:text-white"
+                }`}
+                onClick={toggleImages}
+              >
+                <ImageLucide size={20} />
+                <span className="text-sm font-semibold">Imagens</span>
+              </button>
+              <button
+                type="button"
+                className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
+                  showVideos
+                    ? "bg-[#3a3cff] text-white active:bg-[#3a3cff]"
+                    : "bg-white text-[#323232] hover:bg-[#3a3cff] hover:text-white"
+                }`}
+                onClick={toggleVideos}
+              >
+                <Film size={20} />
+                <span className="text-sm font-semibold">Videos</span>
+              </button>
+            </div>
+
+            {showActors && (
+              <div className="pt-10 px-5">
+                <Cast id={id} />
+              </div>
+            )}
+
+            {showImages && (
+              <div className="pt-10 px-5">
+                <Images id={id} />
+              </div>
+            )}
+
+            {showVideos && (
+              <div className="pt-10 px-5">
+                <Videos id={id} />
+              </div>
+            )}
+
+            <div className="space-y-4 pt-10 px-5 lg:px-32">
+              <RecommendedSeries id={id} />
+            </div>
+
+            <div className="space-y-4 pt-10 px-5 lg:px-32">
+              <SimilarSeries id={id} />
+            </div>
+          </div>
         </>
       ) : (
         <p>Loading...</p>

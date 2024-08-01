@@ -33,9 +33,7 @@ export function CastCard({ name, character, profile_path }: CastCardProps) {
               className="rounded-lg shadow-md w-full h-48 lg:h-60 object-cover"
             />
           ) : (
-            <div className="flex items-center justify-center w-full h-48 lg:h-60 bg-[#3a3cff] rounded-lg shadow-md">
-              <Users size={40} color="#fff" />
-            </div>
+            <ProfilePathNull />
           )}
         </div>
 
