@@ -2,6 +2,7 @@
 
 import { Header } from "@/app/_components/header";
 import { MovieDetails } from "./_components/movie-details";
+import { Footer } from "@/app/_components/footer";
 
 interface MoviePageProps {
   params: {
@@ -16,6 +17,8 @@ export default function MoviePage({ params: { id } }: MoviePageProps) {
       </div>
 
       <MovieDetails id={id} />
+
+      <Footer />
     </div>
   );
 }

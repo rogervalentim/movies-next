@@ -2,6 +2,7 @@
 
 import { Header } from "@/app/_components/header";
 import { SerieDetails } from "./_components/serie-details";
+import { Footer } from "@/app/_components/footer";
 
 interface SeriePageProps {
   params: {
@@ -17,6 +18,8 @@ export default function SeriePage({ params: { id } }: SeriePageProps) {
       </div>
 
       <SerieDetails id={id} />
+
+      <Footer />
     </div>
   );
 }

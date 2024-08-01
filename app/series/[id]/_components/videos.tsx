@@ -1,7 +1,7 @@
 "use client";
 
 import { apiKey } from "@/app/utils/api-key";
-import { Play } from "lucide-react";
+import { Play, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -19,6 +19,19 @@ export function Videos({ id }: VideosProps) {
   const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const [selectedVideoId, setSelectedVideoId] = useState("");
+
+  const openModal = (videoId: string) => {
+    setSelectedVideoId(videoId);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedVideoId("");
+    setModalOpen(false);
+  };
 
   useEffect(() => {
     fetchVideos();
@@ -66,15 +79,12 @@ export function Videos({ id }: VideosProps) {
                   sizes="100vh"
                   className="rounded-lg shadow-md w-full h-auto object-cover"
                 />
-                <button className="absolute inset-0 flex justify-center items-center">
+                <button
+                  className="absolute inset-0 flex justify-center items-center"
+                  onClick={() => openModal(video.key)}
+                >
                   <div className="rounded-full bg-black/60 flex items-center justify-center w-10 h-10">
-                    <a
-                      href={`https://www.${video.site}.com/watch?v=${video.key}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Play className="text-gray-300 fill-gray-300 size-6" />
-                    </a>
+                    <Play className="text-gray-300 fill-gray-300 size-6" />
                   </div>
                 </button>
               </div>
@@ -84,6 +94,27 @@ export function Videos({ id }: VideosProps) {
         </ul>
       ) : (
         <p>No videos available</p>
+      )}
+      {modalOpen && (
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 flex justify-center items-center z-50">
+          <div className="p-4 rounded-lg">
+            <button
+              className="absolute top-1 right-1 z-100 p-3 text-3xl bg-black/60 rounded-full hover:text-primary transition"
+              onClick={closeModal}
+            >
+              <X className="text-2xl text-white" />
+            </button>
+            <div className="flex justify-center items-center">
+              <iframe
+                title="YouTube Video"
+                allow="autoplay; encrypted-media"
+                className="max-w-full w-[800px] h-screen m-5 lg:m-20 border-none"
+                src={`https://www.youtube.com/embed/${selectedVideoId}?autoplay=1`}
+                allowFullScreen={true}
+              />
+            </div>
+          </div>
+        </div>
       )}
     </section>
   );
