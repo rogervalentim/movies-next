@@ -32,7 +32,7 @@ export function Card({
               height={0}
               quality={100}
               sizes="100vh"
-              className="rounded-lg shadow-md w-full h-60 object-cover"
+              className="rounded-lg shadow-md w-full h-48 lg:h-60 object-cover"
             />
 
             <div className="absolute left-2 top-2 flex items-center gap-[2px] rounded-full bg-white px-2 py-[2px] text-[#323232]">
@@ -45,7 +45,7 @@ export function Card({
             {title || name}
           </span>
 
-          <Button className="bg-gradient-to-b w-full rounded-md from-[#3a3cff] to-[#2a18ff] hover:bg-gradient-to-b hover:from[#2a18ff] hover:to-[#1e0ae3]">
+          <Button className="bg-gradient-to-b w-full  rounded-md from-[#3a3cff] to-[#2a18ff] hover:bg-gradient-to-b hover:from[#2a18ff] hover:to-[#1e0ae3]">
             <Link href={`${href}/${id}`}>Ver detalhes</Link>
           </Button>
         </div>

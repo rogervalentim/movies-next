@@ -29,14 +29,13 @@ export function Cast({ id }: CastProps) {
       );
       const data = await response.json();
       setCastData(data.cast);
-      console.log("cast", data);
     } catch (error) {
       console.log(error);
     }
   }
 
   return (
-    <section className="flex gap-4 overflow-x-scroll  lg:gap-5  [&::-webkit-scrollbar]:hidden">
+    <section className="flex gap-4 overflow-x-scroll lg:gap-5  [&::-webkit-scrollbar]:hidden">
       {castData.map((cast) => (
         <CastCard
           key={cast.id}

@@ -1,5 +1,7 @@
 import { Card } from "@/app/_components/card";
+import { Button } from "@/app/_components/ui/button";
 import { apiKey } from "@/app/utils/api-key";
+import { ChevronRightIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface SimilarMoviesProps {
@@ -19,7 +21,7 @@ export function SimilarMovies({ id }: SimilarMoviesProps) {
 
   useEffect(() => {
     fetchSimilarMovies();
-  }, []);
+  }, [id]);
 
   async function fetchSimilarMovies() {
     try {
@@ -32,18 +34,35 @@ export function SimilarMovies({ id }: SimilarMoviesProps) {
       console.log(error);
     }
   }
+
   return (
-    <section className="flex gap-4 overflow-x-scroll  lg:gap-5  [&::-webkit-scrollbar]:hidden">
-      {similarMovies.map((movie) => (
-        <Card
-          key={movie.id}
-          id={movie.id}
-          poster_path={movie.poster_path}
-          title={movie.title}
-          vote_average={movie.vote_average}
-          href="/movies"
-        />
-      ))}
-    </section>
+    <>
+      <div className="flex items-center justify-between lg:px-0">
+        <h2 className="font-semibold text-[#323232]">Filmes como este</h2>
+
+        <Button
+          variant="ghost"
+          className="h-fit p-0 text-[#3a3cff] hover:bg-transparent"
+          asChild
+        >
+          <span>
+            Ver todos
+            <ChevronRightIcon size={16} />
+          </span>
+        </Button>
+      </div>
+      <section className="flex gap-4 overflow-x-scroll  lg:gap-5  [&::-webkit-scrollbar]:hidden">
+        {similarMovies.map((movie) => (
+          <Card
+            key={movie.id}
+            id={movie.id}
+            poster_path={movie.poster_path}
+            title={movie.title}
+            vote_average={movie.vote_average}
+            href="/movies"
+          />
+        ))}
+      </section>
+    </>
   );
 }
