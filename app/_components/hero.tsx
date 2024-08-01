@@ -3,11 +3,10 @@
 import { useEffect, useState } from "react";
 import { apiKey } from "../utils/api-key";
 import Image from "next/image";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { Ghost, Heart, Search, Smile } from "lucide-react";
+import { Ghost, Heart, Smile } from "lucide-react";
 import { GiRevolver } from "react-icons/gi";
 import { FaRegSadCry } from "react-icons/fa";
+import { Search } from "./search";
 
 interface Movie {
   poster_path: string;
@@ -61,17 +60,8 @@ export function Hero() {
             <br />
             alguns cliques
           </p>
-          <div className="bg-white px-6 flex  justify-center mt-8 items-center rounded-lg w-[41.125rem] h-20">
-            <Input
-              placeholder="Busque por filmes ou séries"
-              className=" border-none"
-            />
-            <Button
-              className="bg-gradient-to-b rounded-l-none rounded-r-md from-[#3a3cff] to-[#2a18ff] hover:bg-gradient-to-b hover:from[#2a18ff] hover:to-[#1e0ae3]"
-              size="icon"
-            >
-              <Search size={20} className="text-white" />
-            </Button>
+          <div className="bg-white  flex px-6 mt-8  justify-center items-center rounded-lg w-[41.125rem] h-20">
+            <Search />
           </div>
         </div>
 
