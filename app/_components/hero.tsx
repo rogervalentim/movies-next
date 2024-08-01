@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { apiKey } from "../utils/api-key";
 import Image from "next/image";
