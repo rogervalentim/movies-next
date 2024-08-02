@@ -35,7 +35,7 @@ export function SeriesTrending() {
 
   return (
     <>
-      <section className="flex gap-4 overflow-x-scroll px-5 lg:gap-5  lg:px-0 [&::-webkit-scrollbar]:hidden">
+      <section className="flex gap-4 overflow-x-scroll lg:gap-5   [&::-webkit-scrollbar]:hidden">
         {moviesTrendingData.map((movie) => (
           <Card
             key={movie.id}
@@ -43,7 +43,7 @@ export function SeriesTrending() {
             poster_path={movie.poster_path}
             name={movie.name}
             vote_average={movie.vote_average}
-            href="/series"
+            href="/serie"
           />
         ))}
       </section>

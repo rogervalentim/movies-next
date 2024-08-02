@@ -2,26 +2,27 @@
 
 import { apiKey } from "@/app/utils/api-key";
 import { useEffect, useState } from "react";
-import { MovieImage } from "./movie-image";
-import { Film, Image as ImageLucide, Smile, Users } from "lucide-react";
-import { RecommendedMovies } from "./recommended-movies";
-import { SimilarMovies } from "./similar-movies";
-import { Cast } from "./cast";
-import { Images } from "./images";
-import { Videos } from "./videos";
+import { SerieImage } from "./serie-image";
+import { Users, Image as ImageLucide, Film } from "lucide-react";
+import { Loading } from "@/app/_components/loading";
+import { Videos } from "@/app/_components/videos";
+import { Images } from "@/app/_components/images";
+import { Cast } from "@/app/_components/cast";
+import { Recommended } from "@/app/_components/recommended";
+import { Similar } from "@/app/_components/similar";
 
-interface MovieDetailsProps {
+interface SerieDetailsProps {
   id: number;
 }
 
-interface MovieDetailsData {
+interface SerieDetailsData {
   backdrop_path: string;
   overview: string;
-  title: string;
+  name: string;
 }
 
-export function MovieDetails({ id }: MovieDetailsProps) {
-  const [movieDetails, setMovieDetails] = useState<MovieDetailsData | null>(
+export function SerieDetails({ id }: SerieDetailsProps) {
+  const [serieDetails, setSerieDetails] = useState<SerieDetailsData | null>(
     null
   );
   const [error, setError] = useState<string | null>(null);
@@ -37,13 +38,13 @@ export function MovieDetails({ id }: MovieDetailsProps) {
   async function fetchMovieDetail() {
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=pt-BR`
+        `https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}&language=pt-BR`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch");
       }
       const data = await response.json();
-      setMovieDetails(data);
+      setSerieDetails(data);
     } catch (error) {
       setError("Error fetching movie details.");
       console.error(error);
@@ -74,21 +75,20 @@ export function MovieDetails({ id }: MovieDetailsProps) {
 
   return (
     <div>
-      {movieDetails ? (
+      {serieDetails ? (
         <>
-          <MovieImage
-            backdrop_path={movieDetails.backdrop_path}
-            title={movieDetails.title}
+          <SerieImage
+            backdrop_path={serieDetails.backdrop_path}
+            name={serieDetails.name}
           />
-
           <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white py-5 lg:hidden ">
             <div className="px-5 space-y-2">
               <h1 className="mb-3 mt-1 text-xl font-semibold">
-                {movieDetails.title}
+                {serieDetails.name}
               </h1>
               <h3 className="font-semibold">Descrição</h3>
               <p className="text-sm text-muted-foreground">
-                {movieDetails.overview}
+                {serieDetails.overview}
               </p>
             </div>
 
@@ -133,33 +133,37 @@ export function MovieDetails({ id }: MovieDetailsProps) {
 
             {showActors && (
               <div className="pt-10 px-5">
-                <Cast id={id} />
+                <Cast id={id} contentType="tv" />
               </div>
             )}
 
             {showImages && (
-              <div className="pt-10 px-5">
-                <Images id={id} />
+              <div className="pt-10 px-5 space-y-4">
+                <Images id={id} contentType="tv" />
               </div>
             )}
 
             {showVideos && (
               <div className="pt-10 px-5">
-                <Videos id={id} />
+                <Videos id={id} contentType="tv" />
               </div>
             )}
 
             <div className="space-y-4 pt-10 px-5 lg:px-32">
-              <RecommendedMovies id={id} />
+              <Recommended
+                id={id}
+                contentType="tv"
+                title="Séries Recomendadas"
+              />
             </div>
 
             <div className="space-y-4 pt-10 px-5 lg:px-32">
-              <SimilarMovies id={id} />
+              <Similar id={id} contentType="tv" title="Séries como esta" />
             </div>
           </div>
         </>
       ) : (
-        <p>Loading...</p>
+        <Loading />
       )}
     </div>
   );

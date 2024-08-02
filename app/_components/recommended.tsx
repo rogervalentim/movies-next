@@ -6,49 +6,52 @@ import { apiKey } from "@/app/utils/api-key";
 import { ChevronRightIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
-interface RecommendedSeriesProps {
+interface RecommendedProps {
   id: number;
+  title: string;
+  contentType: string;
 }
 
-interface RecommendedSeriesData {
+interface RecommendedData {
   id: number;
   poster_path: string;
   name: string;
+  title: string;
   vote_average: number;
   href: string;
 }
 
-export function RecommendedSeries({ id }: RecommendedSeriesProps) {
-  const [recommendedSeries, setRecommendedSeries] = useState<
-    RecommendedSeriesData[]
-  >([]);
-  const [hasSeries, setHasSeries] = useState<boolean>(false);
+export function Recommended({ id, title, contentType }: RecommendedProps) {
+  const [recommendedMovies, setRecommendedMovies] = useState<RecommendedData[]>(
+    []
+  );
+  const [hasMovies, setHasMovies] = useState<boolean>(false);
 
   useEffect(() => {
-    fetchRecommendedSeries();
+    fetchRecommendedMovies();
   }, [id]);
 
-  async function fetchRecommendedSeries() {
+  async function fetchRecommendedMovies() {
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/tv/${id}/recommendations?api_key=${apiKey}&language=pt-BR`
+        `https://api.themoviedb.org/3/${contentType}/${id}/recommendations?api_key=${apiKey}&language=pt-BR`
       );
       const data = await response.json();
-      setRecommendedSeries(data.results);
-      setHasSeries(data.results.length > 0);
+      setRecommendedMovies(data.results);
+      setHasMovies(data.results.length > 0);
     } catch (error) {
       console.log(error);
     }
   }
 
-  if (!hasSeries) {
+  if (!hasMovies) {
     return null;
   }
 
   return (
     <>
       <div className="flex items-center justify-between lg:px-0">
-        <h2 className="font-semibold text-[#323232]">Series recomendadas</h2>
+        <h2 className="font-semibold text-[#323232]">{title}</h2>
 
         <Button
           variant="ghost"
@@ -62,14 +65,15 @@ export function RecommendedSeries({ id }: RecommendedSeriesProps) {
         </Button>
       </div>
       <section className="flex gap-4 overflow-x-scroll lg:gap-5 [&::-webkit-scrollbar]:hidden">
-        {recommendedSeries.map((movie) => (
+        {recommendedMovies.map((movie) => (
           <Card
             key={movie.id}
             id={movie.id}
             poster_path={movie.poster_path}
+            title={movie.title}
             name={movie.name}
             vote_average={movie.vote_average}
-            href="/series"
+            href="/movie"
           />
         ))}
       </section>

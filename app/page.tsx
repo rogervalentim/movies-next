@@ -23,7 +23,7 @@ export default function Home() {
         <CategoriesList />
       </div>
 
-      <div className="pt-6">
+      <div className="pt-6 lg:pt-0">
         <Hero />
       </div>
 
@@ -32,7 +32,7 @@ export default function Home() {
       </div>
 
       <div className="space-y-4 pt-10 px-5 lg:px-32">
-        <div className="flex items-center justify-between px-5 lg:px-0">
+        <div className="flex items-center justify-between  lg:px-0">
           <h2 className="font-semibold text-[#323232]">Filmes em tendência</h2>
 
           <Button
@@ -50,7 +50,7 @@ export default function Home() {
       </div>
 
       <div className="space-y-4 pt-10 px-5 lg:px-32">
-        <div className="flex items-center justify-between px-5 lg:px-0">
+        <div className="flex items-center justify-between lg:px-0">
           <h2 className="font-semibold text-[#323232]">Séries em tendência</h2>
 
           <Button

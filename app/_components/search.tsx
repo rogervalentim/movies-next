@@ -10,7 +10,7 @@ export function Search() {
         className=" border-none  lg:w-[570px] lg:rounded lg:rounded-l-md"
       />
       <Button
-        className="bg-gradient-to-b rounded-l-none rounded-r-md from-[#3a3cff] to-[#2a18ff] hover:bg-gradient-to-b hover:from[#2a18ff] hover:to-[#1e0ae3]"
+        className="bg-gradient-to-b lg:rounded-l-none lg:rounded-r-md from-[#3a3cff] to-[#2a18ff] hover:bg-gradient-to-b hover:from[#2a18ff] hover:to-[#1e0ae3]"
         size="icon"
       >
         <SearchIcon size={20} className="text-white" />

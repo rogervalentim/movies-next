@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 interface CastProps {
   id: number;
+  contentType: string;
 }
 
 interface CastData {
@@ -15,7 +16,7 @@ interface CastData {
   profile_path: string;
 }
 
-export function Cast({ id }: CastProps) {
+export function Cast({ id, contentType }: CastProps) {
   const [castData, setCastData] = useState<CastData[]>([]);
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export function Cast({ id }: CastProps) {
   async function fetchCastData() {
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiKey}&language=pt-BR`
+        `https://api.themoviedb.org/3/${contentType}/${id}/credits?api_key=${apiKey}&language=pt-BR`
       );
       const data = await response.json();
       setCastData(data.cast);

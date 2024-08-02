@@ -21,10 +21,11 @@ export function MovieImage({ backdrop_path, title }: MovieImageProps) {
   return (
     <div className="relative h-[25rem] w-full lg:hidden">
       <Image
-        src={`https://image.tmdb.org/t/p/w780/${backdrop_path}`}
+        src={`https://image.tmdb.org/t/p/w1280/${backdrop_path}`}
         alt={title}
+        quality={100}
         fill
-        className="object-cover"
+        className="object-cover h-auto w-full"
       />
 
       <div className="flex">
