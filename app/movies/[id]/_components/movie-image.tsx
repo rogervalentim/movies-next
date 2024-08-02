@@ -1,8 +1,9 @@
 "use client";
 
 import { Button } from "@/app/_components/ui/button";
-import { ChevronLeftIcon } from "lucide-react";
+import { ChevronLeftIcon, Home } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 interface MovieImageProps {
@@ -26,13 +27,24 @@ export function MovieImage({ backdrop_path, title }: MovieImageProps) {
         className="object-cover"
       />
 
-      <Button
-        className="absolute left-4 top-4 rounded-full bg-white  text-foreground hover:text-white hover:bg-gradient-to-b  from-[#3a3cff] to-[#2a18ff]"
-        size="icon"
-        onClick={handleBackClick}
-      >
-        <ChevronLeftIcon />
-      </Button>
+      <div className="flex">
+        <Button
+          className="absolute left-4 top-4 rounded-full bg-white  text-foreground hover:text-white hover:bg-gradient-to-b  from-[#3a3cff] to-[#2a18ff]"
+          size="icon"
+          onClick={handleBackClick}
+        >
+          <ChevronLeftIcon />
+        </Button>
+
+        <Button
+          className="absolute right-4 top-4 rounded-full bg-white  text-foreground hover:text-white hover:bg-gradient-to-b  from-[#3a3cff] to-[#2a18ff]"
+          size="icon"
+        >
+          <Link href="/">
+            <Home />
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 }
