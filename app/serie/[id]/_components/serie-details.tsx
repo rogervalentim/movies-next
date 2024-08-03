@@ -91,7 +91,7 @@ export function SerieDetails({ id }: SerieDetailsProps) {
 
           <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl space-y-4 rounded-tr-3xl bg-white py-5 lg:hidden ">
             <div className="px-5 space-y-4">
-              <div className="flex justify-between">
+              <div className="flex justify-between items-start">
                 <h1 className="text-xl font-semibold">{serieDetails.name}</h1>
                 <div className="flex items-center gap-1 rounded-full bg-foreground px-1.5 py-[2px] text-white">
                   <StarIcon
