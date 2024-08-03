@@ -1,8 +1,6 @@
 import { Button } from "./_components/ui/button";
 import { ChevronRightIcon, Ghost, Heart, Smile } from "lucide-react";
 import { Header } from "./_components/header";
-import { GiRevolver } from "react-icons/gi";
-import { FaRegSadCry } from "react-icons/fa";
 import { MoviesTrending } from "./_components/movies-trending";
 import { SeriesTrending } from "./_components/series-trending";
 import { Hero } from "./_components/hero";

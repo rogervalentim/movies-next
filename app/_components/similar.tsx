@@ -63,7 +63,7 @@ export function Similar({ id, contentType, title }: SimilarProps) {
             title={series.title}
             name={series.name}
             vote_average={series.vote_average}
-            href="/serie"
+            href={contentType === "tv" ? "/serie" : "/movie"}
           />
         ))}
       </section>

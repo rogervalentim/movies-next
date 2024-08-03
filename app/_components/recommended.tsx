@@ -73,7 +73,7 @@ export function Recommended({ id, title, contentType }: RecommendedProps) {
             title={movie.title}
             name={movie.name}
             vote_average={movie.vote_average}
-            href="/movie"
+            href={contentType === "tv" ? "/serie" : "/movie"}
           />
         ))}
       </section>

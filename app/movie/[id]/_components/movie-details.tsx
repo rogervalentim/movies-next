@@ -3,7 +3,7 @@
 import { apiKey } from "@/app/utils/api-key";
 import { useEffect, useState } from "react";
 import { MovieImage } from "./movie-image";
-import { Film, Image as ImageLucide, Users } from "lucide-react";
+import { Film, Image as ImageLucide, StarIcon, Users } from "lucide-react";
 import { Loading } from "@/app/_components/loading";
 import { Videos } from "@/app/_components/videos";
 import { Images } from "@/app/_components/images";
@@ -19,6 +19,13 @@ interface MovieDetailsData {
   backdrop_path: string;
   overview: string;
   title: string;
+  vote_average: number;
+  genres: [
+    {
+      id: number;
+      name: string;
+    }
+  ];
 }
 
 export function MovieDetails({ id }: MovieDetailsProps) {
@@ -82,14 +89,38 @@ export function MovieDetails({ id }: MovieDetailsProps) {
             title={movieDetails.title}
           />
 
-          <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white py-5 lg:hidden ">
-            <div className="px-5 space-y-2">
-              <h1 className="mb-3 mt-1 text-xl font-semibold">
-                {movieDetails.title}
-              </h1>
+          <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl space-y-10 rounded-tr-3xl bg-white py-5 lg:hidden ">
+            <div className="px-5 space-y-4">
+              <div className="flex justify-between items-center">
+                <h1 className="text-xl font-semibold">{movieDetails.title}</h1>
+                <div className="flex items-center gap-1 rounded-full bg-foreground px-1.5 py-[2px] text-white">
+                  <StarIcon
+                    size={16}
+                    className="fill-yellow-400 text-yellow-400"
+                  />
+                  <span className="font-semibold text-lg">
+                    {movieDetails.vote_average.toFixed(2)}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex gap-4 overflow-x-scroll  lg:hidden [&::-webkit-scrollbar]:hidden">
+                {movieDetails.genres.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className="flex items-center justify-center gap-3 font-semibold rounded-full bg-white px-4 py-3 shadow-md"
+                  >
+                    {item.name}
+                  </button>
+                ))}
+              </div>
+
               <h3 className="font-semibold">Descrição</h3>
               <p className="text-sm text-muted-foreground">
-                {movieDetails.overview}
+                {movieDetails.overview.length === 0
+                  ? "Esse filme não tem descrição"
+                  : movieDetails.overview}
               </p>
             </div>
 
@@ -133,24 +164,24 @@ export function MovieDetails({ id }: MovieDetailsProps) {
             </div>
 
             {showActors && (
-              <div className="pt-10 px-5">
+              <div className="pt-6 px-5">
                 <Cast id={id} contentType="movie" />
               </div>
             )}
 
             {showImages && (
-              <div className="pt-10 px-5 space-y-4">
+              <div className="pt-6 px-5 space-y-4">
                 <Images id={id} contentType="movie" />
               </div>
             )}
 
             {showVideos && (
-              <div className="pt-10 px-5">
+              <div className="pt-6 px-5">
                 <Videos id={id} contentType="movie" />
               </div>
             )}
 
-            <div className="space-y-4 pt-10 px-5 lg:px-32">
+            <div className="space-y-4 pt-6 px-5 lg:px-32">
               <Recommended
                 id={id}
                 title="Filmes recomendados"
@@ -158,7 +189,7 @@ export function MovieDetails({ id }: MovieDetailsProps) {
               />
             </div>
 
-            <div className="space-y-4 pt-10 px-5 lg:px-32">
+            <div className="space-y-4 pt-6 px-5 lg:px-32">
               <Similar id={id} title="Filmes como este" contentType="movie" />
             </div>
           </div>
