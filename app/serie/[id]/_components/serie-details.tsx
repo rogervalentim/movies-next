@@ -10,6 +10,7 @@ import { Images } from "@/app/_components/images";
 import { Cast } from "@/app/_components/cast";
 import { Recommended } from "@/app/_components/recommended";
 import { Similar } from "@/app/_components/similar";
+import { Button } from "@/app/_components/ui/button";
 
 interface SerieDetailsProps {
   id: number;
@@ -104,15 +105,15 @@ export function SerieDetails({ id }: SerieDetailsProps) {
                 </div>
               </div>
 
-              <div className="flex gap-4 overflow-x-scroll  lg:hidden [&::-webkit-scrollbar]:hidden">
+              <div className="flex gap-4 overflow-x-auto lg:hidden [&::-webkit-scrollbar]:hidden py-2">
                 {serieDetails.genres.map((item) => (
-                  <button
+                  <Button
                     key={item.id}
                     type="button"
-                    className="flex items-center justify-center gap-3 font-semibold rounded-full bg-white px-4 py-3 shadow-md"
+                    className="flex items-center text-primary justify-center font-semibold rounded-full bg-white px-4 py-2 hover:bg-[#3a3cff] hover:text-white shadow-md whitespace-nowrap"
                   >
                     {item.name}
-                  </button>
+                  </Button>
                 ))}
               </div>
 
