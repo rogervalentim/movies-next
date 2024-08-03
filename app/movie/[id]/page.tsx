@@ -9,6 +9,7 @@ interface MoviePageProps {
     id: number;
   };
 }
+
 export default function MoviePage({ params: { id } }: MoviePageProps) {
   return (
     <div>

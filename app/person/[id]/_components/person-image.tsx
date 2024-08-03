@@ -6,12 +6,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-interface MovieImageProps {
-  poster_path: string;
-  title: string;
+interface ActorImageProps {
+  profile_path: string;
+  name: string;
 }
 
-export function MovieImage({ poster_path, title }: MovieImageProps) {
+export function PersonImage({ profile_path, name }: ActorImageProps) {
   const router = useRouter();
 
   function handleBackClick() {
@@ -21,8 +21,8 @@ export function MovieImage({ poster_path, title }: MovieImageProps) {
   return (
     <div className="relative h-[30rem] w-full lg:hidden">
       <Image
-        src={`https://image.tmdb.org/t/p/w780/${poster_path}`}
-        alt={title}
+        src={`https://image.tmdb.org/t/p/w780/${profile_path}`}
+        alt={name}
         width={0}
         height={0}
         fill

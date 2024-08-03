@@ -7,11 +7,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 interface SerieImageProps {
-  backdrop_path: string;
+  poster_path: string;
   name: string;
 }
 
-export function SerieImage({ backdrop_path, name }: SerieImageProps) {
+export function SerieImage({ poster_path, name }: SerieImageProps) {
   const router = useRouter();
 
   function handleBackClick() {
@@ -19,12 +19,16 @@ export function SerieImage({ backdrop_path, name }: SerieImageProps) {
   }
 
   return (
-    <div className="relative h-[25rem] w-full lg:hidden">
+    <div className="relative h-[30rem] w-full lg:hidden">
       <Image
-        src={`https://image.tmdb.org/t/p/w780/${backdrop_path}`}
+        src={`https://image.tmdb.org/t/p/w780/${poster_path}`}
         alt={name}
+        width={0}
+        height={0}
         fill
-        className="object-cover"
+        quality={100}
+        sizes="100vh"
+        className="object-fill h-auto w-full"
       />
 
       <div className="flex">

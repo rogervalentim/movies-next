@@ -16,7 +16,7 @@ interface SerieDetailsProps {
 }
 
 interface SerieDetailsData {
-  backdrop_path: string;
+  poster_path: string;
   overview: string;
   name: string;
   vote_average: number;
@@ -85,13 +85,13 @@ export function SerieDetails({ id }: SerieDetailsProps) {
       {serieDetails ? (
         <>
           <SerieImage
-            backdrop_path={serieDetails.backdrop_path}
+            poster_path={serieDetails.poster_path}
             name={serieDetails.name}
           />
 
-          <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl space-y-10 rounded-tr-3xl bg-white py-5 lg:hidden ">
+          <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl space-y-4 rounded-tr-3xl bg-white py-5 lg:hidden ">
             <div className="px-5 space-y-4">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between">
                 <h1 className="text-xl font-semibold">{serieDetails.name}</h1>
                 <div className="flex items-center gap-1 rounded-full bg-foreground px-1.5 py-[2px] text-white">
                   <StarIcon
@@ -124,7 +124,7 @@ export function SerieDetails({ id }: SerieDetailsProps) {
               </p>
             </div>
 
-            <div className="flex gap-4 overflow-x-scroll px-5 lg:hidden [&::-webkit-scrollbar]:hidden pt-10">
+            <div className="flex gap-4 overflow-x-scroll px-5 lg:hidden [&::-webkit-scrollbar]:hidden">
               <button
                 type="button"
                 className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
@@ -164,24 +164,24 @@ export function SerieDetails({ id }: SerieDetailsProps) {
             </div>
 
             {showActors && (
-              <div className="pt-6 px-5">
+              <div className="px-5">
                 <Cast id={id} contentType="tv" />
               </div>
             )}
 
             {showImages && (
-              <div className="pt-6 px-5 space-y-4">
+              <div className="px-5 space-y-4">
                 <Images id={id} contentType="tv" />
               </div>
             )}
 
             {showVideos && (
-              <div className="pt-6 px-5">
+              <div className="px-5">
                 <Videos id={id} contentType="tv" />
               </div>
             )}
 
-            <div className="space-y-4 pt-6 px-5 lg:px-32">
+            <div className="space-y-4  px-5 lg:px-32">
               <Recommended
                 id={id}
                 title="Séries recomendados"
@@ -189,7 +189,7 @@ export function SerieDetails({ id }: SerieDetailsProps) {
               />
             </div>
 
-            <div className="space-y-4 pt-6 px-5 lg:px-32">
+            <div className="space-y-4  px-5 lg:px-32">
               <Similar id={id} title="Séries como essa" contentType="tv" />
             </div>
           </div>

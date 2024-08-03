@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { User } from "lucide-react";
+import Link from "next/link";
 
 interface CastCardProps {
   id: number;
@@ -9,7 +10,7 @@ interface CastCardProps {
   profile_path: string;
 }
 
-export function CastCard({ name, character, profile_path }: CastCardProps) {
+export function CastCard({ id, name, character, profile_path }: CastCardProps) {
   return (
     <div className="w-44 min-w-44">
       <div className="w-full space-y-2 lg:h-96 lg:w-[180px]">
@@ -22,10 +23,10 @@ export function CastCard({ name, character, profile_path }: CastCardProps) {
               height={0}
               quality={100}
               sizes="100vh"
-              className="rounded-lg shadow-md w-full h-48 lg:h-60 object-cover"
+              className="rounded-lg shadow-md w-full h-56 object-cover"
             />
           ) : (
-            <div className="flex justify-center items-center w-full h-48 bg-[#3a3cff] rounded-lg shadow-md">
+            <div className="flex justify-center items-center w-full h-56 bg-[#3a3cff] rounded-lg shadow-md">
               <User size={24} className="text-white" />
             </div>
           )}
@@ -37,7 +38,7 @@ export function CastCard({ name, character, profile_path }: CastCardProps) {
         </span>
 
         <Button className="bg-gradient-to-b w-full rounded-md from-[#3a3cff] to-[#2a18ff] hover:bg-gradient-to-b hover:from[#2a18ff] hover:to-[#1e0ae3]">
-          Ver detalhes
+          <Link href={`/person/${id}`}>Ver detalhes</Link>
         </Button>
       </div>
     </div>
