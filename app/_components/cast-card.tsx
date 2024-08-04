@@ -32,12 +32,12 @@ export function CastCard({ id, name, character, profile_path }: CastCardProps) {
           )}
         </div>
 
-        <span className="block text-lg truncate text-[#323232]">{name}</span>
+        <span className="block text-lg truncate text-primary">{name}</span>
         <span className="block text-base truncate text-muted-foreground">
           {character === null ? "Sem o nome do personagem" : character}
         </span>
 
-        <Button className="bg-gradient-to-b w-full rounded-md from-[#3a3cff] to-[#2a18ff] hover:bg-gradient-to-b hover:from[#2a18ff] hover:to-[#1e0ae3]">
+        <Button className="bg-gradient-to-b text-white w-full rounded-md from-[#3a3cff] to-[#2a18ff] hover:bg-gradient-to-b hover:from[#2a18ff] hover:to-[#1e0ae3]">
           <Link href={`/person/${id}`}>Ver detalhes</Link>
         </Button>
       </div>

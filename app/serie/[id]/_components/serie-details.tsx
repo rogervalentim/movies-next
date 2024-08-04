@@ -90,11 +90,11 @@ export function SerieDetails({ id }: SerieDetailsProps) {
             name={serieDetails.name}
           />
 
-          <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl space-y-4 rounded-tr-3xl bg-white py-5 lg:hidden ">
+          <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl space-y-4 rounded-tr-3xl bg-background py-5 lg:hidden ">
             <div className="px-5 space-y-4">
               <div className="flex justify-between items-start">
                 <h1 className="text-xl font-semibold">{serieDetails.name}</h1>
-                <div className="flex items-center gap-1 rounded-full bg-foreground px-1.5 py-[2px] text-white">
+                <div className="flex items-center gap-1 rounded-full bg-foreground text-background px-1.5 py-[2px] ">
                   <StarIcon
                     size={16}
                     className="fill-yellow-400 text-yellow-400"
@@ -107,13 +107,12 @@ export function SerieDetails({ id }: SerieDetailsProps) {
 
               <div className="flex gap-4 overflow-x-auto lg:hidden [&::-webkit-scrollbar]:hidden py-2">
                 {serieDetails.genres.map((item) => (
-                  <Button
+                  <div
                     key={item.id}
-                    type="button"
-                    className="flex items-center text-primary justify-center font-semibold rounded-full bg-white px-4 py-2 hover:bg-[#3a3cff] hover:text-white shadow-md whitespace-nowrap"
+                    className="flex items-center justify-center font-semibold rounded-full bg-secondary text-secondary-foreground px-4 py-1.5  shadow-md whitespace-nowrap"
                   >
                     {item.name}
-                  </Button>
+                  </div>
                 ))}
               </div>
 
@@ -131,7 +130,7 @@ export function SerieDetails({ id }: SerieDetailsProps) {
                 className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
                   showActors
                     ? "bg-[#3a3cff] text-white active:bg-[#3a3cff]"
-                    : "bg-white text-[#323232] hover:bg-[#3a3cff] hover:text-white"
+                    : "bg-secondary text-secondary-foreground hover:bg-[#3a3cff] hover:text-white"
                 }`}
                 onClick={toggleActors}
               >
@@ -143,7 +142,7 @@ export function SerieDetails({ id }: SerieDetailsProps) {
                 className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
                   showImages
                     ? "bg-[#3a3cff] text-white active:bg-[#3a3cff]"
-                    : "bg-white text-[#323232] hover:bg-[#3a3cff] hover:text-white"
+                    : "bg-secondary text-secondary-foreground hover:bg-[#3a3cff] hover:text-white"
                 }`}
                 onClick={toggleImages}
               >
@@ -155,7 +154,7 @@ export function SerieDetails({ id }: SerieDetailsProps) {
                 className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
                   showVideos
                     ? "bg-[#3a3cff] text-white active:bg-[#3a3cff]"
-                    : "bg-white text-[#323232] hover:bg-[#3a3cff] hover:text-white"
+                    : "bg-secondary text-secondary-foreground hover:bg-[#3a3cff] hover:text-white"
                 }`}
                 onClick={toggleVideos}
               >

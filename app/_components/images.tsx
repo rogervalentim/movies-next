@@ -45,7 +45,7 @@ export function Images({ id, contentType }: ImagesProps) {
 
   return (
     <>
-      <h1 className="text-sm font-semibold text-[#323232]">
+      <h1 className="text-sm font-semibold text-primary">
         Imagens de fundo {backdrops.length}
       </h1>
       <section className="grid grid-cols-1 gap-4">
@@ -68,7 +68,7 @@ export function Images({ id, contentType }: ImagesProps) {
         ))}
       </section>
 
-      <h1 className="text-sm font-semibold text-[#323232]">
+      <h1 className="text-sm font-semibold text-primary">
         Cartazes {posters.length}
       </h1>
       <section className="grid grid-cols-2 items-center gap-4">

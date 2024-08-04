@@ -8,13 +8,17 @@ import { GiRevolver } from "react-icons/gi";
 import { FaRegSadCry } from "react-icons/fa";
 import { Search } from "./search";
 
-interface Movie {
+interface HeroProps {
+  contentType: string;
+}
+
+interface Data {
   poster_path: string;
   backdrop_path: string;
 }
 
-export function Hero() {
-  const [movie, setMovie] = useState<Movie | null>(null);
+export function Hero({ contentType }: HeroProps) {
+  const [data, setData] = useState<Data | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -23,10 +27,10 @@ export function Hero() {
   async function fetchData() {
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&language=pt-BR`
+        `https://api.themoviedb.org/3/trending/${contentType}/day?api_key=${apiKey}&language=pt-BR`
       );
       const data = await response.json();
-      setMovie(data.results[0]);
+      setData(data.results[0]);
     } catch (error) {
       console.log(error);
     }
@@ -35,7 +39,7 @@ export function Hero() {
     <>
       <section className="lg:hidden px-5">
         <Image
-          src={`https://image.tmdb.org/t/p/w1280${movie?.backdrop_path})`}
+          src={`https://image.tmdb.org/t/p/w1280${data?.backdrop_path})`}
           alt="backdrop"
           className="h-auto w-full rounded-3xl object-contain"
           height={0}
@@ -46,7 +50,7 @@ export function Hero() {
       </section>
       <section
         style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/w1280${movie?.backdrop_path})`,
+          backgroundImage: `url(https://image.tmdb.org/t/p/w1280${data?.backdrop_path})`,
           borderImage: "fill 0 linear-gradient(#0001, #000)"
         }}
         className="hidden w-full h-[31.25rem] bg-cover bg-center lg:flex justify-between px-32"
@@ -65,41 +69,9 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="flex  gap-4 overflow-x-scroll px-5 lg:hidden  [&::-webkit-scrollbar]:hidden pt-10">
-          <div className="flex items-center justify-center gap-3 rounded-full bg-white px-4 py-3 shadow-md">
-            <GiRevolver size={20} />
-            <span className="text-sm font-semibold text-[#323232]">Ação</span>
-          </div>
-          <div className="flex items-center justify-center gap-3 rounded-full bg-white px-4 py-3 shadow-md">
-            <Smile size={20} />
-            <span className="text-sm font-semibold text-[#323232]">
-              Comédia
-            </span>
-          </div>
-          <div className="flex items-center justify-center gap-3 rounded-full bg-white px-4 py-3 shadow-md">
-            <FaRegSadCry size={20} />
-            <span className="text-sm font-semibold text-[#323232]">Drama</span>
-          </div>
-          <div className="flex items-center justify-center gap-3 rounded-full bg-white px-4 py-3 shadow-md">
-            <Heart size={20} className="text-red-600 fill-red-600" />
-            <span className="text-sm font-semibold text-[#323232]">
-              Romance
-            </span>
-          </div>
-          <div className="flex items-center justify-center gap-3 rounded-full bg-white px-4 py-3 shadow-md">
-            <span className="text-sm font-semibold text-[#323232]">
-              Suspense
-            </span>
-          </div>
-          <div className="flex items-center justify-center gap-3 rounded-full bg-white px-4 py-3 shadow-md">
-            <Ghost size={20} />
-            <span className="text-sm font-semibold text-[#323232]">Terror</span>
-          </div>
-        </div>
-
         <div className="pt-[8.125rem]">
           <Image
-            src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w500${data?.poster_path}`}
             alt="backdrop path"
             className="w-64 h-[23.125rem] rounded-lg"
             height={0}

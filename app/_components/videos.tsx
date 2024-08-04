@@ -93,7 +93,7 @@ export function Videos({ id, contentType }: VideosProps) {
                   </div>
                 </button>
               </div>
-              <h2 className="font-smeibold text-[#323232]">{video.name}</h2>
+              <h2 className="font-smeibold text-primary">{video.name}</h2>
             </li>
           ))}
         </ul>

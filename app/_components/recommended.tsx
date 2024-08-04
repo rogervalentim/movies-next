@@ -49,7 +49,7 @@ export function Recommended({ id, title, contentType }: RecommendedProps) {
   return (
     <>
       <div className="lg:px-0">
-        <h2 className="font-semibold text-[#323232]">{title}</h2>
+        <h2 className="font-semibold text-primary">{title}</h2>
       </div>
       <section className="flex gap-4 overflow-x-scroll lg:gap-5 [&::-webkit-scrollbar]:hidden">
         {recommendedMovies.map((movie) => (

@@ -22,7 +22,7 @@ export default function Home() {
       </div>
 
       <div className="pt-6 lg:pt-0">
-        <Hero />
+        <Hero contentType="movie" />
       </div>
 
       <div className="hidden lg:flex gap-4 overflow-x-scroll px-5 lg:gap-5 lg:px-32 [&::-webkit-scrollbar]:hidden pt-10">
@@ -31,7 +31,7 @@ export default function Home() {
 
       <div className="space-y-4 pt-10 px-5 lg:px-32">
         <div className="flex items-center justify-between  lg:px-0">
-          <h2 className="font-semibold text-[#323232]">Filmes em tendência</h2>
+          <h2 className="font-semibold text-primary">Filmes em tendência</h2>
 
           <Button
             variant="ghost"
@@ -47,9 +47,13 @@ export default function Home() {
         <MoviesTrending />
       </div>
 
+      <div className="pt-6 lg:hidden">
+        <Hero contentType="tv" />
+      </div>
+
       <div className="space-y-4 pt-10 px-5 lg:px-32">
         <div className="flex items-center justify-between lg:px-0">
-          <h2 className="font-semibold text-[#323232]">Séries em tendência</h2>
+          <h2 className="font-semibold text-primary">Séries em tendência</h2>
 
           <Button
             variant="ghost"

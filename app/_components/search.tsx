@@ -7,10 +7,10 @@ export function Search() {
     <form className="flex gap-2 lg:gap-0">
       <Input
         placeholder="Busque por filmes ou séries"
-        className=" border-none  lg:w-[570px] lg:rounded lg:rounded-l-md"
+        className=" border-none   lg:w-[570px] lg:rounded lg:rounded-l-md"
       />
       <Button
-        className="bg-gradient-to-b lg:rounded-l-none lg:rounded-r-md from-[#3a3cff] to-[#2a18ff] hover:bg-gradient-to-b hover:from[#2a18ff] hover:to-[#1e0ae3]"
+        className=" lg:rounded-l-none lg:rounded-r-md bg-gradient-to-b from-[#3a3cff] to-[#2a18ff] hover:bg-gradient-to-b hover:from[#2a18ff] hover:to-[#1e0ae3]"
         size="icon"
       >
         <SearchIcon size={20} className="text-white" />

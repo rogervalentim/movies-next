@@ -1,7 +1,21 @@
-import { Clapperboard, MenuIcon } from "lucide-react";
+"use client";
+
+import { Clapperboard, HomeIcon, LogInIcon, MenuIcon } from "lucide-react";
 import { Button } from "./ui/button";
+import Link from "next/link";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger
+} from "./ui/sheet";
+import { Separator } from "./ui/separator";
+import { usePathname } from "next/navigation";
 
 export function Header() {
+  const pathname = usePathname();
+
   return (
     <header className="flex justify-between items-center px-5 lg:px-32 p-4">
       <div className="flex gap-2 items-center">
@@ -9,9 +23,50 @@ export function Header() {
         <h1 className="font-bold text-2xl text-[#2a18ff]">Movies</h1>
       </div>
 
-      <Button size="icon" variant="ghost">
-        <MenuIcon size={25} />
-      </Button>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button
+            size="icon"
+            variant="outline"
+            className="border-none bg-transparent"
+          >
+            <MenuIcon />
+          </Button>
+        </SheetTrigger>
+
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle className="text-left">Menu</SheetTitle>
+          </SheetHeader>
+
+          <div className="flex items-center justify-between pt-10">
+            <h2 className="font-semibold">Olá Faça o seu login!</h2>
+            <Button size="icon" className="bg-[#3a3cff]">
+              <LogInIcon />
+            </Button>
+          </div>
+          <div className="py-5">
+            <Separator />
+          </div>
+
+          <div className="space-y-1">
+            <Button
+              variant="ghost"
+              className={`w-full justify-start space-x-3 rounded-full text-sm font-normal ${pathname === "/" ? "bg-[#3a3cff] text-white" : ""}`}
+              asChild
+            >
+              <Link href="/">
+                <HomeIcon size={16} />
+                <span className="block"> Início</span>
+              </Link>
+            </Button>
+          </div>
+
+          <div className="py-3">
+            <Separator />
+          </div>
+        </SheetContent>
+      </Sheet>
     </header>
   );
 }
