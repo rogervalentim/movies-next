@@ -9,7 +9,7 @@ import {
   MenubarMenu,
   MenubarTrigger
 } from "./ui/menubar";
-import { useTheme } from "../_context/use-theme";
+import { useTheme } from "next-themes";
 import { useState } from "react";
 
 export function Footer() {
@@ -31,7 +31,7 @@ export function Footer() {
 
       <Menubar className="border-none bg-transparent">
         <MenubarMenu>
-          <MenubarTrigger>
+          <MenubarTrigger asChild>
             <Button
               variant="outline"
               size="icon"
