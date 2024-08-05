@@ -5,7 +5,8 @@ import {
   Film,
   HomeIcon,
   LogInIcon,
-  MenuIcon
+  MenuIcon,
+  MonitorPlay
 } from "lucide-react";
 import { Button } from "./ui/button";
 import Link from "next/link";
@@ -81,6 +82,23 @@ export function Header() {
               <Link href="/movies">
                 <Film size={16} />
                 <span className="block"> Filmes</span>
+              </Link>
+            </Button>
+          </div>
+
+          <div className="py-3">
+            <Separator />
+          </div>
+
+          <div className="space-y-1">
+            <Button
+              variant="ghost"
+              className={`w-full justify-start space-x-3 rounded-full text-sm font-normal ${pathname === "/series" ? "bg-[#3a3cff] text-white" : ""}`}
+              asChild
+            >
+              <Link href="/series">
+                <MonitorPlay size={16} />
+                <span className="block">Séries</span>
               </Link>
             </Button>
           </div>
