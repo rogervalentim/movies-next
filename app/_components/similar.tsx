@@ -19,6 +19,7 @@ interface SimilarData {
 
 export function Similar({ id, contentType, title }: SimilarProps) {
   const [similarSeries, setSimilarSeries] = useState<SimilarData[]>([]);
+  const [hasMovies, setHasMovies] = useState<boolean>(false);
 
   useEffect(() => {
     fetchSimilarSeries();
@@ -31,9 +32,14 @@ export function Similar({ id, contentType, title }: SimilarProps) {
       );
       const data = await response.json();
       setSimilarSeries(data.results);
+      setHasMovies(data.results.length > 0);
     } catch (error) {
       console.log(error);
     }
+  }
+
+  if (!hasMovies) {
+    return null;
   }
 
   return (
