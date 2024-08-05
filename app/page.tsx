@@ -17,16 +17,8 @@ export default function Home() {
         <Search />
       </div>
 
-      <div className="flex lg:hidden gap-4 overflow-x-scroll px-5 lg:gap-5 lg:px-32 [&::-webkit-scrollbar]:hidden pt-6">
-        <CategoriesList />
-      </div>
-
       <div className="pt-6 lg:pt-0">
         <Hero contentType="movie" />
-      </div>
-
-      <div className="hidden lg:flex gap-4 overflow-x-scroll px-5 lg:gap-5 lg:px-32 [&::-webkit-scrollbar]:hidden pt-10">
-        <CategoriesList />
       </div>
 
       <div className="space-y-4 pt-10 px-5 lg:px-32">
