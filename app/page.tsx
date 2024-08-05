@@ -61,7 +61,9 @@ export default function Home() {
         <SeriesTrending />
       </div>
 
-      <Footer />
+      <div className="pt-10">
+        <Footer />
+      </div>
     </>
   );
 }

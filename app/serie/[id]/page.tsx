@@ -19,7 +19,9 @@ export default function SeriePage({ params: { id } }: SeriePageProps) {
 
       <SerieDetails id={id} />
 
-      <Footer />
+      <div className="pt-10">
+        <Footer />
+      </div>
     </div>
   );
 }

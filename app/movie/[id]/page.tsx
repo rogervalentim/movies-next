@@ -19,7 +19,9 @@ export default function MoviePage({ params: { id } }: MoviePageProps) {
 
       <MovieDetails id={id} />
 
-      <Footer />
+      <div className="pt-10">
+        <Footer />
+      </div>
     </div>
   );
 }

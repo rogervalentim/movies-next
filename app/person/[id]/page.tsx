@@ -17,7 +17,9 @@ export default function PersonPage({ params: { id } }: PersonPageProps) {
 
       <PersonDetails id={id} />
 
-      <Footer />
+      <div className="pt-10">
+        <Footer />
+      </div>
     </div>
   );
 }
