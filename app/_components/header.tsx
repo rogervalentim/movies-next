@@ -1,6 +1,12 @@
 "use client";
 
-import { Clapperboard, HomeIcon, LogInIcon, MenuIcon } from "lucide-react";
+import {
+  Clapperboard,
+  Film,
+  HomeIcon,
+  LogInIcon,
+  MenuIcon
+} from "lucide-react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import {
@@ -64,6 +70,19 @@ export function Header() {
 
           <div className="py-3">
             <Separator />
+          </div>
+
+          <div className="space-y-1">
+            <Button
+              variant="ghost"
+              className={`w-full justify-start space-x-3 rounded-full text-sm font-normal ${pathname === "/movies" ? "bg-[#3a3cff] text-white" : ""}`}
+              asChild
+            >
+              <Link href="/movies">
+                <Film size={16} />
+                <span className="block"> Filmes</span>
+              </Link>
+            </Button>
           </div>
         </SheetContent>
       </Sheet>
