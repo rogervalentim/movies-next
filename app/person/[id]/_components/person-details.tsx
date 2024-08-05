@@ -61,7 +61,7 @@ export function PersonDetails({ id }: PersonDetailsProps) {
             name={personData.name}
           />
 
-          <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl space-y-4 rounded-tr-3xl bg-white py-5 lg:hidden ">
+          <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl space-y-4 rounded-tr-3xl bg-background py-5 lg:hidden ">
             <div className="px-5 space-y-4">
               <div className="flex justify-between">
                 <h1 className="text-xl font-semibold">{personData.name}</h1>
@@ -81,7 +81,7 @@ export function PersonDetails({ id }: PersonDetailsProps) {
                 className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
                   showCredits
                     ? "bg-[#3a3cff] text-white active:bg-[#3a3cff]"
-                    : "bg-white text-[#323232] hover:bg-[#3a3cff] hover:text-white"
+                    : "bg-secondary text-secondary-foreground hover:bg-[#3a3cff] hover:text-white"
                 }`}
                 onClick={toggleCredits}
               >
@@ -93,7 +93,7 @@ export function PersonDetails({ id }: PersonDetailsProps) {
                 className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
                   showImages
                     ? "bg-[#3a3cff] text-white active:bg-[#3a3cff]"
-                    : "bg-white text-[#323232] hover:bg-[#3a3cff] hover:text-white"
+                    : "bg-secondary text-secondary-foreground hover:bg-[#3a3cff] hover:text-white"
                 }`}
                 onClick={toggleImages}
               >

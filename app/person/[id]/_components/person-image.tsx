@@ -33,7 +33,7 @@ export function PersonImage({ profile_path, name }: ActorImageProps) {
 
       <div className="flex">
         <Button
-          className="absolute left-4 top-4 rounded-full bg-white  text-foreground hover:text-white hover:bg-gradient-to-b  from-[#3a3cff] to-[#2a18ff]"
+          className="absolute left-4 top-4 rounded-full text-black bg-white hover:text-white hover:bg-gradient-to-b  from-[#3a3cff] to-[#2a18ff]"
           size="icon"
           onClick={handleBackClick}
         >
@@ -41,7 +41,7 @@ export function PersonImage({ profile_path, name }: ActorImageProps) {
         </Button>
 
         <Button
-          className="absolute right-4 top-4 rounded-full bg-white  text-foreground hover:text-white hover:bg-gradient-to-b  from-[#3a3cff] to-[#2a18ff]"
+          className="absolute right-4 top-4 rounded-full text-black bg-white  hover:text-white hover:bg-gradient-to-b  from-[#3a3cff] to-[#2a18ff]"
           size="icon"
         >
           <Link href="/">
