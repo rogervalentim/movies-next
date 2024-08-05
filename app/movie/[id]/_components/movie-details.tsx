@@ -105,7 +105,7 @@ export function MovieDetails({ id }: MovieDetailsProps) {
                 </div>
               </div>
 
-              <div className="flex gap-4 overflow-x-auto lg:hidden [&::-webkit-scrollbar]:hidden py-2">
+              <div className="flex gap-2 overflow-x-auto lg:hidden [&::-webkit-scrollbar]:hidden py-2">
                 {movieDetails.genres.map((item) => (
                   <div
                     key={item.id}
@@ -124,7 +124,7 @@ export function MovieDetails({ id }: MovieDetailsProps) {
               </p>
             </div>
 
-            <div className="flex gap-4 overflow-x-scroll px-5 lg:hidden [&::-webkit-scrollbar]:hidden">
+            <div className="flex gap-2 overflow-x-scroll px-5 lg:hidden [&::-webkit-scrollbar]:hidden">
               <button
                 type="button"
                 className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
