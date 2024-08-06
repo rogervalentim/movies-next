@@ -17,7 +17,7 @@ export default function Home() {
         <Search />
       </div>
 
-      <div className="pt-6 lg:pt-0">
+      <div className="pt-6 lg:pt-0 px-5 lg:px-0">
         <Hero contentType="movie" />
       </div>
 
@@ -39,7 +39,7 @@ export default function Home() {
         <MoviesTrending />
       </div>
 
-      <div className="pt-6 lg:hidden">
+      <div className="pt-6 lg:pt-0 px-5 lg:px-0">
         <Hero contentType="tv" />
       </div>
 

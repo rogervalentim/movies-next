@@ -51,7 +51,7 @@ export function Card({
             {title || name}
           </span>
 
-          <Button className="bg-gradient-to-b w-full text-white rounded-md from-[#3a3cff] to-[#2a18ff] hover:bg-gradient-to-b hover:from[#2a18ff] hover:to-[#1e0ae3]">
+          <Button className="bg-gradient-to-b w-full text-white rounded-md from-[#3a3cff] to-[#2a18ff]  hover:from[#2a18ff] hover:to-[#1e0ae3]">
             <Link href={`${href}/${id}`}>Ver detalhes</Link>
           </Button>
         </div>
