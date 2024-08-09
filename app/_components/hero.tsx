@@ -69,7 +69,11 @@ export function Hero({ contentType }: HeroProps) {
           </div>
 
           <div className="max-w-3xl text-center mx-auto">
-            <p className="text-lg text-white/70 truncate">{data?.overview}</p>
+            <p className="text-lg text-white/70">
+              {data?.overview && data.overview.length > 300
+                ? data.overview.slice(0, 200)
+                : data?.overview || ""}
+            </p>
           </div>
 
           <div className="text-center">

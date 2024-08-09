@@ -3,7 +3,13 @@
 import { apiKey } from "@/app/utils/api-key";
 import { useEffect, useState } from "react";
 import { MovieImage } from "./movie-image";
-import { Film, Image as ImageLucide, StarIcon, Users } from "lucide-react";
+import {
+  ArrowRight,
+  Film,
+  Image as ImageLucide,
+  StarIcon,
+  Users
+} from "lucide-react";
 import { Loading } from "@/app/_components/loading";
 import { Videos } from "@/app/_components/videos";
 import { Images } from "@/app/_components/images";
@@ -11,6 +17,8 @@ import { Cast } from "@/app/_components/cast";
 import { Recommended } from "@/app/_components/recommended";
 import { Similar } from "@/app/_components/similar";
 import { Button } from "@/app/_components/ui/button";
+import { Collection } from "@/app/_components/collection";
+import Image from "next/image";
 
 interface MovieDetailsProps {
   id: number;
@@ -21,6 +29,11 @@ interface MovieDetailsData {
   overview: string;
   title: string;
   vote_average: number;
+  belongs_to_collection?: {
+    id: number;
+    name: string;
+    poster_path: string;
+  };
   genres: [
     {
       id: number;
@@ -53,6 +66,7 @@ export function MovieDetails({ id }: MovieDetailsProps) {
       }
       const data = await response.json();
       setMovieDetails(data);
+      console.log("movie details", data);
     } catch (error) {
       setError("Error fetching movie details.");
       console.error(error);
@@ -192,6 +206,16 @@ export function MovieDetails({ id }: MovieDetailsProps) {
             <div className="space-y-4 px-5 lg:px-32">
               <Similar id={id} title="Filmes como este" contentType="movie" />
             </div>
+
+            {movieDetails?.belongs_to_collection && (
+              <Collection
+                id={movieDetails?.belongs_to_collection?.id}
+                poster_path={
+                  movieDetails?.belongs_to_collection?.poster_path || ""
+                }
+                name={movieDetails?.belongs_to_collection?.name}
+              />
+            )}
           </div>
         </>
       ) : (

@@ -11,6 +11,7 @@ import { Cast } from "@/app/_components/cast";
 import { Recommended } from "@/app/_components/recommended";
 import { Similar } from "@/app/_components/similar";
 import { Button } from "@/app/_components/ui/button";
+import { Collection } from "@/app/_components/collection";
 
 interface SerieDetailsProps {
   id: number;
@@ -21,6 +22,7 @@ interface SerieDetailsData {
   overview: string;
   name: string;
   vote_average: number;
+
   genres: [
     {
       id: number;
