@@ -24,7 +24,7 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="flex justify-between items-center px-5 lg:px-32 p-4">
+    <header className="flex justify-between items-center border-border border-b px-5 lg:px-32 p-4">
       <div className="flex gap-2 items-center">
         <Clapperboard size={25} className="text-[#2a18ff] " />
         <h1 className="font-bold text-2xl text-[#2a18ff]">Movies</h1>
@@ -48,7 +48,7 @@ export function Header() {
 
           <div className="flex items-center justify-between pt-10">
             <h2 className="font-semibold">Olá Faça o seu login!</h2>
-            <Button size="icon" className="bg-[#3a3cff]">
+            <Button size="icon" className="bg-[#3a3cff] text-white">
               <LogInIcon />
             </Button>
           </div>

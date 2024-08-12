@@ -23,7 +23,7 @@ export default function SeriesPage() {
         <CategoriesList />
       </div>
 
-      <div className="pt-6 lg:pt-0 px-5 lg:px-0">
+      <div className="pt-6 lg:pt-4 px-5 lg:px-32">
         <Hero contentType="tv" />
       </div>
 

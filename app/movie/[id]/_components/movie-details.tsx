@@ -32,7 +32,7 @@ interface MovieDetailsData {
   belongs_to_collection?: {
     id: number;
     name: string;
-    poster_path: string;
+    backdrop_path: string;
   };
   genres: [
     {
@@ -207,15 +207,17 @@ export function MovieDetails({ id }: MovieDetailsProps) {
               <Similar id={id} title="Filmes como este" contentType="movie" />
             </div>
 
-            {movieDetails?.belongs_to_collection && (
-              <Collection
-                id={movieDetails?.belongs_to_collection?.id}
-                poster_path={
-                  movieDetails?.belongs_to_collection?.poster_path || ""
-                }
-                name={movieDetails?.belongs_to_collection?.name}
-              />
-            )}
+            <div className="space-y-4 px-5 lg:px-32">
+              {movieDetails?.belongs_to_collection && (
+                <Collection
+                  id={movieDetails?.belongs_to_collection?.id}
+                  backdrop_path={
+                    movieDetails?.belongs_to_collection?.backdrop_path || ""
+                  }
+                  name={movieDetails?.belongs_to_collection?.name}
+                />
+              )}
+            </div>
           </div>
         </>
       ) : (
