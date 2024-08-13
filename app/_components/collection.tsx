@@ -13,6 +13,7 @@ import {
 } from "./ui/dialog";
 import Image from "next/image";
 import Link from "next/link";
+import { ScrollArea } from "./ui/scroll-area";
 
 interface CollectionProps {
   id: number | undefined;
@@ -83,49 +84,53 @@ export function Collection({ id, name, backdrop_path }: CollectionProps) {
           </p>
         </div>
 
-        <Dialog>
+        <Dialog modal>
           <div className="text-center">
             <DialogTrigger className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-[#3a3cff] to-[#2a18ff] shadow-lg shadow-transparent hover:shadow-blue-700/50 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:shadow-blue-700/50 py-3 px-6">
               Ver Coleção
             </DialogTrigger>
           </div>
-          <DialogContent>
+          <DialogContent
+            onOpenAutoFocus={(e) => e.preventDefault()}
+            className="max-w-screen-xl"
+          >
             <DialogHeader>
               <DialogTitle>{name}</DialogTitle>
               <DialogDescription>{collectionData?.overview}</DialogDescription>
             </DialogHeader>
+            <ScrollArea className="max-h-[80dvh] md:pr-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 px-5 mt-4">
+                {collectionData?.parts.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex flex-col items-center bg-background border border-border rounded-lg shadow md:flex-row md:max-w-xl"
+                  >
+                    <Image
+                      src={`https://image.tmdb.org/t/p/w780${item.poster_path}`}
+                      alt={item.title}
+                      width={300}
+                      height={450}
+                      quality={100}
+                      className="w-full h-72 lg:h-72 object-cover rounded-t-lg lg:rounded-lg"
+                    />
+                    <div className="flex flex-col justify-between p-4 leading-normal">
+                      <h5 className="mb-2 text-2xl font-bold tracking-tight text-primary">
+                        {item.title}
+                      </h5>
+                      <p className="mb-3 font-normal text-muted-foreground line-clamp-3">
+                        {item.overview}
+                      </p>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
-              {collectionData?.parts.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex flex-col items-center bg-background border border-border rounded-lg shadow md:flex-row md:max-w-xl"
-                >
-                  <Image
-                    src={`https://image.tmdb.org/t/p/w780${item.poster_path}`}
-                    alt={item.title}
-                    width={300}
-                    height={450}
-                    quality={100}
-                    className="w-full h-56 object-cover rounded-lg"
-                  />
-                  <div className="flex flex-col justify-between p-4 leading-normal">
-                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-primary">
-                      {item.title}
-                    </h5>
-                    <p className="mb-3 font-normal text-muted-foreground">
-                      {item.overview}
-                    </p>
-
-                    <Link href={`/movie/${item.id}`} passHref>
-                      <Button className="bg-gradient-to-b w-full text-white rounded-md from-[#3a3cff] to-[#2a18ff] hover:from[#2a18ff] hover:to-[#1e0ae3]">
-                        Ver detalhes
-                      </Button>
-                    </Link>
+                      <Link href={`/movie/${item.id}`} passHref>
+                        <Button className="bg-gradient-to-b w-full text-white rounded-md from-[#3a3cff] to-[#2a18ff] hover:from[#2a18ff] hover:to-[#1e0ae3]">
+                          Ver detalhes
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            </ScrollArea>
           </DialogContent>
         </Dialog>
       </div>
