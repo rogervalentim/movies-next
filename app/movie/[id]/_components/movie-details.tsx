@@ -210,6 +210,7 @@ export function MovieDetails({ id }: MovieDetailsProps) {
             <div className="space-y-4 px-5 lg:px-32">
               {movieDetails?.belongs_to_collection && (
                 <Collection
+                  key={movieDetails?.belongs_to_collection?.id}
                   id={movieDetails?.belongs_to_collection?.id}
                   backdrop_path={
                     movieDetails?.belongs_to_collection?.backdrop_path || ""

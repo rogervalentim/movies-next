@@ -3,7 +3,16 @@
 import { useEffect, useState } from "react";
 import { apiKey } from "../utils/api-key";
 import { Button } from "./ui/button";
-import { ArrowRight } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from "./ui/dialog";
+import Image from "next/image";
+import Link from "next/link";
 
 interface CollectionProps {
   id: number | undefined;
@@ -19,6 +28,7 @@ interface CollectionData {
       title: string;
       poster_path: string;
       backdrop_path: string;
+      overview: string;
     }
   ];
 }
@@ -58,6 +68,7 @@ export function Collection({ id, name, backdrop_path }: CollectionProps) {
           zIndex: -1
         }}
       />
+
       <div className="relative px-5 lg:px-0 py-24 space-y-8">
         <div className="w-full mx-auto px-4 rounded-lg sm:px-6 lg:px-8">
           <div className="max-w-3xl text-center mx-auto">
@@ -66,18 +77,57 @@ export function Collection({ id, name, backdrop_path }: CollectionProps) {
             </h1>
           </div>
 
-          <p className="max-w-3xl text-center text-white/70 mx-auto">
+          <p className="max-w-3xl text-center text-white/70 mx-auto mt-4">
             Incluindo{" "}
             {collectionData?.parts.map((item) => item.title).join(", ")}
           </p>
         </div>
 
-        <div className="text-center">
-          <Button className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-[#3a3cff] to-[#2a18ff] shadow-lg shadow-transparent hover:shadow-blue-700/50 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:shadow-blue-700/50 py-3 px-6">
-            Ver Coleção
-            <ArrowRight size={16} />
-          </Button>
-        </div>
+        <Dialog>
+          <div className="text-center">
+            <DialogTrigger className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-[#3a3cff] to-[#2a18ff] shadow-lg shadow-transparent hover:shadow-blue-700/50 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:shadow-blue-700/50 py-3 px-6">
+              Ver Coleção
+            </DialogTrigger>
+          </div>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>{name}</DialogTitle>
+              <DialogDescription>{collectionData?.overview}</DialogDescription>
+            </DialogHeader>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
+              {collectionData?.parts.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex flex-col items-center bg-background border border-border rounded-lg shadow md:flex-row md:max-w-xl"
+                >
+                  <Image
+                    src={`https://image.tmdb.org/t/p/w780${item.poster_path}`}
+                    alt={item.title}
+                    width={300}
+                    height={450}
+                    quality={100}
+                    className="w-full h-56 object-cover rounded-lg"
+                  />
+                  <div className="flex flex-col justify-between p-4 leading-normal">
+                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-primary">
+                      {item.title}
+                    </h5>
+                    <p className="mb-3 font-normal text-muted-foreground">
+                      {item.overview}
+                    </p>
+
+                    <Link href={`/movie/${item.id}`} passHref>
+                      <Button className="bg-gradient-to-b w-full text-white rounded-md from-[#3a3cff] to-[#2a18ff] hover:from[#2a18ff] hover:to-[#1e0ae3]">
+                        Ver detalhes
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
