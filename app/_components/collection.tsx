@@ -94,11 +94,13 @@ export function Collection({ id, name, backdrop_path }: CollectionProps) {
             onOpenAutoFocus={(e) => e.preventDefault()}
             className="max-w-screen-xl"
           >
-            <DialogHeader>
-              <DialogTitle>{name}</DialogTitle>
-              <DialogDescription>{collectionData?.overview}</DialogDescription>
-            </DialogHeader>
             <ScrollArea className="max-h-[80dvh] md:pr-4">
+              <DialogHeader>
+                <DialogTitle>{name}</DialogTitle>
+                <DialogDescription>
+                  {collectionData?.overview}
+                </DialogDescription>
+              </DialogHeader>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 px-5 mt-4">
                 {collectionData?.parts.map((item) => (
                   <div

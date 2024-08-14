@@ -5,17 +5,12 @@ import { MoviesTrending } from "./_components/movies-trending";
 import { SeriesTrending } from "./_components/series-trending";
 import { Hero } from "./_components/hero";
 import { Footer } from "./_components/footer";
-import { Search } from "./_components/search";
 import { CategoriesList } from "./_components/categories-list";
 
 export default function Home() {
   return (
     <>
       <Header />
-
-      <div className="px-5 pt-6 lg:hidden">
-        <Search />
-      </div>
 
       <div className="pt-6 lg:pt-4 px-5 lg:px-32">
         <Hero contentType="movie" />

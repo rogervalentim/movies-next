@@ -1,7 +1,6 @@
 import { ChevronRightIcon } from "lucide-react";
 import { Header } from "../_components/header";
 import { Hero } from "../_components/hero";
-import { Search } from "../_components/search";
 import { Button } from "../_components/ui/button";
 import { Footer } from "../_components/footer";
 import { CategoriesList } from "../_components/categories-list";
@@ -14,10 +13,6 @@ export default function SeriesPage() {
   return (
     <>
       <Header />
-
-      <div className="px-5 pt-6 lg:hidden">
-        <Search />
-      </div>
 
       <div className="flex lg:hidden gap-4 overflow-x-scroll px-5 lg:gap-5 lg:px-32 [&::-webkit-scrollbar]:hidden pt-6">
         <CategoriesList />

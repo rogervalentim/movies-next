@@ -6,7 +6,8 @@ import {
   HomeIcon,
   LogInIcon,
   MenuIcon,
-  MonitorPlay
+  MonitorPlay,
+  SearchIcon
 } from "lucide-react";
 import { Button } from "./ui/button";
 import Link from "next/link";
@@ -19,6 +20,7 @@ import {
 } from "./ui/sheet";
 import { Separator } from "./ui/separator";
 import { usePathname } from "next/navigation";
+import { Search } from "./search";
 
 export function Header() {
   const pathname = usePathname();
@@ -101,6 +103,26 @@ export function Header() {
                 <span className="block">Séries</span>
               </Link>
             </Button>
+          </div>
+          <div className="py-3">
+            <Separator />
+          </div>
+
+          <div className="space-y-1">
+            <Button
+              variant="ghost"
+              className={`w-full justify-start space-x-3 rounded-full text-sm font-normal ${pathname === "/search" ? "bg-[#3a3cff] text-white" : ""}`}
+              asChild
+            >
+              <Link href="/search">
+                <SearchIcon size={16} />
+                <span className="block">Procure por tudo</span>
+              </Link>
+            </Button>
+          </div>
+
+          <div className="py-3">
+            <Separator />
           </div>
         </SheetContent>
       </Sheet>
