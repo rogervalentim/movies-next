@@ -14,7 +14,7 @@ interface ImagesData {
   file_path: string;
 }
 
-export function Images({ id, contentType }: ImagesProps) {
+export default function Images({ id, contentType }: ImagesProps) {
   const [posters, setPosters] = useState<ImagesData[]>([]);
   const [backdrops, setBackdrops] = useState<ImagesData[]>([]);
   const [loading, setLoading] = useState(false);
@@ -48,7 +48,7 @@ export function Images({ id, contentType }: ImagesProps) {
       <h1 className="text-sm font-semibold text-primary">
         Imagens de fundo {backdrops.length}
       </h1>
-      <section className="grid grid-cols-1 gap-4">
+      <section className="grid grid-cols-1 pt-4 gap-4">
         {backdrops.map((item) => (
           <a
             href={`https://image.tmdb.org/t/p/w1280/${item.file_path}`}

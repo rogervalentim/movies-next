@@ -15,7 +15,7 @@ interface Video {
   site: string;
 }
 
-export function Videos({ id, contentType }: VideosProps) {
+export default function Videos({ id, contentType }: VideosProps) {
   const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

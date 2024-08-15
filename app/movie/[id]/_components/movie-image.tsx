@@ -10,7 +10,7 @@ interface MovieImageProps {
   title: string;
 }
 
-export function MovieImage({ poster_path, title }: MovieImageProps) {
+export default function MovieImage({ poster_path, title }: MovieImageProps) {
   const router = useRouter();
 
   function handleBackClick() {

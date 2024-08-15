@@ -38,7 +38,7 @@ interface OverviewProps {
   ];
 }
 
-export function Overview({
+export default function Overview({
   release_date,
   runtime,
   original_title,

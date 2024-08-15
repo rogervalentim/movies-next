@@ -10,7 +10,7 @@ interface SerieImageProps {
   name: string;
 }
 
-export function SerieImage({ poster_path, name }: SerieImageProps) {
+export default function SerieImage({ poster_path, name }: SerieImageProps) {
   const router = useRouter();
 
   function handleBackClick() {

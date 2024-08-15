@@ -16,7 +16,7 @@ interface CastData {
   profile_path: string;
 }
 
-export function Cast({ id, contentType }: CastProps) {
+export default function Cast({ id, contentType }: CastProps) {
   const [castData, setCastData] = useState<CastData[]>([]);
 
   useEffect(() => {
