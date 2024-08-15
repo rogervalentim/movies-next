@@ -4,11 +4,11 @@ import { apiKey } from "@/app/utils/api-key";
 import { useEffect, useState } from "react";
 import { MovieImage } from "./movie-image";
 import {
-  ArrowRight,
   Film,
   Image as ImageLucide,
   StarIcon,
-  Users
+  Users,
+  SquareChartGantt
 } from "lucide-react";
 import { Loading } from "@/app/_components/loading";
 import { Videos } from "@/app/_components/videos";
@@ -16,9 +16,8 @@ import { Images } from "@/app/_components/images";
 import { Cast } from "@/app/_components/cast";
 import { Recommended } from "@/app/_components/recommended";
 import { Similar } from "@/app/_components/similar";
-import { Button } from "@/app/_components/ui/button";
 import { Collection } from "@/app/_components/collection";
-import Image from "next/image";
+import { Overview } from "@/app/_components/overview";
 
 interface MovieDetailsProps {
   id: number;
@@ -29,6 +28,21 @@ interface MovieDetailsData {
   overview: string;
   title: string;
   vote_average: number;
+  release_date: string;
+  runtime: number;
+  original_title: string;
+  budget: number;
+  revenue: number;
+  spoken_languages: [
+    {
+      name: string;
+    }
+  ];
+  production_companies: [
+    {
+      name: string;
+    }
+  ];
   belongs_to_collection?: {
     id: number;
     name: string;
@@ -48,7 +62,8 @@ export function MovieDetails({ id }: MovieDetailsProps) {
   );
   const [error, setError] = useState<string | null>(null);
 
-  const [showActors, setShowActors] = useState(true);
+  const [showOverview, setShowOverview] = useState(true);
+  const [showActors, setShowActors] = useState(false);
   const [showImages, setShowImages] = useState(false);
   const [showVideos, setShowVideos] = useState(false);
 
@@ -77,8 +92,16 @@ export function MovieDetails({ id }: MovieDetailsProps) {
     return <p>{error}</p>;
   }
 
+  function toggleOverview() {
+    setShowOverview(true);
+    setShowActors(false);
+    setShowImages(false);
+    setShowVideos(false);
+  }
+
   function toggleActors() {
     setShowActors(true);
+    setShowOverview(false);
     setShowImages(false);
     setShowVideos(false);
   }
@@ -87,12 +110,14 @@ export function MovieDetails({ id }: MovieDetailsProps) {
     setShowActors(false);
     setShowImages(true);
     setShowVideos(false);
+    setShowOverview(false);
   }
 
   function toggleVideos() {
     setShowVideos(true);
     setShowActors(false);
     setShowImages(false);
+    setShowOverview(false);
   }
 
   return (
@@ -142,6 +167,19 @@ export function MovieDetails({ id }: MovieDetailsProps) {
               <button
                 type="button"
                 className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
+                  showOverview
+                    ? "bg-[#3a3cff] text-white active:bg-[#3a3cff]"
+                    : "bg-secondary text-secondary-foreground hover:bg-[#3a3cff] hover:text-white"
+                }`}
+                onClick={toggleOverview}
+              >
+                <SquareChartGantt size={20} />
+                <span className="text-sm font-semibold">Resumo</span>
+              </button>
+
+              <button
+                type="button"
+                className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
                   showActors
                     ? "bg-[#3a3cff] text-white active:bg-[#3a3cff]"
                     : "bg-secondary text-secondary-foreground hover:bg-[#3a3cff] hover:text-white"
@@ -176,6 +214,20 @@ export function MovieDetails({ id }: MovieDetailsProps) {
                 <span className="text-sm font-semibold">Videos</span>
               </button>
             </div>
+
+            {showOverview && (
+              <div className="px-5">
+                <Overview
+                  release_date={movieDetails?.release_date}
+                  runtime={movieDetails.runtime}
+                  original_title={movieDetails.original_title}
+                  budget={movieDetails?.budget}
+                  revenue={movieDetails.revenue}
+                  spoken_languages={movieDetails?.spoken_languages}
+                  production_companies={movieDetails?.production_companies}
+                />
+              </div>
+            )}
 
             {showActors && (
               <div className="px-5">

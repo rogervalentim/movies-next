@@ -10,16 +10,14 @@ interface PersonPageProps {
 
 export default function PersonPage({ params: { id } }: PersonPageProps) {
   return (
-    <div>
-      <div className="hidden lg:block">
-        <Header />
-      </div>
+    <>
+      <Header />
 
       <PersonDetails id={id} />
 
       <div className="pt-10">
         <Footer />
       </div>
-    </div>
+    </>
   );
 }

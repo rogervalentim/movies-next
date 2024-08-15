@@ -3,7 +3,13 @@
 import { apiKey } from "@/app/utils/api-key";
 import { useEffect, useState } from "react";
 import { SerieImage } from "./serie-image";
-import { Film, Image as ImageLucide, StarIcon, Users } from "lucide-react";
+import {
+  Film,
+  Image as ImageLucide,
+  SquareChartGantt,
+  StarIcon,
+  Users
+} from "lucide-react";
 import { Loading } from "@/app/_components/loading";
 import { Videos } from "@/app/_components/videos";
 import { Images } from "@/app/_components/images";
@@ -12,6 +18,7 @@ import { Recommended } from "@/app/_components/recommended";
 import { Similar } from "@/app/_components/similar";
 import { Button } from "@/app/_components/ui/button";
 import { Collection } from "@/app/_components/collection";
+import { Overview } from "@/app/_components/overview";
 
 interface SerieDetailsProps {
   id: number;
@@ -22,7 +29,33 @@ interface SerieDetailsData {
   overview: string;
   name: string;
   vote_average: number;
-
+  original_name: string;
+  first_air_date: string;
+  last_air_date: string;
+  number_of_seasons: number;
+  number_of_episodes: number;
+  language: string;
+  production_companies: [
+    {
+      name: string;
+    }
+  ];
+  networks: [
+    {
+      name: string;
+    }
+  ];
+  created_by: [
+    {
+      id: number;
+      name: string;
+    }
+  ];
+  spoken_languages: [
+    {
+      name: string;
+    }
+  ];
   genres: [
     {
       id: number;
@@ -37,7 +70,8 @@ export function SerieDetails({ id }: SerieDetailsProps) {
   );
   const [error, setError] = useState<string | null>(null);
 
-  const [showActors, setShowActors] = useState(true);
+  const [showOverview, setShowOverview] = useState(true);
+  const [showActors, setShowActors] = useState(false);
   const [showImages, setShowImages] = useState(false);
   const [showVideos, setShowVideos] = useState(false);
 
@@ -65,8 +99,16 @@ export function SerieDetails({ id }: SerieDetailsProps) {
     return <p>{error}</p>;
   }
 
+  function toggleOverview() {
+    setShowOverview(true);
+    setShowActors(false);
+    setShowImages(false);
+    setShowVideos(false);
+  }
+
   function toggleActors() {
     setShowActors(true);
+    setShowOverview(false);
     setShowImages(false);
     setShowVideos(false);
   }
@@ -75,12 +117,14 @@ export function SerieDetails({ id }: SerieDetailsProps) {
     setShowActors(false);
     setShowImages(true);
     setShowVideos(false);
+    setShowOverview(false);
   }
 
   function toggleVideos() {
     setShowVideos(true);
     setShowActors(false);
     setShowImages(false);
+    setShowOverview(false);
   }
 
   return (
@@ -130,6 +174,18 @@ export function SerieDetails({ id }: SerieDetailsProps) {
               <button
                 type="button"
                 className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
+                  showOverview
+                    ? "bg-[#3a3cff] text-white active:bg-[#3a3cff]"
+                    : "bg-secondary text-secondary-foreground hover:bg-[#3a3cff] hover:text-white"
+                }`}
+                onClick={toggleOverview}
+              >
+                <SquareChartGantt size={20} />
+                <span className="text-sm font-semibold">Resumo</span>
+              </button>
+              <button
+                type="button"
+                className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
                   showActors
                     ? "bg-[#3a3cff] text-white active:bg-[#3a3cff]"
                     : "bg-secondary text-secondary-foreground hover:bg-[#3a3cff] hover:text-white"
@@ -164,6 +220,22 @@ export function SerieDetails({ id }: SerieDetailsProps) {
                 <span className="text-sm font-semibold">Videos</span>
               </button>
             </div>
+
+            {showOverview && (
+              <div className="px-5">
+                <Overview
+                  original_name={serieDetails.original_name}
+                  created_by={serieDetails.created_by}
+                  first_air_date={serieDetails.first_air_date}
+                  last_air_date={serieDetails.last_air_date}
+                  number_of_seasons={serieDetails.number_of_seasons}
+                  number_of_episodes={serieDetails?.number_of_episodes}
+                  networks={serieDetails.networks}
+                  spoken_languages={serieDetails?.spoken_languages}
+                  production_companies={serieDetails?.production_companies}
+                />
+              </div>
+            )}
 
             {showActors && (
               <div className="px-5">

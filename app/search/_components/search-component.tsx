@@ -4,27 +4,18 @@ import { Search } from "@/app/_components/search";
 import { apiKey } from "@/app/utils/api-key";
 import { useQuery } from "@tanstack/react-query";
 import { ChangeEvent, useState } from "react";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious
-} from "@/app/_components/ui/pagination";
-import Image from "next/image";
-import { Clapperboard, Star } from "lucide-react";
 import Link from "next/link";
-
-const PAGE_LIMIT = 10;
-const MAX_VISIBLE_PAGES = 10;
+import { extractYear } from "@/app/utils/format-date";
+import { SearchItem } from "./search-item";
+import { PaginationLists } from "@/app/_components/pagination-lists";
 
 interface SearchResult {
   id: number;
   name: string;
   title: string;
   profile_path: string | null;
+  release_date: string;
+  first_air_date: string;
   vote_average: number;
   poster_path: string | null;
   media_type: string;
@@ -43,8 +34,7 @@ export function SearchComponent() {
   const {
     data: searchResults,
     isLoading: searchIsLoading,
-    isError,
-    isFetching
+    isError
   } = useQuery<SearchResponse>({
     queryKey: ["search", searchData, page],
     queryFn: async () => {
@@ -70,35 +60,8 @@ export function SearchComponent() {
     setPage(1);
   }
 
-  function handleNextPage(): void {
-    if (searchResults && page < searchResults.total_pages) {
-      setPage((prevPage) => prevPage + 1);
-    }
-  }
-
-  function handlePrevPage(): void {
-    if (page > 1) {
-      setPage((prevPage) => prevPage - 1);
-    }
-  }
-
-  function getPaginationRange(
-    currentPage: number,
-    totalPages: number
-  ): number[] {
-    const range: number[] = [];
-    let start = Math.max(1, currentPage - Math.floor(MAX_VISIBLE_PAGES / 2));
-    let end = Math.min(totalPages, start + MAX_VISIBLE_PAGES - 1);
-
-    if (end - start + 1 < MAX_VISIBLE_PAGES) {
-      start = Math.max(1, end - MAX_VISIBLE_PAGES + 1);
-    }
-
-    for (let i = start; i <= end; i++) {
-      range.push(i);
-    }
-
-    return range;
+  function handlePageChange(newPage: number): void {
+    setPage(newPage);
   }
 
   return (
@@ -119,96 +82,45 @@ export function SearchComponent() {
         {isError && <p>Erro ao buscar dados.</p>}
         {searchResults && (
           <>
-            <section className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
-              {searchResults.results.map((result) => (
-                <Link
-                  href={
-                    result.media_type === "tv"
-                      ? `/serie/${result.id}`
-                      : `/movie/${result.id}`
-                  }
-                  key={result.id}
-                  className="relative aspect-square w-full group"
-                >
-                  {result.poster_path ? (
-                    <div className="relative  transition-transform duration-300 group-hover:scale-105">
-                      <Image
-                        src={`https://image.tmdb.org/t/p/w500/${result?.poster_path}`}
-                        alt={result?.title || result?.name}
-                        width={0}
-                        height={0}
-                        quality={100}
-                        sizes="100vh"
-                        className="rounded-lg shadow-md w-96 h-80 lg:h-96 object-cover"
-                      />
-                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-300 rounded-lg" />
-                    </div>
-                  ) : (
-                    <div className="flex justify-center items-center w-full h-80 lg:h-96 bg-[#3a3cff] rounded-lg relative  transition-transform duration-300 group-hover:scale-105">
-                      <Clapperboard size={24} className="text-white" />
-                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-300 rounded-lg" />
-                    </div>
-                  )}
-                  <div className="absolute left-2 top-2 flex items-center gap-[2px] rounded-full bg-white px-2 py-[2px] text-[#323232]">
-                    <Star
-                      size={16}
-                      className="text-yellow-500 fill-yellow-500"
+            <section className="grid grid-cols-2 lg:grid-cols-4 gap-x-3 gap-y-5 pt-4">
+              {searchResults.results.map((result) => {
+                const year = extractYear(
+                  result.release_date || result.first_air_date
+                );
+
+                return (
+                  <Link
+                    href={
+                      result.media_type === "tv"
+                        ? `/serie/${result.id}`
+                        : result.media_type === "movie"
+                          ? `/movie/${result.id}`
+                          : result.media_type === "person"
+                            ? `/person/${result.id}`
+                            : "/"
+                    }
+                    key={result.id}
+                    className="relative aspect-square w-full group"
+                  >
+                    <SearchItem
+                      title={result?.title}
+                      name={result?.name}
+                      poster_path={result?.poster_path || ""}
+                      profile_path={result?.profile_path || ""}
+                      media_type={result?.media_type}
+                      vote_average={result?.vote_average}
+                      known_for_department={result?.known_for_department}
+                      year={year}
                     />
-                    <span className="font-semibold">
-                      {result?.vote_average?.toFixed(2)}
-                    </span>
-                  </div>
-                  <span className="block text-lg pt-2 truncate text-primary">
-                    {result?.title || result?.name}
-                  </span>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
             </section>
-            <Pagination>
-              <PaginationContent className="pt-10">
-                <PaginationItem>
-                  <PaginationPrevious
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handlePrevPage();
-                    }}
-                  />
-                </PaginationItem>
-                {getPaginationRange(page, searchResults.total_pages).map(
-                  (pageNumber) => (
-                    <PaginationItem key={pageNumber}>
-                      <PaginationLink
-                        isActive={page === pageNumber}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setPage(pageNumber);
-                        }}
-                      >
-                        {pageNumber}
-                      </PaginationLink>
-                    </PaginationItem>
-                  )
-                )}
-                {searchResults.total_pages > MAX_VISIBLE_PAGES && (
-                  <>
-                    {page < searchResults.total_pages && (
-                      <PaginationItem>
-                        <PaginationEllipsis />
-                      </PaginationItem>
-                    )}
-                    <PaginationItem>
-                      <PaginationNext
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleNextPage();
-                        }}
-                      />
-                    </PaginationItem>
-                  </>
-                )}
-              </PaginationContent>
-            </Pagination>
+            <PaginationLists
+              currentPage={page}
+              totalPages={searchResults.total_pages}
+              onPageChange={handlePageChange}
+            />
           </>
         )}
       </div>

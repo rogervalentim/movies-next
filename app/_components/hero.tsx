@@ -56,7 +56,11 @@ export function Hero({ contentType }: HeroProps) {
             className="group inline-flex items-center bg-white/10 hover:bg-white/10 border border-white/10 p-1 ps-4 rounded-full shadow-md focus:outline-none focus:bg-white/10"
             href={contentType === "tv" ? "/series" : "/movies"}
           >
-            <p className="me-2 text-white text-sm">Buscar mais.</p>
+            <div>
+              <Link href="/search" className="me-2 text-white text-sm">
+                Buscar mais.
+              </Link>
+            </div>
             <span className="group-hover:bg-white/10 py-1.5 px-2.5 flex justify-center items-center gap-x-2 rounded-full bg-white/10 font-semibold text-white text-sm">
               <ArrowRight size={16} />
             </span>
