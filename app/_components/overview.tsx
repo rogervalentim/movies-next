@@ -57,14 +57,17 @@ export default function Overview({
     <Card className="grid grid-cols-2 justify-between py-6 gap-4 px-5">
       {created_by && (
         <ul>
-          <li className="font-semibold">Criador</li>
-          <Link
-            href={`/person/${created_by.map((item) => item.id)}`}
-            className="underline text-muted-foreground"
-          >
-            {" "}
-            {created_by.map((creator) => creator.name).join(", ")}
-          </Link>
+          <li className="font-semibold">Criado por</li>
+          {created_by.map((creator, index) => (
+            <Link
+              key={creator.id}
+              href={`/person/${creator.id}`}
+              className="underline text-muted-foreground"
+            >
+              {creator.name}
+              {index < created_by.length - 1 ? ", " : ""}
+            </Link>
+          ))}
         </ul>
       )}
 
