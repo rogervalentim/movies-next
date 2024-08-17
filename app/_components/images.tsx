@@ -48,7 +48,7 @@ export default function Images({ id, contentType }: ImagesProps) {
       <h1 className="text-sm font-semibold text-primary">
         Imagens de fundo {backdrops.length}
       </h1>
-      <section className="grid grid-cols-1 pt-4 gap-4">
+      <section className="grid grid-cols-1 lg:grid-cols-4 pt-4 gap-4">
         {backdrops.map((item) => (
           <a
             href={`https://image.tmdb.org/t/p/w1280/${item.file_path}`}
@@ -62,16 +62,17 @@ export default function Images({ id, contentType }: ImagesProps) {
               height={0}
               quality={100}
               sizes="100vh"
-              className="rounded-lg shadow-md w-full object-cover"
+              className="rounded-lg shadow-md w-full h-auto object-cover"
+              loading="lazy"
             />
           </a>
         ))}
       </section>
 
-      <h1 className="text-sm font-semibold text-primary">
+      <h1 className="text-sm font-semibold text-primary pt-4">
         Cartazes {posters.length}
       </h1>
-      <section className="grid grid-cols-2 items-center gap-4">
+      <section className="grid grid-cols-2 lg:grid-cols-4 pt-4 items-center gap-4">
         {posters.map((item) => (
           <a
             href={`https://image.tmdb.org/t/p/w780/${item.file_path}`}
@@ -86,7 +87,8 @@ export default function Images({ id, contentType }: ImagesProps) {
               height={0}
               quality={100}
               sizes="100vh"
-              className="rounded-lg shadow-md w-full h-72"
+              className="rounded-lg shadow-md w-full h-auto"
+              loading="lazy"
             />
           </a>
         ))}

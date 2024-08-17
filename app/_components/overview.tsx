@@ -54,7 +54,7 @@ export default function Overview({
   production_companies
 }: OverviewProps) {
   return (
-    <Card className="grid grid-cols-2 justify-between py-6 gap-4 px-5">
+    <Card className="grid grid-cols-2 lg:grid-cols-4 justify-between py-6 gap-4 px-5">
       {created_by && (
         <ul>
           <li className="font-semibold">Criado por</li>

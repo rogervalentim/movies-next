@@ -1,5 +1,6 @@
 export interface MovieDetailsData {
   poster_path: string;
+  backdrop_path: string;
   overview: string;
   title: string;
   vote_average: number;
@@ -33,6 +34,7 @@ export interface MovieDetailsData {
 
 export interface SerieDetailsData {
   poster_path: string;
+  backdrop_path: string;
   overview: string;
   name: string;
   vote_average: number;

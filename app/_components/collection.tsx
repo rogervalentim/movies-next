@@ -110,10 +110,11 @@ export function Collection({ id, name, backdrop_path }: CollectionProps) {
                     <Image
                       src={`https://image.tmdb.org/t/p/w780${item.poster_path}`}
                       alt={item.title}
-                      width={300}
-                      height={450}
+                      width={0}
+                      height={0}
                       quality={100}
-                      className="w-full h-72 lg:h-72 object-cover rounded-t-lg lg:rounded-lg"
+                      sizes="100vh"
+                      className="rounded-t-lg shadow-md h-60  lg:rounded-none  w-full"
                     />
                     <div className="flex flex-col justify-between p-4 leading-normal">
                       <h5 className="mb-2 text-2xl font-bold tracking-tight text-primary">

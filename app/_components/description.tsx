@@ -11,8 +11,8 @@ export function Description({ overview, contentType }: DescriptionProps) {
 
   return (
     <>
-      <h3 className="font-semibold">Descrição</h3>
-      <p className="text-sm text-muted-foreground">
+      <h3 className="font-semibold text-lg lg:text-3xl">Descrição</h3>
+      <p className="text-sm lg:text-xl text-muted-foreground">
         {overview.length === 0 ? message : overview}
       </p>
     </>

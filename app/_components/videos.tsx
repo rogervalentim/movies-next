@@ -67,10 +67,10 @@ export default function Videos({ id, contentType }: VideosProps) {
   return (
     <section>
       {videos.length > 0 ? (
-        <ul className="flex flex-col gap-3">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {videos.map((video) => (
-            <li className="space-y-2" key={video.key}>
-              <div className="relative">
+            <li className="relative aspect-video" key={video.key}>
+              <div className="relative aspect-video cursor-pointer">
                 <Image
                   src={
                     video.key
@@ -78,11 +78,10 @@ export default function Videos({ id, contentType }: VideosProps) {
                       : "/youtube-6.svg"
                   }
                   alt={video.name}
-                  width={0}
-                  height={0}
-                  quality={100}
-                  sizes="100vh"
-                  className="rounded-lg shadow-md w-full h-auto object-cover"
+                  unoptimized
+                  fill
+                  className="rounded-md object-cover"
+                  loading="lazy"
                 />
                 <button
                   className="absolute inset-0 flex justify-center items-center"
@@ -93,7 +92,7 @@ export default function Videos({ id, contentType }: VideosProps) {
                   </div>
                 </button>
               </div>
-              <h2 className="font-smeibold text-primary">{video.name}</h2>
+              <h2 className="font-semibold text-primary mt-2">{video.name}</h2>
             </li>
           ))}
         </ul>

@@ -9,7 +9,7 @@ interface GenresProps {
 
 export function Genres({ genres }: GenresProps) {
   return (
-    <div className="flex gap-2 overflow-x-auto lg:hidden [&::-webkit-scrollbar]:hidden py-2">
+    <div className="flex gap-2 overflow-x-auto  [&::-webkit-scrollbar]:hidden py-2">
       {genres.map((item) => (
         <div
           key={item.id}

@@ -17,7 +17,7 @@ export function Footer() {
   const [selectedTheme, setSelectedTheme] = useState(theme);
 
   return (
-    <footer className="flex justify-between gap-2 border-t border-border items-center py-4 px-5 lg:px-32">
+    <footer className="flex justify-between gap-2 border-t border-border  items-center py-4 px-5 lg:px-32">
       <div className="flex items-center gap-2">
         <h1>Desenvolvido por</h1>{" "}
         <a

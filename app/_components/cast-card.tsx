@@ -24,6 +24,7 @@ export function CastCard({ id, name, character, profile_path }: CastCardProps) {
               quality={100}
               sizes="100vh"
               className="rounded-lg shadow-md w-full h-56 object-cover"
+              loading="lazy"
             />
           ) : (
             <div className="flex justify-center items-center w-full h-56 bg-[#3a3cff] rounded-lg shadow-md">
