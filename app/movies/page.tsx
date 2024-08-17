@@ -8,6 +8,7 @@ import { Footer } from "../_components/footer";
 import { MoviesPopular } from "./_components/movies-popular";
 import { MoviesNowPlaying } from "./_components/movies-now-playing";
 import { CategoriesList } from "../_components/categories-list";
+import Link from "next/link";
 
 export default function MoviesPage() {
   return (
@@ -35,10 +36,10 @@ export default function MoviesPage() {
             className="h-fit p-0 text-[#3a3cff] hover:bg-transparent"
             asChild
           >
-            <span>
+            <Link href="/movies-trending">
               Ver todos
               <ChevronRightIcon size={16} />
-            </span>
+            </Link>
           </Button>
         </div>
         <MoviesTrending />
@@ -55,10 +56,10 @@ export default function MoviesPage() {
             className="h-fit p-0 text-[#3a3cff] hover:bg-transparent"
             asChild
           >
-            <span>
+            <Link href="/movies-top-rated">
               Ver todos
               <ChevronRightIcon size={16} />
-            </span>
+            </Link>
           </Button>
         </div>
         <MoviesTopRated />
@@ -73,10 +74,10 @@ export default function MoviesPage() {
             className="h-fit p-0 text-[#3a3cff] hover:bg-transparent"
             asChild
           >
-            <span>
+            <Link href="/movies-popular">
               Ver todos
               <ChevronRightIcon size={16} />
-            </span>
+            </Link>
           </Button>
         </div>
         <MoviesPopular />
@@ -84,17 +85,19 @@ export default function MoviesPage() {
 
       <div className="space-y-4 pt-10 px-5 lg:px-32">
         <div className="flex items-center justify-between  lg:px-0">
-          <h2 className="font-semibold text-primary">Filmes novos</h2>
+          <h2 className="font-semibold text-primary">
+            Filmes agora em exibição
+          </h2>
 
           <Button
             variant="ghost"
             className="h-fit p-0 text-[#3a3cff] hover:bg-transparent"
             asChild
           >
-            <span>
+            <Link href="/movies-now-playing">
               Ver todos
               <ChevronRightIcon size={16} />
-            </span>
+            </Link>
           </Button>
         </div>
         <MoviesNowPlaying />

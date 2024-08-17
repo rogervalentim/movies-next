@@ -1,4 +1,5 @@
 export interface MovieDetailsData {
+  id: number;
   poster_path: string;
   backdrop_path: string;
   overview: string;
@@ -33,6 +34,7 @@ export interface MovieDetailsData {
 }
 
 export interface SerieDetailsData {
+  id: number;
   poster_path: string;
   backdrop_path: string;
   overview: string;

@@ -14,7 +14,7 @@ interface CreditsData {
   name: string;
   title: string;
   vote_average: number;
-  media_type: string; // Adicione esta propriedade se for necessária
+  media_type: string;
 }
 
 export function Credits({ id }: CreditsProps) {

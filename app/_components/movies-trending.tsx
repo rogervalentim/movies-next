@@ -28,7 +28,7 @@ export function MoviesTrending() {
       );
       const data = await response.json();
       setMoviesTrendingData(data.results);
-      console.log("movies trending", data);
+      console.log("movies trending", data.total_results);
     } catch (error) {
       console.log(error);
     }

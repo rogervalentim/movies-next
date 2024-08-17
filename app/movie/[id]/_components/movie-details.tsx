@@ -78,33 +78,33 @@ export function MovieDetails({ id }: MovieDetailsProps) {
               title={movieDetails.title}
             />
           </Suspense>
-          <div className="relative">
-            <div className="hidden lg:flex relative px-32 rounded-lg">
-              <Image
-                src={`https://image.tmdb.org/t/p/w1280/${movieDetails.backdrop_path}`}
-                alt={movieDetails.title}
-                width={0}
-                height={0}
-                quality={100}
-                sizes="100vh"
-                className="object-cover h-[31.25rem]  w-full"
-                loading="lazy"
-              />
-            </div>
+          <Suspense fallback={<Loading />}>
+            <div className="relative  lg:flex justify-center hidden items-center">
+              <div className="relative w-full px-32">
+                <Image
+                  src={`https://image.tmdb.org/t/p/w1280/${movieDetails.backdrop_path}`}
+                  alt={movieDetails.title}
+                  width={0}
+                  height={0}
+                  quality={100}
+                  sizes="100vw"
+                  className="object-cover h-[80dvh] w-full rounded-b-lg"
+                />
+              </div>
 
-            <div className="hidden lg:flex absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:left-32 lg:translate-x-0 lg:translate-y-0">
-              <Image
-                src={`https://image.tmdb.org/t/p/w780/${movieDetails.poster_path}`}
-                alt={movieDetails.title}
-                width={0}
-                height={0}
-                quality={100}
-                sizes="100vh"
-                className="w-48 xl:w-56 rounded-lg shadow-lg"
-                loading="lazy"
-              />
+              <div className="absolute left-32 bottom-0  transform translate-x-0 translate-y-0">
+                <Image
+                  src={`https://image.tmdb.org/t/p/w780/${movieDetails.poster_path}`}
+                  alt={movieDetails.title}
+                  width={0}
+                  height={0}
+                  quality={100}
+                  sizes="100vh"
+                  className="w-32 md:w-40 lg:w-48 xl:w-56 h-auto rounded-lg shadow-lg"
+                />
+              </div>
             </div>
-          </div>
+          </Suspense>
 
           <div className="relative z-50 mt-[-1.5rem] lg:mt-0 rounded-tl-3xl space-y-4 rounded-tr-3xl lg:rounded-none bg-background py-5 ">
             <Header movieDetails={movieDetails} />

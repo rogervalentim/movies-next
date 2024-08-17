@@ -18,7 +18,7 @@ export function TabButton({ onClick, isActive, label }: TabButtonProps) {
       )}
       onClick={onClick}
     >
-      <span>{label}</span>
+      <span className="text-md lg:text-lg">{label}</span>
     </button>
   );
 }

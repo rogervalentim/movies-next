@@ -1,11 +1,11 @@
 import { Button } from "./_components/ui/button";
-import { ChevronRightIcon, Ghost, Heart, Smile } from "lucide-react";
+import { ChevronRightIcon } from "lucide-react";
 import { Header } from "./_components/header";
 import { MoviesTrending } from "./_components/movies-trending";
 import { SeriesTrending } from "./_components/series-trending";
 import { Hero } from "./_components/hero";
 import { Footer } from "./_components/footer";
-import { CategoriesList } from "./_components/categories-list";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -22,13 +22,13 @@ export default function Home() {
 
           <Button
             variant="ghost"
-            className="h-fit p-0 text-[#3a3cff] hover:bg-transparent"
+            className="h-fit p-0 text-[#3a3cff] hover:bg-transparent cursor-pointer"
             asChild
           >
-            <span>
+            <Link href="/movies-trending">
               Ver todos
               <ChevronRightIcon size={16} />
-            </span>
+            </Link>
           </Button>
         </div>
         <MoviesTrending />
@@ -47,10 +47,10 @@ export default function Home() {
             className="h-fit p-0 text-[#3a3cff] hover:bg-transparent"
             asChild
           >
-            <span>
+            <Link href="/series-trending">
               Ver todos
               <ChevronRightIcon size={16} />
-            </span>
+            </Link>
           </Button>
         </div>
         <SeriesTrending />
