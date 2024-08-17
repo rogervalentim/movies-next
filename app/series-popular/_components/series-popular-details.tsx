@@ -62,7 +62,7 @@ export function SeriesPopularDetails() {
 
               return (
                 <Link
-                  href={`/movie/${serie.id}`}
+                  href={`/serie/${serie.id}`}
                   key={serie.id}
                   className="relative aspect-square w-full group"
                 >

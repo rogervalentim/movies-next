@@ -57,19 +57,19 @@ export function SeriesTopRatedDetails() {
       {moviesData && (
         <>
           <section className="grid grid-cols-2 lg:grid-cols-4 gap-x-3 gap-y-5 pt-4">
-            {moviesData.results.map((movie) => {
-              const year = extractYear(movie.release_date);
+            {moviesData.results.map((serie) => {
+              const year = extractYear(serie.release_date);
 
               return (
                 <Link
-                  href={`/movie/${movie.id}`}
-                  key={movie.id}
+                  href={`/serie/${serie.id}`}
+                  key={serie.id}
                   className="relative aspect-square w-full group"
                 >
                   <SeriesTopRatedItem
-                    name={movie.name}
-                    poster_path={movie.poster_path || ""}
-                    vote_average={movie.vote_average}
+                    name={serie.name}
+                    poster_path={serie.poster_path || ""}
+                    vote_average={serie.vote_average}
                     year={year}
                   />
                 </Link>
