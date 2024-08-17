@@ -48,19 +48,19 @@ export function SerieDetails({ id }: SerieDetailsProps) {
       case TABS.ACTORS:
         return (
           <Suspense fallback={<Loading />}>
-            <Cast id={id} contentType="movie" />
+            <Cast id={id} contentType="tv" />
           </Suspense>
         );
       case TABS.IMAGES:
         return (
           <Suspense fallback={<Loading />}>
-            <Images id={id} contentType="movie" />
+            <Images id={id} contentType="tv" />
           </Suspense>
         );
       case TABS.VIDEOS:
         return (
           <Suspense fallback={<Loading />}>
-            <Videos id={id} contentType="movie" />
+            <Videos id={id} contentType="tv" />
           </Suspense>
         );
       default:
