@@ -28,6 +28,7 @@ export function AdditionalContent({
             backdrop_path={
               movieDetails?.belongs_to_collection?.backdrop_path || ""
             }
+            poster_path={movieDetails?.belongs_to_collection?.poster_path || ""}
             name={movieDetails?.belongs_to_collection?.name}
           />
         </div>

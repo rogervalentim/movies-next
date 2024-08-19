@@ -5,6 +5,8 @@ import { AdditionalContent } from "./additional-content";
 import { Loading } from "@/app/_components/loading";
 import { useSerieDetails } from "@/app/_hooks/use-serie-details";
 import Image from "next/image";
+import { Seasons } from "./seasons";
+import { Episodes } from "@/app/_components/episodes";
 
 const Overview = React.lazy(() => import("@/app/_components/overview"));
 const Cast = React.lazy(() => import("@/app/_components/cast"));
@@ -20,7 +22,8 @@ const TABS = {
   OVERVIEW: "overview",
   ACTORS: "actors",
   IMAGES: "images",
-  VIDEOS: "videos"
+  VIDEOS: "videos",
+  TEMPORADAS: "temporadas"
 };
 
 export function SerieDetails({ id }: SerieDetailsProps) {
@@ -61,6 +64,12 @@ export function SerieDetails({ id }: SerieDetailsProps) {
         return (
           <Suspense fallback={<Loading />}>
             <Videos id={id} contentType="tv" />
+          </Suspense>
+        );
+      case TABS.TEMPORADAS:
+        return (
+          <Suspense fallback={<Loading />}>
+            <Seasons id={id} />
           </Suspense>
         );
       default:
@@ -129,10 +138,21 @@ export function SerieDetails({ id }: SerieDetailsProps) {
                 isActive={activeTab === TABS.VIDEOS}
                 label="Videos"
               />
+              <TabButton
+                onClick={() => handleTabClick(TABS.TEMPORADAS)}
+                isActive={activeTab === TABS.TEMPORADAS}
+                label="Temporadas"
+              />
             </div>
 
             <div className="px-5 lg:px-32">{renderContent()}</div>
             <AdditionalContent id={id} serieDetails={serieDetails} />
+          </div>
+          <div className="space-y-4 px-5 lg:px-32">
+            <Episodes
+              id={id}
+              onShowSeasons={() => handleTabClick(TABS.TEMPORADAS)}
+            />
           </div>
         </>
       ) : (

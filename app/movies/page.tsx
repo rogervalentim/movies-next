@@ -7,7 +7,6 @@ import { MoviesTopRated } from "./_components/movies-top-rated";
 import { Footer } from "../_components/footer";
 import { MoviesPopular } from "./_components/movies-popular";
 import { MoviesNowPlaying } from "./_components/movies-now-playing";
-import { CategoriesList } from "../_components/categories-list";
 import Link from "next/link";
 
 export default function MoviesPage() {
@@ -15,16 +14,8 @@ export default function MoviesPage() {
     <>
       <Header />
 
-      <div className="flex lg:hidden gap-4 overflow-x-scroll px-5 lg:gap-5 lg:px-32 [&::-webkit-scrollbar]:hidden pt-6">
-        <CategoriesList />
-      </div>
-
       <div className="pt-6 lg:pt-4 px-5 lg:px-32">
         <Hero contentType="movie" />
-      </div>
-
-      <div className="hidden lg:flex gap-4 overflow-x-scroll px-5 lg:gap-5 lg:px-32 [&::-webkit-scrollbar]:hidden pt-10">
-        <CategoriesList />
       </div>
 
       <div className="space-y-4 pt-10 px-5 lg:px-32">

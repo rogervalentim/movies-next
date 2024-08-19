@@ -19,6 +19,7 @@ interface CollectionProps {
   id: number | undefined;
   name: string | undefined;
   backdrop_path: string | undefined;
+  poster_path: string | undefined;
 }
 
 interface CollectionData {
@@ -34,7 +35,12 @@ interface CollectionData {
   ];
 }
 
-export function Collection({ id, name, backdrop_path }: CollectionProps) {
+export function Collection({
+  id,
+  name,
+  backdrop_path,
+  poster_path
+}: CollectionProps) {
   const [collectionData, setCollectionData] = useState<CollectionData | null>(
     null
   );
@@ -61,7 +67,7 @@ export function Collection({ id, name, backdrop_path }: CollectionProps) {
       <div
         className="absolute brightness-50 rounded-lg inset-0"
         style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/w1280${backdrop_path})`,
+          backgroundImage: `url(https://image.tmdb.org/t/p/w1280${backdrop_path || poster_path})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           width: "100%",
@@ -92,7 +98,7 @@ export function Collection({ id, name, backdrop_path }: CollectionProps) {
           </div>
           <DialogContent
             onOpenAutoFocus={(e) => e.preventDefault()}
-            className="max-w-screen-xl"
+            className="max-w-screen-lg"
           >
             <ScrollArea className="max-h-[80dvh] md:pr-4">
               <DialogHeader>
@@ -101,21 +107,34 @@ export function Collection({ id, name, backdrop_path }: CollectionProps) {
                   {collectionData?.overview}
                 </DialogDescription>
               </DialogHeader>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 px-5 mt-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4  mt-4">
                 {collectionData?.parts.map((item) => (
                   <div
                     key={item.id}
-                    className="flex flex-col items-center bg-background border border-border rounded-lg shadow md:flex-row md:max-w-xl"
+                    className="flex flex-col items-center bg-background border border-border rounded-lg shadow"
                   >
-                    <Image
-                      src={`https://image.tmdb.org/t/p/w780${item.poster_path}`}
-                      alt={item.title}
-                      width={0}
-                      height={0}
-                      quality={100}
-                      sizes="100vh"
-                      className="rounded-t-lg shadow-md h-60  lg:rounded-none  w-full"
-                    />
+                    <div className="flex w-full">
+                      <Image
+                        src={`https://image.tmdb.org/t/p/w780${item.poster_path}`}
+                        alt={item.title}
+                        width={0}
+                        height={0}
+                        quality={100}
+                        sizes="100vh"
+                        className="shadow-md h-60 w-1/3 object-cover"
+                        loading="lazy"
+                      />
+                      <Image
+                        src={`https://image.tmdb.org/t/p/w1280${item.backdrop_path}`}
+                        alt={item.title}
+                        width={0}
+                        height={0}
+                        quality={100}
+                        sizes="100vh"
+                        className="shadow-md h-60 w-2/3 object-cover"
+                        loading="lazy"
+                      />
+                    </div>
                     <div className="flex flex-col justify-between p-4 leading-normal">
                       <h5 className="mb-2 text-2xl font-bold tracking-tight text-primary">
                         {item.title}

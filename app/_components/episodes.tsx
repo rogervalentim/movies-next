@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 
 interface EpisodesProps {
   id: number;
+  onShowSeasons: () => void;
 }
 
 interface EpisodesData {
@@ -17,7 +18,7 @@ interface EpisodesData {
   episode_number: number;
 }
 
-export function Episodes({ id }: EpisodesProps) {
+export function Episodes({ id, onShowSeasons }: EpisodesProps) {
   const [episodeData, setEpisodeData] = useState<EpisodesData | null>(null);
 
   useEffect(() => {
@@ -93,7 +94,10 @@ export function Episodes({ id }: EpisodesProps) {
               <span>Ep {episodeData.episode_number}</span>
             </div>
 
-            <Button className="px-8 py-3 bg-gradient-to-tl from-[#3a3cff] to-[#2a18ff] shadow-lg text-white text-sm font-medium rounded-full hover:scale-105 transition-transform duration-200 ease-in-out">
+            <Button
+              className="px-8 py-3 bg-gradient-to-tl from-[#3a3cff] to-[#2a18ff] shadow-lg text-white text-sm font-medium rounded-full hover:scale-105 transition-transform duration-200 ease-in-out"
+              onClick={onShowSeasons}
+            >
               Ver Episódios
             </Button>
           </div>

@@ -24,6 +24,7 @@ export interface MovieDetailsData {
     id: number;
     name: string;
     backdrop_path: string;
+    poster_path: string;
   };
   genres: [
     {

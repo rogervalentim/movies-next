@@ -4,7 +4,6 @@ import {
   Clapperboard,
   Film,
   HomeIcon,
-  LogInIcon,
   MenuIcon,
   MonitorPlay,
   SearchIcon
@@ -49,12 +48,6 @@ export function Header() {
             <SheetTitle className="text-left">Menu</SheetTitle>
           </SheetHeader>
 
-          <div className="flex items-center justify-between pt-10">
-            <h2 className="font-semibold">Olá Faça o seu login!</h2>
-            <Button size="icon" className="bg-[#3a3cff] text-white">
-              <LogInIcon />
-            </Button>
-          </div>
           <div className="py-5">
             <Separator />
           </div>

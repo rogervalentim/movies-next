@@ -3,7 +3,6 @@ import { Header } from "../_components/header";
 import { Hero } from "../_components/hero";
 import { Button } from "../_components/ui/button";
 import { Footer } from "../_components/footer";
-import { CategoriesList } from "../_components/categories-list";
 import { SeriesTrending } from "../_components/series-trending";
 import { SeriesTopRated } from "./_components/series-top-rated";
 import { SeriesPopular } from "./_components/series-popular";
@@ -15,16 +14,8 @@ export default function SeriesPage() {
     <>
       <Header />
 
-      <div className="flex lg:hidden gap-4 overflow-x-scroll px-5 lg:gap-5 lg:px-32 [&::-webkit-scrollbar]:hidden pt-6">
-        <CategoriesList />
-      </div>
-
       <div className="pt-6 lg:pt-4 px-5 lg:px-32">
         <Hero contentType="tv" />
-      </div>
-
-      <div className="hidden lg:flex gap-4 overflow-x-scroll px-5 lg:gap-5 lg:px-32 [&::-webkit-scrollbar]:hidden pt-10">
-        <CategoriesList />
       </div>
 
       <div className="space-y-4 pt-10 px-5 lg:px-32">
