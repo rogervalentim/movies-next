@@ -1,4 +1,4 @@
-import { Clapperboard, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import Image from "next/image";
 
 interface SearchItemProps {
@@ -35,9 +35,7 @@ export function SearchItem({
           className="rounded-lg  w-full brightness-50 h-64 lg:h-96 "
         />
       ) : (
-        <div className="flex justify-center items-center w-full h-60 lg:h-96 bg-[#3a3cff] rounded-lg relative transition-transform duration-300 group-hover:scale-105">
-          <Clapperboard size={24} className="text-white" />
-        </div>
+        <div className="flex justify-center items-center w-full h-64 lg:h-96 bg-[#3a3cff] rounded-lg relative transition-transform duration-300 group-hover:scale-105" />
       )}
       <div className="flex justify-between">
         {vote_average > 0 && (

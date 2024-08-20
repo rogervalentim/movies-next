@@ -34,7 +34,7 @@ export function Images({ id }: ImagesProps) {
 
   return (
     <>
-      <section className="grid grid-cols-2 gap-4">
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {imagesData.map((image) => (
           <a
             href={`https://image.tmdb.org/t/p/w780/${image.file_path}`}

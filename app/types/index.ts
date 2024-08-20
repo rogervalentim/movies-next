@@ -75,3 +75,14 @@ export interface SerieDetailsData {
     }
   ];
 }
+
+export interface PersonDetailsData {
+  id: number;
+  name: string;
+  profile_path: string;
+  biography: string;
+  birthday: string;
+  deathday: string | null;
+  place_of_birth: string;
+  known_for_department: string;
+}
