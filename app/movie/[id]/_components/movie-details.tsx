@@ -5,6 +5,7 @@ import { AdditionalContent } from "./additional-content";
 import { Loading } from "@/app/_components/loading";
 import { useMovieDetails } from "@/app/_hooks/use-movie-details";
 import Image from "next/image";
+import { ScrollTop } from "@/app/_components/scroll-top";
 
 const Overview = React.lazy(() => import("@/app/_components/overview"));
 const Cast = React.lazy(() => import("@/app/_components/cast"));

@@ -2,54 +2,49 @@
 
 import { apiKey } from "@/app/utils/api-key";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Loading } from "./loading";
+import { useQuery } from "@tanstack/react-query";
+
+interface ImagesData {
+  file_path: string;
+}
+
+interface ImagesApiResponse {
+  backdrops: ImagesData[];
+  posters: ImagesData[];
+}
 
 interface ImagesProps {
   id: number;
   contentType: string;
 }
 
-interface ImagesData {
-  file_path: string;
-}
-
 export default function Images({ id, contentType }: ImagesProps) {
-  const [posters, setPosters] = useState<ImagesData[]>([]);
-  const [backdrops, setBackdrops] = useState<ImagesData[]>([]);
-  const [loading, setLoading] = useState(false);
+  const { data: images, isLoading: movieImagesIsLoading } =
+    useQuery<ImagesApiResponse>({
+      queryKey: ["get-images", id],
+      queryFn: async () => {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/${contentType}/${id}/images?api_key=${apiKey}`
+        );
+        const data = await response.json();
+        return data;
+      },
+      enabled: !!id
+    });
 
-  useEffect(() => {
-    fetchImages();
-  }, []);
-
-  async function fetchImages() {
-    try {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/${contentType}/${id}/images?api_key=${apiKey}`
-      );
-      const data = await response.json();
-      setPosters(data.posters);
-      setBackdrops(data.backdrops);
-      setLoading(true);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  if (loading) {
+  if (movieImagesIsLoading) {
     return <Loading />;
   }
 
   return (
     <>
       <h1 className="text-sm font-semibold text-primary">
-        Imagens de fundo {backdrops.length}
+        Imagens de fundo {images?.backdrops.length}
       </h1>
       <section className="grid grid-cols-1 lg:grid-cols-4 pt-4 gap-4">
-        {backdrops.map((item) => (
+        {images?.backdrops.map((item) => (
           <a
             href={`https://image.tmdb.org/t/p/w1280/${item.file_path}`}
             key={item.file_path}
@@ -70,10 +65,10 @@ export default function Images({ id, contentType }: ImagesProps) {
       </section>
 
       <h1 className="text-sm font-semibold text-primary pt-4">
-        Cartazes {posters.length}
+        Cartazes {images?.posters.length}
       </h1>
       <section className="grid grid-cols-2 lg:grid-cols-4 pt-4 items-center gap-4">
-        {posters.map((item) => (
+        {images?.posters.map((item) => (
           <a
             href={`https://image.tmdb.org/t/p/w780/${item.file_path}`}
             key={item.file_path}

@@ -3,7 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./_context/theme-provider";
 import { ReactQueryProvider } from "./react-query-provider";
-
+import { ScrollTop } from "./_components/scroll-top";
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "300", "400", "500", "600", "700", "800"]
@@ -30,6 +30,8 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
+
+            <ScrollTop />
           </ThemeProvider>
         </ReactQueryProvider>
       </body>

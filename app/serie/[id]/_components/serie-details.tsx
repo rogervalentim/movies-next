@@ -69,6 +69,7 @@ export function SerieDetails({ id }: SerieDetailsProps) {
       case TABS.TEMPORADAS:
         return (
           <Suspense fallback={<Loading />}>
+            <div id="seasons" />
             <Seasons id={id} />
           </Suspense>
         );

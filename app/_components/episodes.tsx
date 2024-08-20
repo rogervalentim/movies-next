@@ -98,7 +98,7 @@ export function Episodes({ id, onShowSeasons }: EpisodesProps) {
               className="px-8 py-3 bg-gradient-to-tl from-[#3a3cff] to-[#2a18ff] shadow-lg text-white text-sm font-medium rounded-full hover:scale-105 transition-transform duration-200 ease-in-out"
               onClick={onShowSeasons}
             >
-              Ver Episódios
+              <a href="#seasons">Ver Episódios</a>
             </Button>
           </div>
         </div>

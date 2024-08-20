@@ -1,5 +1,6 @@
 import { Loading } from "@/app/_components/loading";
 import { apiKey } from "@/app/utils/api-key";
+import { useQuery } from "@tanstack/react-query";
 import { Play, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -16,9 +17,6 @@ interface Video {
 }
 
 export default function Videos({ id, contentType }: VideosProps) {
-  const [videos, setVideos] = useState<Video[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedVideoId, setSelectedVideoId] = useState("");
 
@@ -32,43 +30,28 @@ export default function Videos({ id, contentType }: VideosProps) {
     setModalOpen(false);
   };
 
-  useEffect(() => {
-    fetchVideos();
-  }, [id]);
-
-  async function fetchVideos() {
-    try {
+  const { data: videos, isLoading } = useQuery<Video[]>({
+    queryKey: ["get-videos", id],
+    queryFn: async () => {
       const response = await fetch(
-        `https://api.themoviedb.org/3/${contentType}/${id}/videos?api_key=${apiKey}&language=en-US`
+        `https://api.themoviedb.org/3/${contentType}/${id}/videos?api_key=${apiKey}`
       );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
       const data = await response.json();
-      setVideos(data.results);
-      console.log(data.results);
-      setLoading(true);
-    } catch (error) {
-      setError("Failed to fetch videos");
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }
 
-  if (loading) {
+      return data.results;
+    },
+    enabled: !!id
+  });
+
+  if (isLoading) {
     return <Loading />;
-  }
-
-  if (error) {
-    return <p>{error}</p>;
   }
 
   return (
     <section>
-      {videos.length > 0 ? (
+      {videos && videos.length > 0 ? (
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {videos.map((video) => (
+          {videos?.map((video) => (
             <li className="relative aspect-video" key={video.key}>
               <div className="relative aspect-video cursor-pointer">
                 <Image
@@ -97,7 +80,11 @@ export default function Videos({ id, contentType }: VideosProps) {
           ))}
         </ul>
       ) : (
-        <p>Sem videos para esse filme selecionado</p>
+        <p>
+          {contentType === "tv"
+            ? "sem videos para essa série selecionada"
+            : "sem videos para esse filme selecionado"}
+        </p>
       )}
       {modalOpen && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 flex justify-center items-center z-50">
