@@ -113,17 +113,7 @@ export function Collection({
                     key={item.id}
                     className="flex flex-col items-center bg-background border border-border rounded-lg shadow"
                   >
-                    <div className="relative w-full flex items-center justify-center">
-                      <Image
-                        src={`https://image.tmdb.org/t/p/w1280${item.backdrop_path}`}
-                        alt={item.title}
-                        width={0}
-                        height={0}
-                        quality={100}
-                        sizes="100vh"
-                        className="shadow-md h-60 w-full object-cover"
-                        loading="lazy"
-                      />
+                    <div className="flex w-full">
                       <Image
                         src={`https://image.tmdb.org/t/p/w780${item.poster_path}`}
                         alt={item.title}
@@ -131,16 +121,20 @@ export function Collection({
                         height={0}
                         quality={100}
                         sizes="100vh"
-                        className="absolute shadow-md h-auto w-[45%] object-cover"
-                        style={{
-                          top: "50%",
-                          left: "50%",
-                          transform: "translate(-50%, -50%)"
-                        }}
+                        className="shadow-md h-72 w-[45%] object-cover"
+                        loading="lazy"
+                      />
+                      <Image
+                        src={`https://image.tmdb.org/t/p/w1280${item.backdrop_path}`}
+                        alt={item.title}
+                        width={0}
+                        height={0}
+                        quality={100}
+                        sizes="100vh"
+                        className="shadow-md h-72 w-[55%] object-cover"
                         loading="lazy"
                       />
                     </div>
-
                     <div className="flex flex-col justify-between p-4 leading-normal">
                       <h5 className="mb-2 text-2xl font-bold tracking-tight text-primary">
                         {item.title}
