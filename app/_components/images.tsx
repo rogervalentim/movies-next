@@ -57,7 +57,7 @@ export default function Images({ id, contentType }: ImagesProps) {
               height={0}
               quality={100}
               sizes="100vh"
-              className="rounded-lg shadow-md w-full h-auto object-cover"
+              className="rounded-lg shadow-md border border-border w-full h-auto object-cover"
               loading="lazy"
             />
           </a>
@@ -82,7 +82,7 @@ export default function Images({ id, contentType }: ImagesProps) {
               height={0}
               quality={100}
               sizes="100vh"
-              className="rounded-lg shadow-md w-full h-auto"
+              className="rounded-lg shadow-md border border-border w-full h-auto"
               loading="lazy"
             />
           </a>

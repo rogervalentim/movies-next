@@ -6,6 +6,7 @@ import { Loading } from "@/app/_components/loading";
 import { useMovieDetails } from "@/app/_hooks/use-movie-details";
 import Image from "next/image";
 import { ScrollTop } from "@/app/_components/scroll-top";
+import { Clapperboard } from "lucide-react";
 
 const Overview = React.lazy(() => import("@/app/_components/overview"));
 const Cast = React.lazy(() => import("@/app/_components/cast"));
@@ -82,15 +83,21 @@ export function MovieDetails({ id }: MovieDetailsProps) {
           <Suspense fallback={<Loading />}>
             <div className="relative  lg:flex justify-center hidden items-center">
               <div className="relative w-full px-32">
-                <Image
-                  src={`https://image.tmdb.org/t/p/w1280/${movieDetails.backdrop_path}`}
-                  alt={movieDetails.title}
-                  width={0}
-                  height={0}
-                  quality={100}
-                  sizes="100vw"
-                  className="object-cover h-[80dvh] w-full rounded-b-lg"
-                />
+                {movieDetails?.backdrop_path ? (
+                  <Image
+                    src={`https://image.tmdb.org/t/p/w1280/${movieDetails.backdrop_path}`}
+                    alt={movieDetails.title}
+                    width={0}
+                    height={0}
+                    quality={100}
+                    sizes="100vw"
+                    className="object-cover h-[80dvh] w-full rounded-b-lg"
+                  />
+                ) : (
+                  <div className="flex justify-center items-center w-full bg-[#3a3cff] rounded-lg shadow-md">
+                    <Clapperboard size={24} className="text-white" />
+                  </div>
+                )}
               </div>
 
               <div className="absolute left-32 bottom-0  transform translate-x-0 translate-y-0">

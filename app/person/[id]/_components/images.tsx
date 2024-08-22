@@ -47,7 +47,7 @@ export function Images({ id }: ImagesProps) {
               height={0}
               quality={100}
               sizes="100vh"
-              className="rounded-lg shadow-md w-full h-72"
+              className="rounded-lg shadow-md border border-border w-full h-72"
               alt={image.file_path}
             />
           </a>

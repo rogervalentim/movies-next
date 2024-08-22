@@ -15,7 +15,10 @@ export function SeasonsItem({
   episode_count
 }: SeasonsItemProps) {
   return (
-    <div className="relative transition-transform duration-300 group hover:scale-105">
+    <div
+      className="relative transition-transform duration-300 group hover:scale-105"
+      id="seasons"
+    >
       {poster_path ? (
         <Image
           src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
@@ -24,7 +27,7 @@ export function SeasonsItem({
           height={0}
           quality={100}
           sizes="100vh"
-          className="rounded-lg w-full brightness-50 h-64 lg:h-96"
+          className="rounded-lg w-full border border-border brightness-50 h-64 lg:h-96"
         />
       ) : (
         <div className="flex justify-center items-center w-full h-60 lg:h-96 bg-[#3a3cff] rounded-lg">

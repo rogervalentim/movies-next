@@ -32,7 +32,7 @@ export function SearchItem({
           height={0}
           quality={100}
           sizes="100vh"
-          className="rounded-lg  w-full brightness-50 h-64 lg:h-96 "
+          className="rounded-lg  w-full border border-border brightness-50 h-64 lg:h-96 "
         />
       ) : (
         <div className="flex justify-center items-center w-full h-64 lg:h-96 bg-[#3a3cff] rounded-lg relative transition-transform duration-300 group-hover:scale-105" />

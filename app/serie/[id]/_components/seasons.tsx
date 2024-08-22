@@ -16,6 +16,7 @@ import Image from "next/image";
 import { Button } from "@/app/_components/ui/button";
 import { formatDuration } from "@/app/utils/format-duration";
 import { formatDate } from "@/app/utils/format-date";
+import { EpisodeItem } from "./episode-item";
 
 interface SeasonsProps {
   id: number;
@@ -36,9 +37,17 @@ interface EpisodeData {
   name: string;
   overview: string;
   air_date: string;
+  episode_number: number;
   runtime: number;
   still_path: string;
   vote_average: number;
+  crew: [
+    {
+      id: number;
+      profile_path: string;
+      known_for_department: string;
+    }
+  ];
 }
 
 export function Seasons({ id }: SeasonsProps) {
@@ -124,39 +133,16 @@ export function Seasons({ id }: SeasonsProps) {
               </DialogHeader>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4  mt-4">
                 {episodesData?.map((item) => (
-                  <div
+                  <EpisodeItem
                     key={item.id}
-                    className="flex flex-col items-center bg-background border border-border rounded-lg shadow"
-                  >
-                    {item.still_path ? (
-                      <Image
-                        src={`https://image.tmdb.org/t/p/w780${item.still_path}`}
-                        alt={item.name}
-                        width={0}
-                        height={0}
-                        quality={100}
-                        sizes="100vh"
-                        className="rounded-t-lg shadow-md h-60  w-full"
-                      />
-                    ) : (
-                      <div className="flex justify-center items-center w-full h-56 lg:h-60 bg-[#3a3cff] rounded-lg shadow-md" />
-                    )}
-                    <div className="flex flex-col justify-between p-4 leading-normal">
-                      <h5 className="mb-2 text-lg font-bold tracking-tight text-primary">
-                        {item.name}
-                      </h5>
-                      <p className="mb-3 font-normal text-muted-foreground">
-                        {item.overview}
-                      </p>
-                      <div className="flex gap-3 items-center">
-                        <div className="text-primary">
-                          {item.vote_average.toFixed(2)}
-                        </div>
-                        <div>{formatDuration(item.runtime)}</div>
-                        <div>{formatDate(item.air_date)}</div>
-                      </div>
-                    </div>
-                  </div>
+                    name={item.name}
+                    still_path={item.still_path}
+                    air_date={item.air_date}
+                    overview={item.overview}
+                    episode_number={item.episode_number}
+                    runtime={item.runtime}
+                    vote_average={item.vote_average}
+                  />
                 ))}
               </div>
             </ScrollArea>

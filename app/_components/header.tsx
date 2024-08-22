@@ -39,7 +39,7 @@ export function Header() {
   const [selectedTheme, setSelectedTheme] = useState(theme);
 
   return (
-    <header className="flex justify-between items-center bg-card border-border border-b px-5 lg:px-32 p-4">
+    <header className="flex justify-between items-center bg-card border-border border-b px-5 lg:px-32 p-3">
       <Link href="/">
         <div className="flex gap-2 items-center">
           <Clapperboard size={25} className="text-[#2a18ff]" />

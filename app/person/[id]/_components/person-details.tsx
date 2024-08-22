@@ -9,6 +9,7 @@ import Image from "next/image";
 import { Images } from "./images";
 import { usePersonDetails } from "@/app/_hooks/use-person-details";
 import { useCombinedCredits } from "@/app/_hooks/use-combined-credits";
+import { Clapperboard } from "lucide-react";
 
 interface PersonDetailsProps {
   id: number;
@@ -47,15 +48,21 @@ export function PersonDetails({ id }: PersonDetailsProps) {
               <div className="relative w-full">
                 {latestWork ? (
                   <>
-                    <Image
-                      src={`https://image.tmdb.org/t/p/w1280/${latestWork?.backdrop_path}`}
-                      alt={personDetails.name}
-                      width={0}
-                      height={0}
-                      quality={100}
-                      sizes="100vw"
-                      className="object-cover h-[80dvh] w-full rounded-b-lg"
-                    />
+                    {latestWork?.backdrop_path ? (
+                      <Image
+                        src={`https://image.tmdb.org/t/p/w1280/${latestWork?.backdrop_path}`}
+                        alt={personDetails.name}
+                        width={0}
+                        height={0}
+                        quality={100}
+                        sizes="100vw"
+                        className="object-cover h-[80dvh] w-full rounded-b-lg"
+                      />
+                    ) : (
+                      <div className="flex justify-center items-center  h-[80dvh] w-full bg-[#3a3cff] rounded-lg shadow-md">
+                        <Clapperboard size={100} className="text-white" />
+                      </div>
+                    )}
                     <div className="absolute right-2 top-2 flex items-center gap-[2px] rounded-full bg-white px-2 py-[2px] font-medium text-[#323232]">
                       <p className="text-sm">
                         Este foi o último trabalho de {personDetails.name}:{" "}

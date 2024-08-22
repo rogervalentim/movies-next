@@ -16,16 +16,17 @@ interface EpisodesData {
   season_number: number;
   still_path: string;
   episode_number: number;
+  vote_average: number;
 }
 
 export function Episodes({ id, onShowSeasons }: EpisodesProps) {
   const [episodeData, setEpisodeData] = useState<EpisodesData | null>(null);
 
   useEffect(() => {
-    fetchLatestEpisode();
+    fetchBestEpisode();
   }, [id]);
 
-  async function fetchLatestEpisode() {
+  async function fetchBestEpisode() {
     try {
       const seriesResponse = await fetch(
         `https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}&language=pt-BR`
@@ -33,31 +34,32 @@ export function Episodes({ id, onShowSeasons }: EpisodesProps) {
       const seriesData = await seriesResponse.json();
       let seasonNumber = seriesData.number_of_seasons;
 
-      while (seasonNumber > 0) {
+      let bestEpisode: EpisodesData | null = null;
+
+      for (let season = 1; season <= seasonNumber; season++) {
         const seasonResponse = await fetch(
-          `https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber}?api_key=${apiKey}&language=pt-BR`
+          `https://api.themoviedb.org/3/tv/${id}/season/${season}?api_key=${apiKey}&language=pt-BR`
         );
         const seasonData = await seasonResponse.json();
 
-        if (seasonData.episodes && seasonData.episodes.length > 0) {
-          const lastEpisodeNumber =
-            seasonData.episodes[seasonData.episodes.length - 1].episode_number;
+        for (const episode of seasonData.episodes) {
+          if (!bestEpisode || episode.vote_average > bestEpisode.vote_average) {
+            const episodeResponse = await fetch(
+              `https://api.themoviedb.org/3/tv/${id}/season/${season}/episode/${episode.episode_number}?api_key=${apiKey}&language=pt-BR`
+            );
+            const episodeData = await episodeResponse.json();
 
-          const episodeResponse = await fetch(
-            `https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber}/episode/${lastEpisodeNumber}?api_key=${apiKey}&language=pt-BR`
-          );
-          const episodeData = await episodeResponse.json();
-
-          setEpisodeData({
-            ...episodeData,
-            episode_number: lastEpisodeNumber,
-            season_number: seasonNumber
-          });
-          return;
+            bestEpisode = {
+              ...episodeData,
+              episode_number: episode.episode_number,
+              season_number: season,
+              vote_average: episode.vote_average
+            };
+          }
         }
-
-        seasonNumber--;
       }
+
+      setEpisodeData(bestEpisode);
     } catch (error) {
       console.log(error);
     }
