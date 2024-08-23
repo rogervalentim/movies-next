@@ -235,7 +235,7 @@ export function Seasons({ id }: SeasonsProps) {
                   <TabButton
                     onClick={() => handleTabClick(TABS.GUEST_STARS)}
                     isActive={activeTab === TABS.GUEST_STARS}
-                    label="Estrelas convidadas"
+                    label="Estrelas"
                   />
                 </div>
               </DialogHeader>

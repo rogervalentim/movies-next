@@ -63,7 +63,7 @@ export default function Videos({ id, contentType }: VideosProps) {
                   alt={video.name}
                   unoptimized
                   fill
-                  className="rounded-md object-cover"
+                  className="rounded-md border border-border object-cover"
                   loading="lazy"
                 />
                 <button
