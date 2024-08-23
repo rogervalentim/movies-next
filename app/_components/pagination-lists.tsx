@@ -1,11 +1,10 @@
+import React, { useState, useEffect } from "react";
 import {
   Pagination,
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious
+  PaginationLink
 } from "@/app/_components/ui/pagination";
 
 interface PaginationProps {
@@ -14,23 +13,45 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-const MAX_VISIBLE_PAGES = 10;
+const DEFAULT_MAX_VISIBLE_PAGES = 10;
+const RESPONSIVE_MAX_VISIBLE_PAGES = 5;
 
 export function PaginationLists({
   currentPage,
   totalPages,
   onPageChange
 }: PaginationProps) {
+  const [maxVisiblePages, setMaxVisiblePages] = useState(
+    DEFAULT_MAX_VISIBLE_PAGES
+  );
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth < 640) {
+        setMaxVisiblePages(RESPONSIVE_MAX_VISIBLE_PAGES);
+      } else {
+        setMaxVisiblePages(DEFAULT_MAX_VISIBLE_PAGES);
+      }
+    }
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   function getPaginationRange(
     currentPage: number,
     totalPages: number
   ): number[] {
     const range: number[] = [];
-    let start = Math.max(1, currentPage - Math.floor(MAX_VISIBLE_PAGES / 2));
-    let end = Math.min(totalPages, start + MAX_VISIBLE_PAGES - 1);
+    let start = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let end = Math.min(totalPages, start + maxVisiblePages - 1);
 
-    if (end - start + 1 < MAX_VISIBLE_PAGES) {
-      start = Math.max(1, end - MAX_VISIBLE_PAGES + 1);
+    if (end - start + 1 < maxVisiblePages) {
+      start = Math.max(1, end - maxVisiblePages + 1);
     }
 
     for (let i = start; i <= end; i++) {
@@ -43,14 +64,6 @@ export function PaginationLists({
   return (
     <Pagination>
       <PaginationContent className="pt-10">
-        <PaginationItem>
-          <PaginationPrevious
-            onClick={(e) => {
-              e.preventDefault();
-              if (currentPage > 1) onPageChange(currentPage - 1);
-            }}
-          />
-        </PaginationItem>
         {getPaginationRange(currentPage, totalPages).map((pageNumber) => (
           <PaginationItem key={pageNumber}>
             <PaginationLink
@@ -64,22 +77,10 @@ export function PaginationLists({
             </PaginationLink>
           </PaginationItem>
         ))}
-        {totalPages > MAX_VISIBLE_PAGES && (
-          <>
-            {currentPage < totalPages && (
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-            )}
-            <PaginationItem>
-              <PaginationNext
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (currentPage < totalPages) onPageChange(currentPage + 1);
-                }}
-              />
-            </PaginationItem>
-          </>
+        {totalPages > maxVisiblePages && currentPage < totalPages && (
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
         )}
       </PaginationContent>
     </Pagination>

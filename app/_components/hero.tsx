@@ -70,7 +70,7 @@ export function Hero({ contentType }: HeroProps) {
         </div>
 
         <div className="max-w-3xl text-center mx-auto">
-          <p className="text-lg text-white/70 line-clamp-3">{data?.overview}</p>
+          <p className="text-lg text-gray-300 line-clamp-3">{data?.overview}</p>
         </div>
 
         <div className="text-center">

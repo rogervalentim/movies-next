@@ -75,7 +75,7 @@ export function PersonDetails({ id }: PersonDetailsProps) {
 
               <div className="absolute left-32 bottom-0 transform translate-x-0 translate-y-0">
                 <Image
-                  src={`https://image.tmdb.org/t/p/w780/${personDetails.profile_path}`}
+                  src={`https://image.tmdb.org/t/p/w342/${personDetails.profile_path}`}
                   alt={personDetails.name}
                   width={0}
                   height={0}

@@ -65,7 +65,7 @@ export function Collection({
   return (
     <div className="relative overflow-hidden">
       <div
-        className="absolute brightness-50 rounded-lg inset-0"
+        className="absolute bg-gradient-to-t brightness-50 from-black to-transparent rounded-lg inset-0"
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/w1280${backdrop_path || poster_path})`,
           backgroundSize: "cover",
@@ -79,12 +79,12 @@ export function Collection({
       <div className="relative px-5 lg:px-0 py-24 space-y-8">
         <div className="w-full mx-auto px-4 rounded-lg sm:px-6 lg:px-8">
           <div className="max-w-3xl text-center mx-auto">
-            <h1 className="block font-medium text-gray-200 text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="block font-bold text-gray-100 text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight drop-shadow-lg">
               {name}
             </h1>
           </div>
 
-          <p className="max-w-3xl text-center text-white/70 mx-auto mt-4">
+          <p className="max-w-3xl text-center text-white mx-auto mt-4 text-lg sm:text-xl md:text-2xl leading-relaxed">
             Incluindo{" "}
             {collectionData?.parts.map((item) => item.title).join(", ")}
           </p>
@@ -115,7 +115,7 @@ export function Collection({
                   >
                     <div className="flex w-full">
                       <Image
-                        src={`https://image.tmdb.org/t/p/w780${item.poster_path}`}
+                        src={`https://image.tmdb.org/t/p/w342${item.poster_path}`}
                         alt={item.title}
                         width={0}
                         height={0}
@@ -125,7 +125,7 @@ export function Collection({
                         loading="lazy"
                       />
                       <Image
-                        src={`https://image.tmdb.org/t/p/w1280${item.backdrop_path}`}
+                        src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
                         alt={item.title}
                         width={0}
                         height={0}

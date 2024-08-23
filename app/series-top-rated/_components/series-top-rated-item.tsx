@@ -24,7 +24,7 @@ export function SeriesTopRatedItem({
           height={0}
           quality={100}
           sizes="100vh"
-          className="rounded-lg  w-full brightness-50 h-64 lg:h-96 "
+          className="rounded-lg  w-full border border-border h-64 lg:h-96 "
         />
       ) : (
         <div className="flex justify-center items-center w-full h-60 lg:h-96 bg-[#3a3cff] rounded-lg relative transition-transform duration-300 group-hover:scale-105">
@@ -39,7 +39,7 @@ export function SeriesTopRatedItem({
           </div>
         )}
 
-        <div className="absolute inset-0 flex flex-col justify-center items-start px-4 text-white  rounded-lg">
+        <div className="absolute inset-0 flex flex-col justify-center items-start bg-gradient-to-t from-black to-transparent px-4 text-white  rounded-lg">
           <span className="text-lg font-medium line-clamp-2 py-1">{name}</span>
 
           {year && (

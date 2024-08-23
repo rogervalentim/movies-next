@@ -34,7 +34,6 @@ export function Credits({ id }: CreditsProps) {
       );
       const data = await response.json();
 
-      // Filtrando dados para remover duplicatas
       const uniqueCredits = data.cast.reduce(
         (acc: CreditsData[], current: CreditsData) => {
           const x = acc.find((item) => item.id === current.id);

@@ -23,7 +23,7 @@ export function CastCard({ id, name, character, profile_path }: CastCardProps) {
               height={0}
               quality={100}
               sizes="100vh"
-              className="rounded-lg shadow-md w-full h-56 object-cover"
+              className="rounded-lg shadow-md  border border-border w-full h-56 object-cover"
               loading="lazy"
             />
           ) : (
@@ -35,7 +35,7 @@ export function CastCard({ id, name, character, profile_path }: CastCardProps) {
 
         <span className="block text-lg truncate text-primary">{name}</span>
         <span className="block text-base truncate text-muted-foreground">
-          {character === null ? "Sem o nome do personagem" : character}
+          {character === "" ? "Sem o nome do personagem" : character}
         </span>
 
         <Button className="bg-gradient-to-b text-white w-full rounded-md from-[#3a3cff] to-[#2a18ff] hover:bg-gradient-to-b hover:from[#2a18ff] hover:to-[#1e0ae3]">

@@ -33,7 +33,7 @@ export function Card({
                 height={0}
                 quality={100}
                 sizes="100vh"
-                className="rounded-lg shadow-md w-full h-56 lg:h-60 object-cover"
+                className="rounded-lg shadow-md  border border-border w-full h-56 lg:h-60 object-cover"
               />
             ) : (
               <div className="flex justify-center items-center w-full h-56 lg:h-60 bg-[#3a3cff] rounded-lg shadow-md">

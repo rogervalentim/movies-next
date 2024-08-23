@@ -1,22 +1,17 @@
-"use client";
-
+import React, { useState, useCallback, useEffect, Suspense } from "react";
 import { apiKey } from "@/app/utils/api-key";
-import { useEffect, useState } from "react";
-import { SeasonsItem } from "./seasons-item";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger
+  DialogTitle
 } from "@/app/_components/ui/dialog";
 import { ScrollArea } from "@/app/_components/ui/scroll-area";
-import Image from "next/image";
-import { Button } from "@/app/_components/ui/button";
-import { formatDuration } from "@/app/utils/format-duration";
-import { formatDate } from "@/app/utils/format-date";
+import { TabButton } from "@/app/_components/tab-button";
+import { SeasonsItem } from "./seasons-item";
 import { EpisodeItem } from "./episode-item";
+import { Loading } from "@/app/_components/loading";
+import { CrewItem } from "./crew-item";
 
 interface SeasonsProps {
   id: number;
@@ -32,6 +27,20 @@ interface SeasonsData {
   season_number: number;
 }
 
+interface CrewProps {
+  id: number;
+  name: string;
+  job: string;
+  profile_path: string;
+}
+
+interface GuestStarsProps {
+  id: number;
+  name: string;
+  profile_path: string;
+  character: string;
+}
+
 interface EpisodeData {
   id: number;
   name: string;
@@ -41,19 +50,25 @@ interface EpisodeData {
   runtime: number;
   still_path: string;
   vote_average: number;
-  crew: [
-    {
-      id: number;
-      profile_path: string;
-      known_for_department: string;
-    }
-  ];
+  crew: CrewProps[];
+  guest_stars: GuestStarsProps[];
 }
+
+const TABS = {
+  EPISODES: "episodes",
+  CREW: "crew",
+  GUEST_STARS: "guest star"
+};
 
 export function Seasons({ id }: SeasonsProps) {
   const [seasonsData, setSeasonsData] = useState<SeasonsData[]>([]);
   const [episodesData, setEpisodesData] = useState<EpisodeData[]>([]);
   const [selectedSeason, setSelectedSeason] = useState<number | null>(null);
+  const [activeTab, setActiveTab] = useState(TABS.EPISODES);
+
+  const handleTabClick = useCallback((tab: string) => {
+    setActiveTab(tab);
+  }, []);
 
   useEffect(() => {
     if (id) {
@@ -86,7 +101,6 @@ export function Seasons({ id }: SeasonsProps) {
       }
       const data = await response.json();
       setEpisodesData(data.episodes);
-      console.log(data.episodes);
       setSelectedSeason(seasonNumber);
     } catch (error) {
       console.log(error);
@@ -97,6 +111,83 @@ export function Seasons({ id }: SeasonsProps) {
     (season) => season.season_number === selectedSeason
   );
 
+  const getUniqueCrew = (episodes: EpisodeData[]) => {
+    const crewMap = new Map<number, CrewProps>();
+    episodes.forEach((episode) =>
+      episode.crew.forEach((crewMember) =>
+        crewMap.set(crewMember.id, crewMember)
+      )
+    );
+    return Array.from(crewMap.values());
+  };
+
+  const getUniqueGuestStars = (episodes: EpisodeData[]) => {
+    const guestStarsMap = new Map<number, GuestStarsProps>();
+    episodes.forEach((episode) =>
+      episode.guest_stars.forEach((castMember) =>
+        guestStarsMap.set(castMember.id, castMember)
+      )
+    );
+    return Array.from(guestStarsMap.values());
+  };
+
+  const uniqueCrew = getUniqueCrew(episodesData);
+  const uniqueGuestStars = getUniqueGuestStars(episodesData);
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case TABS.EPISODES:
+        return (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
+            {episodesData?.map((item) => (
+              <EpisodeItem
+                key={item.id}
+                name={item.name}
+                still_path={item.still_path}
+                air_date={item.air_date}
+                overview={item.overview}
+                episode_number={item.episode_number}
+                runtime={item.runtime}
+                vote_average={item.vote_average}
+              />
+            ))}
+          </div>
+        );
+
+      case TABS.CREW:
+        return (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+            {uniqueCrew?.map((crewMember) => (
+              <CrewItem
+                key={crewMember.id}
+                id={crewMember.id}
+                name={crewMember.name}
+                profile_path={crewMember.profile_path}
+                job={crewMember.job}
+              />
+            ))}
+          </div>
+        );
+
+      case TABS.GUEST_STARS:
+        return (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+            {uniqueGuestStars?.map((castMember) => (
+              <CrewItem
+                key={castMember.id}
+                id={castMember.id}
+                name={castMember.name}
+                profile_path={castMember.profile_path}
+                character={castMember.character}
+              />
+            ))}
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       {seasonsData.length > 0 && (
@@ -104,7 +195,10 @@ export function Seasons({ id }: SeasonsProps) {
           {seasonsData.map((season) => (
             <button
               key={season.id}
-              onClick={() => fetchEpisodes(season.season_number)}
+              onClick={() => {
+                fetchEpisodes(season.season_number);
+                setActiveTab(TABS.EPISODES);
+              }}
             >
               <SeasonsItem
                 poster_path={season.poster_path}
@@ -127,24 +221,26 @@ export function Seasons({ id }: SeasonsProps) {
             <ScrollArea className="max-h-[80dvh] md:pr-4">
               <DialogHeader>
                 <DialogTitle>Temporada {selectedSeason}</DialogTitle>
-                <DialogDescription>
-                  {selectedSeasonData?.overview || "Descrição não disponível."}
-                </DialogDescription>
-              </DialogHeader>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4  mt-4">
-                {episodesData?.map((item) => (
-                  <EpisodeItem
-                    key={item.id}
-                    name={item.name}
-                    still_path={item.still_path}
-                    air_date={item.air_date}
-                    overview={item.overview}
-                    episode_number={item.episode_number}
-                    runtime={item.runtime}
-                    vote_average={item.vote_average}
+                <div className="flex gap-2 overflow-x-scroll pt-4 [&::-webkit-scrollbar]:hidden">
+                  <TabButton
+                    onClick={() => handleTabClick(TABS.EPISODES)}
+                    isActive={activeTab === TABS.EPISODES}
+                    label="Episódios"
                   />
-                ))}
-              </div>
+                  <TabButton
+                    onClick={() => handleTabClick(TABS.CREW)}
+                    isActive={activeTab === TABS.CREW}
+                    label="Equipe"
+                  />
+                  <TabButton
+                    onClick={() => handleTabClick(TABS.GUEST_STARS)}
+                    isActive={activeTab === TABS.GUEST_STARS}
+                    label="Estrelas convidadas"
+                  />
+                </div>
+              </DialogHeader>
+
+              <Suspense fallback={<Loading />}>{renderContent()}</Suspense>
             </ScrollArea>
           </DialogContent>
         </Dialog>

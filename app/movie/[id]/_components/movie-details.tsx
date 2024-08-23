@@ -102,7 +102,7 @@ export function MovieDetails({ id }: MovieDetailsProps) {
 
               <div className="absolute left-32 bottom-0  transform translate-x-0 translate-y-0">
                 <Image
-                  src={`https://image.tmdb.org/t/p/w780/${movieDetails.poster_path}`}
+                  src={`https://image.tmdb.org/t/p/w342/${movieDetails.poster_path}`}
                   alt={movieDetails.title}
                   width={0}
                   height={0}
