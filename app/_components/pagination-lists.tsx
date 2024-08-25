@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import {
   Pagination,
@@ -71,6 +73,10 @@ export function PaginationLists({
               onClick={(e) => {
                 e.preventDefault();
                 onPageChange(pageNumber);
+                window.scrollTo({
+                  top: 0,
+                  behavior: "smooth"
+                });
               }}
             >
               {pageNumber}

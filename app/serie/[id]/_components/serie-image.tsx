@@ -20,7 +20,7 @@ export default function SerieImage({ poster_path, name }: SerieImageProps) {
   return (
     <div className="relative h-[30rem] w-full lg:hidden">
       <Image
-        src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+        src={`https://image.tmdb.org/t/p/w780/${poster_path}`}
         alt={name}
         width={0}
         height={0}

@@ -21,7 +21,7 @@ export default function MovieImage({ poster_path, title }: MovieImageProps) {
     <>
       <div className="relative h-[30rem] w-full lg:hidden">
         <Image
-          src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+          src={`https://image.tmdb.org/t/p/w780/${poster_path}`}
           alt={title}
           width={0}
           height={0}
