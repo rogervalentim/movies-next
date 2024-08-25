@@ -19,76 +19,18 @@ export default function SeriesPage() {
       </div>
 
       <div className="space-y-4 pt-10 px-5 lg:px-32">
-        <div className="flex items-center justify-between  lg:px-0">
-          <h2 className="font-semibold text-primary">Séries em tendência</h2>
-
-          <Button
-            variant="ghost"
-            className="h-fit p-0 text-[#3a3cff] hover:bg-transparent"
-            asChild
-          >
-            <Link href="/series-trending">
-              Ver todos
-              <ChevronRightIcon size={16} />
-            </Link>
-          </Button>
-        </div>
         <SeriesTrending />
       </div>
 
       <div className="space-y-4 pt-10 px-5 lg:px-32">
-        <div className="flex items-center justify-between  lg:px-0">
-          <h2 className="font-semibold text-primary">
-            Séries melhores classificadas
-          </h2>
-
-          <Button
-            variant="ghost"
-            className="h-fit p-0 text-[#3a3cff] hover:bg-transparent"
-            asChild
-          >
-            <Link href="/series-top-rated">
-              Ver todos
-              <ChevronRightIcon size={16} />
-            </Link>
-          </Button>
-        </div>
         <SeriesTopRated />
       </div>
 
       <div className="space-y-4 pt-10 px-5 lg:px-32">
-        <div className="flex items-center justify-between  lg:px-0">
-          <h2 className="font-semibold text-primary">Séries populares</h2>
-
-          <Button
-            variant="ghost"
-            className="h-fit p-0 text-[#3a3cff] hover:bg-transparent"
-            asChild
-          >
-            <Link href="/series-popular">
-              Ver todos
-              <ChevronRightIcon size={16} />
-            </Link>
-          </Button>
-        </div>
         <SeriesPopular />
       </div>
 
       <div className="space-y-4 pt-10 px-5 lg:px-32">
-        <div className="flex items-center justify-between  lg:px-0">
-          <h2 className="font-semibold text-primary">Séries em exibição</h2>
-
-          <Button
-            variant="ghost"
-            className="h-fit p-0 text-[#3a3cff] hover:bg-transparent"
-            asChild
-          >
-            <Link href="/series-now-playing">
-              Ver todos
-              <ChevronRightIcon size={16} />
-            </Link>
-          </Button>
-        </div>
         <SeriesNowPlaying />
       </div>
 

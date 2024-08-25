@@ -17,20 +17,6 @@ export default function Home() {
       </div>
 
       <div className="space-y-4 pt-10 px-5 lg:px-32">
-        <div className="flex items-center justify-between  lg:px-0">
-          <h2 className="font-semibold text-primary">Filmes em tendência</h2>
-
-          <Button
-            variant="ghost"
-            className="h-fit p-0 text-[#3a3cff] hover:bg-transparent cursor-pointer"
-            asChild
-          >
-            <Link href="/movies-trending">
-              Ver todos
-              <ChevronRightIcon size={16} />
-            </Link>
-          </Button>
-        </div>
         <MoviesTrending />
       </div>
 
@@ -39,20 +25,6 @@ export default function Home() {
       </div>
 
       <div className="space-y-4 pt-10 px-5 lg:px-32">
-        <div className="flex items-center justify-between lg:px-0">
-          <h2 className="font-semibold text-primary">Séries em tendência</h2>
-
-          <Button
-            variant="ghost"
-            className="h-fit p-0 text-[#3a3cff] hover:bg-transparent"
-            asChild
-          >
-            <Link href="/series-trending">
-              Ver todos
-              <ChevronRightIcon size={16} />
-            </Link>
-          </Button>
-        </div>
         <SeriesTrending />
       </div>
 

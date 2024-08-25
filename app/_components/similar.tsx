@@ -1,6 +1,8 @@
 import { Card } from "@/app/_components/card";
 import { apiKey } from "@/app/utils/api-key";
 import { useEffect, useState } from "react";
+import { CarouselButton } from "./carousel-button";
+import { useCarousel } from "../_hooks/use-carousel";
 
 interface SimilarProps {
   id: number;
@@ -25,6 +27,14 @@ export function Similar({ id, contentType, title }: SimilarProps) {
     fetchSimilarSeries();
   }, [id]);
 
+  const {
+    isLeftDisabled,
+    isRightDisabled,
+    scrollLeft,
+    scrollRight,
+    carouselRef
+  } = useCarousel();
+
   async function fetchSimilarSeries() {
     try {
       const response = await fetch(
@@ -45,9 +55,26 @@ export function Similar({ id, contentType, title }: SimilarProps) {
   return (
     <>
       <div className="lg:px-0">
-        <h2 className="font-semibold text-primary">{title}</h2>
+        <div className="flex gap-3 items-center">
+          <h2 className="font-semibold text-primary lg:text-lg">{title}</h2>
+          <div className="hidden lg:flex items-center gap-3">
+            <CarouselButton
+              direction="left"
+              onClick={scrollLeft}
+              disabled={isLeftDisabled}
+            />
+            <CarouselButton
+              direction="right"
+              onClick={scrollRight}
+              disabled={isRightDisabled}
+            />
+          </div>
+        </div>
       </div>
-      <section className="flex gap-4 overflow-x-scroll  lg:gap-5  [&::-webkit-scrollbar]:hidden">
+      <section
+        ref={carouselRef}
+        className="flex gap-4 overflow-x-scroll  lg:gap-5  [&::-webkit-scrollbar]:hidden"
+      >
         {similarSeries.map((series) => (
           <Card
             key={series.id}
