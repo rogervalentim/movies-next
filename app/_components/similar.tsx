@@ -27,13 +27,8 @@ export function Similar({ id, contentType, title }: SimilarProps) {
     fetchSimilarSeries();
   }, [id]);
 
-  const {
-    isLeftDisabled,
-    isRightDisabled,
-    scrollLeft,
-    scrollRight,
-    carouselRef
-  } = useCarousel();
+  const { isRightDisabled, scrollLeft, scrollRight, carouselRef } =
+    useCarousel();
 
   async function fetchSimilarSeries() {
     try {
@@ -61,7 +56,7 @@ export function Similar({ id, contentType, title }: SimilarProps) {
             <CarouselButton
               direction="left"
               onClick={scrollLeft}
-              disabled={isLeftDisabled}
+              disabled={false}
             />
             <CarouselButton
               direction="right"

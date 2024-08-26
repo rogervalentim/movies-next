@@ -55,6 +55,11 @@ export function SearchComponent() {
     enabled: !!searchData && page > 0
   });
 
+  function clearSearch(): void {
+    setSearchData("");
+    setPage(1);
+  }
+
   function handleSearch(event: ChangeEvent<HTMLInputElement>): void {
     setSearchData(event.target.value);
     setPage(1);
@@ -66,7 +71,11 @@ export function SearchComponent() {
 
   return (
     <div className="min-h-screen">
-      <Search searchData={searchData} handleSearch={handleSearch} />
+      <Search
+        searchData={searchData}
+        handleSearch={handleSearch}
+        clearSearch={clearSearch}
+      />
 
       <div className="pt-4">
         {searchData === "" ? (

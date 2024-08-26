@@ -43,7 +43,7 @@ export default function Images({ id, contentType }: ImagesProps) {
       <h1 className="text-sm font-semibold text-primary">
         Imagens de fundo {images?.backdrops.length}
       </h1>
-      <section className="grid grid-cols-1 lg:grid-cols-4 pt-4 gap-4">
+      <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 pt-4 gap-4">
         {images?.backdrops.map((item) => (
           <a
             href={`https://image.tmdb.org/t/p/w1280/${item.file_path}`}
@@ -67,7 +67,7 @@ export default function Images({ id, contentType }: ImagesProps) {
       <h1 className="text-sm font-semibold text-primary pt-4">
         Cartazes {images?.posters.length}
       </h1>
-      <section className="grid grid-cols-2 lg:grid-cols-4 pt-4 items-center gap-4">
+      <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 pt-4 items-center gap-4">
         {images?.posters.map((item) => (
           <a
             href={`https://image.tmdb.org/t/p/w780/${item.file_path}`}

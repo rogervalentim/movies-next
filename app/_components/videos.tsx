@@ -1,19 +1,12 @@
 import { Loading } from "@/app/_components/loading";
-import { apiKey } from "@/app/utils/api-key";
-import { useQuery } from "@tanstack/react-query";
 import { Play, X } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useVideos } from "../_hooks/use-videos";
 
 interface VideosProps {
   id: number;
   contentType: string;
-}
-
-interface Video {
-  key: string;
-  name: string;
-  site: string;
 }
 
 export default function Videos({ id, contentType }: VideosProps) {
@@ -30,18 +23,7 @@ export default function Videos({ id, contentType }: VideosProps) {
     setModalOpen(false);
   };
 
-  const { data: videos, isLoading } = useQuery<Video[]>({
-    queryKey: ["get-videos", id],
-    queryFn: async () => {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/${contentType}/${id}/videos?api_key=${apiKey}`
-      );
-      const data = await response.json();
-
-      return data.results;
-    },
-    enabled: !!id
-  });
+  const { data: videos, isLoading } = useVideos(id, contentType);
 
   if (isLoading) {
     return <Loading />;
@@ -50,7 +32,7 @@ export default function Videos({ id, contentType }: VideosProps) {
   return (
     <section>
       {videos && videos.length > 0 ? (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <ul className="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4">
           {videos?.map((video) => (
             <li className="relative aspect-video" key={video.key}>
               <div className="relative aspect-video cursor-pointer">

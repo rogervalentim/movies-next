@@ -31,13 +31,8 @@ export function Recommended({ id, title, contentType }: RecommendedProps) {
     fetchRecommendedMovies();
   }, [id]);
 
-  const {
-    isLeftDisabled,
-    isRightDisabled,
-    scrollLeft,
-    scrollRight,
-    carouselRef
-  } = useCarousel();
+  const { isRightDisabled, scrollLeft, scrollRight, carouselRef } =
+    useCarousel();
 
   async function fetchRecommendedMovies() {
     try {
@@ -65,7 +60,7 @@ export function Recommended({ id, title, contentType }: RecommendedProps) {
             <CarouselButton
               direction="left"
               onClick={scrollLeft}
-              disabled={isLeftDisabled}
+              disabled={false}
             />
             <CarouselButton
               direction="right"
