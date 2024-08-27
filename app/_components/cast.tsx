@@ -4,6 +4,8 @@ import { CastCard } from "@/app/_components/cast-card";
 import { apiKey } from "@/app/utils/api-key";
 import { useQuery } from "@tanstack/react-query";
 import { Loading } from "./loading";
+import { useCarousel } from "../_hooks/use-carousel";
+import { CarouselButton } from "./carousel-button";
 
 interface CastProps {
   id: number;
@@ -30,6 +32,14 @@ async function fetchCastData(
 
 export default function Cast({ id, contentType }: CastProps) {
   const {
+    isLeftDisabled,
+    isRightDisabled,
+    scrollLeft,
+    scrollRight,
+    carouselRef
+  } = useCarousel();
+
+  const {
     data: castData = [],
     isLoading,
     error
@@ -42,16 +52,33 @@ export default function Cast({ id, contentType }: CastProps) {
   if (error) return <p>Error loading cast data</p>;
 
   return (
-    <section className="flex gap-4 overflow-x-scroll lg:gap-5  [&::-webkit-scrollbar]:hidden">
-      {castData.map((cast) => (
-        <CastCard
-          key={cast.id}
-          id={cast.id}
-          profile_path={cast.profile_path}
-          name={cast.name}
-          character={cast.character}
+    <>
+      <div className="hidden lg:flex items-center gap-3">
+        <CarouselButton
+          direction="left"
+          onClick={scrollLeft}
+          disabled={false}
         />
-      ))}
-    </section>
+        <CarouselButton
+          direction="right"
+          onClick={scrollRight}
+          disabled={isRightDisabled}
+        />
+      </div>
+      <section
+        ref={carouselRef}
+        className="flex gap-4 overflow-x-scroll lg:gap-5  [&::-webkit-scrollbar]:hidden pt-4"
+      >
+        {castData.map((cast) => (
+          <CastCard
+            key={cast.id}
+            id={cast.id}
+            profile_path={cast.profile_path}
+            name={cast.name}
+            character={cast.character}
+          />
+        ))}
+      </section>
+    </>
   );
 }

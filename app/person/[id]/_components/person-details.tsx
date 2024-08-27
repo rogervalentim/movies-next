@@ -22,6 +22,14 @@ export function PersonDetails({ id }: PersonDetailsProps) {
   const { personDetails } = usePersonDetails(id);
   const { latestWork } = useCombinedCredits(id);
 
+  useEffect(() => {
+    if (personDetails?.name) {
+      document.title = `${personDetails.name} | Movies`;
+    } else {
+      document.title = "Movies";
+    }
+  }, [personDetails]);
+
   function toggleCredits() {
     setShowCredits(true);
     setShowImages(false);

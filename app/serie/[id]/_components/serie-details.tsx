@@ -1,4 +1,4 @@
-import React, { useState, useCallback, Suspense } from "react";
+import React, { useState, useCallback, Suspense, useEffect } from "react";
 import { TabButton } from "@/app/_components/tab-button";
 import { Header } from "./header";
 import { AdditionalContent } from "./additional-content";
@@ -30,6 +30,14 @@ const TABS = {
 export function SerieDetails({ id }: SerieDetailsProps) {
   const [activeTab, setActiveTab] = useState(TABS.OVERVIEW);
   const { serieDetails, error } = useSerieDetails(id);
+
+  useEffect(() => {
+    if (serieDetails?.name) {
+      document.title = `${serieDetails.name} | Series`;
+    } else {
+      document.title = "Movies";
+    }
+  }, [serieDetails]);
 
   const handleTabClick = useCallback((tab: string) => {
     setActiveTab(tab);
