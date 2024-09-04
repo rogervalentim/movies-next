@@ -32,7 +32,7 @@ export default function SerieImage({
           height={0}
           quality={100}
           sizes="100vh"
-          className="h-full w-full object-cover animate-pulse bg-muted"
+          className="h-full w-full object-cover bg-muted"
           loading="lazy"
         />
 
@@ -44,7 +44,7 @@ export default function SerieImage({
             height={0}
             quality={100}
             sizes="100vh"
-            className="h-40 w-28 md:h-48 md:w-32 object-cover rounded-lg animate-pulse bg-muted shadow-md"
+            className="h-40 w-28 md:h-48 md:w-32 object-cover rounded-lg bg-muted shadow-md"
             loading="lazy"
           />
         </div>
