@@ -26,7 +26,7 @@ export default function SerieImage({
     <div className="relative w-full lg:hidden">
       <div className="relative h-[25rem]  w-full">
         <Image
-          src={`https://image.tmdb.org/t/p/w780${backdrop_path}`}
+          src={`https://image.tmdb.org/t/p/w1280${backdrop_path}`}
           alt={name}
           width={0}
           height={0}

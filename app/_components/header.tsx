@@ -33,10 +33,12 @@ import {
 
 import { Command, CommandGroup, CommandItem, CommandList } from "./ui/command";
 import { Button } from "./ui/button";
+import { usePathname } from "next/navigation";
 
 export function Header() {
   const { theme, setTheme } = useTheme();
   const [selectedTheme, setSelectedTheme] = useState(theme);
+  const pathname = usePathname();
 
   return (
     <header className="flex justify-between  gap-4  items-center bg-card border-border border-b px-5 lg:px-32 p-3">
@@ -48,19 +50,27 @@ export function Header() {
 
       <div className="flex gap-4">
         <ul className="hidden lg:flex gap-4">
-          <li className="flex items-center gap-2">
+          <li
+            className={`flex items-center gap-2 hover:bg-muted px-2 ${pathname === "/" ? "bg-muted" : ""} rounded-lg`}
+          >
             <HomeIcon className="size-4" />
             <Link href="/">Inicio</Link>
           </li>
-          <li className="flex items-center gap-2">
+          <li
+            className={`flex items-center gap-2 hover:bg-muted px-2 ${pathname === "/movies" ? "bg-muted" : ""} rounded-lg`}
+          >
             <Film className="size-4" />
             <Link href="/movies">Filmes</Link>
           </li>
-          <li className="flex items-center gap-2">
+          <li
+            className={`flex items-center gap-2 hover:bg-muted px-2 ${pathname === "/series" ? "bg-muted" : ""} rounded-lg`}
+          >
             <MonitorPlay className="size-4" />
             <Link href="/series">Séries</Link>
           </li>
-          <li className="flex items-center  gap-3">
+          <li
+            className={`flex items-center gap-2 hover:bg-muted px-2 ${pathname === "/search" ? "bg-muted" : ""} rounded-lg`}
+          >
             <Search className="size-4" />
             <Link href="/search">Procure por tudo</Link>
           </li>
@@ -135,25 +145,33 @@ export function Header() {
                   <CommandList>
                     <CommandGroup>
                       <ul className="flex flex-col gap-2">
-                        <CommandItem>
+                        <CommandItem
+                          className={`${pathname === "/" ? "bg-muted" : ""}`}
+                        >
                           <li className="flex items-center gap-3">
                             <HomeIcon className="size-4" />
                             <Link href="/">Inicio</Link>
                           </li>
                         </CommandItem>
-                        <CommandItem>
+                        <CommandItem
+                          className={`${pathname === "/movies" ? "bg-muted" : ""}`}
+                        >
                           <li className="flex items-center gap-3">
                             <Film className="size-4" />
                             <Link href="/movies">Filmes</Link>
                           </li>
                         </CommandItem>
-                        <CommandItem>
+                        <CommandItem
+                          className={`${pathname === "/series" ? "bg-muted" : ""}`}
+                        >
                           <li className="flex items-center  gap-3">
                             <MonitorPlay className="size-4" />
                             <Link href="/series">Séries</Link>
                           </li>
                         </CommandItem>
-                        <CommandItem>
+                        <CommandItem
+                          className={`${pathname === "/search" ? "bg-muted" : ""}`}
+                        >
                           <li className="flex items-center  gap-3">
                             <Search className="size-4" />
                             <Link href="/search">Procure por tudo</Link>
