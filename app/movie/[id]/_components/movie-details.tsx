@@ -85,6 +85,7 @@ export function MovieDetails({ id }: MovieDetailsProps) {
           <Suspense fallback={<Loading />}>
             <MovieImage
               poster_path={movieDetails.poster_path}
+              backdrop_path={movieDetails.backdrop_path}
               title={movieDetails.title}
             />
           </Suspense>
@@ -122,7 +123,7 @@ export function MovieDetails({ id }: MovieDetailsProps) {
             </div>
           </Suspense>
 
-          <div className="relative z-50 mt-[-1.5rem] lg:mt-0 rounded-tl-3xl space-y-4 rounded-tr-3xl lg:rounded-none bg-background py-5 ">
+          <div className="relative z-50 mt-[-1.0rem] lg:mt-0 rounded-tl-3xl space-y-4 rounded-tr-3xl lg:rounded-none bg-background py-5 ">
             <Header movieDetails={movieDetails} />
 
             <div className="flex gap-2 overflow-x-scroll px-5 lg:px-32 [&::-webkit-scrollbar]:hidden">

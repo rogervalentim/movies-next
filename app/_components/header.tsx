@@ -3,25 +3,16 @@
 import {
   Clapperboard,
   Film,
+  GithubIcon,
   HomeIcon,
   MenuIcon,
   MonitorPlay,
-  SearchIcon,
+  Search,
   Settings,
   SunIcon,
   SunMoon
 } from "lucide-react";
-import { Button } from "./ui/button";
 import Link from "next/link";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger
-} from "./ui/sheet";
-import { Separator } from "./ui/separator";
-import { usePathname } from "next/navigation";
 import {
   Menubar,
   MenubarContent,
@@ -32,22 +23,48 @@ import {
 
 import { useTheme } from "next-themes";
 import { useState } from "react";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTrigger
+} from "./ui/drawer";
+
+import { Command, CommandGroup, CommandItem, CommandList } from "./ui/command";
+import { Button } from "./ui/button";
 
 export function Header() {
-  const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const [selectedTheme, setSelectedTheme] = useState(theme);
 
   return (
-    <header className="flex justify-between items-center bg-card border-border border-b px-5 lg:px-32 p-3">
+    <header className="flex justify-between  gap-4  items-center bg-card border-border border-b px-5 lg:px-32 p-3">
       <Link href="/">
-        <div className="flex gap-2 items-center">
+        <div className="flex ">
           <Clapperboard size={25} className="text-[#2a18ff]" />
-          <h1 className="font-bold text-2xl text-[#2a18ff]">Movies</h1>
         </div>
       </Link>
 
-      <div className="flex gap-2">
+      <div className="flex gap-4">
+        <ul className="hidden lg:flex gap-4">
+          <li className="flex items-center gap-2">
+            <HomeIcon className="size-4" />
+            <Link href="/">Inicio</Link>
+          </li>
+          <li className="flex items-center gap-2">
+            <Film className="size-4" />
+            <Link href="/movies">Filmes</Link>
+          </li>
+          <li className="flex items-center gap-2">
+            <MonitorPlay className="size-4" />
+            <Link href="/series">Séries</Link>
+          </li>
+          <li className="flex items-center  gap-3">
+            <Search className="size-4" />
+            <Link href="/search">Procure por tudo</Link>
+          </li>
+        </ul>
         <Menubar className="border-none bg-transparent">
           <MenubarMenu>
             <MenubarTrigger asChild>
@@ -106,94 +123,61 @@ export function Header() {
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button
-              size="icon"
-              variant="outline"
-              className="border-none bg-transparent"
-            >
+
+        <div className="flex lg:hidden gap-2">
+          <Drawer>
+            <DrawerTrigger>
               <MenuIcon />
-            </Button>
-          </SheetTrigger>
-
-          <SheetContent>
-            <SheetHeader>
-              <SheetTitle className="text-left">Menu</SheetTitle>
-            </SheetHeader>
-
-            <div className="py-5">
-              <Separator />
-            </div>
-
-            <div className="space-y-1">
-              <Button
-                variant="ghost"
-                className={`w-full justify-start space-x-3 rounded-full text-sm font-normal ${pathname === "/" ? "bg-[#3a3cff] text-white" : ""}`}
-                asChild
-              >
-                <Link href="/">
-                  <HomeIcon size={16} />
-                  <span className="block"> Início</span>
-                </Link>
-              </Button>
-            </div>
-
-            <div className="py-3">
-              <Separator />
-            </div>
-
-            <div className="space-y-1">
-              <Button
-                variant="ghost"
-                className={`w-full justify-start space-x-3 rounded-full text-sm font-normal ${pathname === "/movies" ? "bg-[#3a3cff] text-white" : ""}`}
-                asChild
-              >
-                <Link href="/movies">
-                  <Film size={16} />
-                  <span className="block"> Filmes</span>
-                </Link>
-              </Button>
-            </div>
-
-            <div className="py-3">
-              <Separator />
-            </div>
-
-            <div className="space-y-1">
-              <Button
-                variant="ghost"
-                className={`w-full justify-start space-x-3 rounded-full text-sm font-normal ${pathname === "/series" ? "bg-[#3a3cff] text-white" : ""}`}
-                asChild
-              >
-                <Link href="/series">
-                  <MonitorPlay size={16} />
-                  <span className="block">Séries</span>
-                </Link>
-              </Button>
-            </div>
-            <div className="py-3">
-              <Separator />
-            </div>
-
-            <div className="space-y-1">
-              <Button
-                variant="ghost"
-                className={`w-full justify-start space-x-3 rounded-full text-sm font-normal ${pathname === "/search" ? "bg-[#3a3cff] text-white" : ""}`}
-                asChild
-              >
-                <Link href="/search">
-                  <SearchIcon size={16} />
-                  <span className="block">Procure por tudo</span>
-                </Link>
-              </Button>
-            </div>
-
-            <div className="py-3">
-              <Separator />
-            </div>
-          </SheetContent>
-        </Sheet>
+            </DrawerTrigger>
+            <DrawerContent>
+              <DrawerHeader>
+                <Command>
+                  <CommandList>
+                    <CommandGroup>
+                      <ul className="flex flex-col gap-2">
+                        <CommandItem>
+                          <li className="flex items-center gap-3">
+                            <HomeIcon className="size-4" />
+                            <Link href="/">Inicio</Link>
+                          </li>
+                        </CommandItem>
+                        <CommandItem>
+                          <li className="flex items-center gap-3">
+                            <Film className="size-4" />
+                            <Link href="/movies">Filmes</Link>
+                          </li>
+                        </CommandItem>
+                        <CommandItem>
+                          <li className="flex items-center  gap-3">
+                            <MonitorPlay className="size-4" />
+                            <Link href="/series">Séries</Link>
+                          </li>
+                        </CommandItem>
+                        <CommandItem>
+                          <li className="flex items-center  gap-3">
+                            <Search className="size-4" />
+                            <Link href="/search">Procure por tudo</Link>
+                          </li>
+                        </CommandItem>
+                      </ul>
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </DrawerHeader>
+              <DrawerFooter>
+                <div className="flex gap-2 pl-4 items-center">
+                  <GithubIcon className="size-4" />
+                  <a
+                    href="https://www.github.com/rogervalentim"
+                    target="_blank"
+                  >
+                    github
+                  </a>
+                </div>
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
+        </div>
       </div>
     </header>
   );

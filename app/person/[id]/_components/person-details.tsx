@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, Suspense } from "react";
-import { PersonImage } from "./person-image";
+import PersonImage from "./person-image";
 import { Loading } from "@/app/_components/loading";
 import { Credits } from "./credits";
 import { formatDate } from "@/app/utils/format-date";
@@ -48,6 +48,10 @@ export function PersonDetails({ id }: PersonDetailsProps) {
             <PersonImage
               profile_path={personDetails.profile_path}
               name={personDetails.name}
+              backdrop_path={latestWork?.backdrop_path}
+              personName={personDetails?.name}
+              latestWorkTitle={latestWork?.title}
+              latestWorkName={latestWork?.name}
             />
           </Suspense>
 
@@ -95,7 +99,7 @@ export function PersonDetails({ id }: PersonDetailsProps) {
             </div>
           </Suspense>
 
-          <div className="relative z-50 mt-[-1.5rem] lg:mt-0 rounded-tl-3xl space-y-4 rounded-tr-3xl lg:rounded-none bg-background py-5 ">
+          <div className="relative z-50 mt-[-1.0rem] lg:mt-0 rounded-tl-3xl space-y-4 rounded-tr-3xl lg:rounded-none bg-background py-5 ">
             <div className="px-5 lg:px-32 space-y-4">
               <h1 className="text-2xl font-semibold">{personDetails.name}</h1>
 
