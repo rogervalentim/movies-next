@@ -1,9 +1,33 @@
 "use client";
 
+import { DrawerComponent } from "@/app/_components/drawer-component";
 import { Button } from "@/app/_components/ui/button";
-import { ChevronLeftIcon } from "lucide-react";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTrigger
+} from "@/app/_components/ui/drawer";
+
+import { Separator } from "@/app/_components/ui/separator";
+import {
+  ChevronLeftIcon,
+  Film,
+  GithubIcon,
+  HomeIcon,
+  MenuIcon,
+  MonitorPlay,
+  Search,
+  SunIcon,
+  SunMoon
+} from "lucide-react";
+import { useTheme } from "next-themes";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 interface MovieImageProps {
   backdrop_path: string;
@@ -17,10 +41,14 @@ export default function MovieImage({
   title
 }: MovieImageProps) {
   const router = useRouter();
+  const pathname = usePathname();
 
   function handleBackClick() {
     router.back();
   }
+
+  const { theme, setTheme } = useTheme();
+  const [selectedTheme, setSelectedTheme] = useState(theme);
 
   return (
     <div className="relative w-full lg:hidden">
@@ -50,13 +78,22 @@ export default function MovieImage({
         </div>
       </div>
 
-      <Button
-        className="absolute left-4 top-4 rounded-full text-black bg-white hover:text-white hover:bg-gradient-to-b from-[#3a3cff] to-[#2a18ff]"
-        size="icon"
-        onClick={handleBackClick}
-      >
-        <ChevronLeftIcon />
-      </Button>
+      <div className="flex">
+        <Button
+          className="absolute left-4 top-4 rounded-full text-black bg-white hover:text-white hover:bg-gradient-to-b from-[#3a3cff] to-[#2a18ff]"
+          size="icon"
+          onClick={handleBackClick}
+        >
+          <ChevronLeftIcon />
+        </Button>
+
+        <Button
+          size="icon"
+          className="absolute right-4 top-4 rounded-full text-black bg-white hover:text-white hover:bg-gradient-to-b from-[#3a3cff] to-[#2a18ff]"
+        >
+          <DrawerComponent />
+        </Button>
+      </div>
     </div>
   );
 }

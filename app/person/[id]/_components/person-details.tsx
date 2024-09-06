@@ -49,9 +49,6 @@ export function PersonDetails({ id }: PersonDetailsProps) {
               profile_path={personDetails.profile_path}
               name={personDetails.name}
               backdrop_path={latestWork?.backdrop_path}
-              personName={personDetails?.name}
-              latestWorkTitle={latestWork?.title}
-              latestWorkName={latestWork?.name}
             />
           </Suspense>
 

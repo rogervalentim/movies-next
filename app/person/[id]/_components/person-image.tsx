@@ -1,5 +1,6 @@
 "use client";
 
+import { DrawerComponent } from "@/app/_components/drawer-component";
 import { Button } from "@/app/_components/ui/button";
 import { ChevronLeftIcon } from "lucide-react";
 import Image from "next/image";
@@ -9,18 +10,12 @@ interface PersonImageProps {
   backdrop_path: string | undefined;
   profile_path: string;
   name: string;
-  latestWorkName: string | undefined;
-  latestWorkTitle: string | undefined;
-  personName: string;
 }
 
 export default function PersonImage({
   backdrop_path,
   profile_path,
-  name,
-  latestWorkName,
-  latestWorkTitle,
-  personName
+  name
 }: PersonImageProps) {
   const router = useRouter();
 
@@ -41,10 +36,6 @@ export default function PersonImage({
           className="h-full w-full object-cover bg-muted "
           loading="lazy"
         />
-
-        <div className=" flex items-center gap-[2px] rounded-full bg-white px-2 py-[2px] font-medium text-[#323232]">
-          <p className="text-sm ">{latestWorkTitle || latestWorkName}</p>
-        </div>
 
         <div className="absolute bottom-4 left-4 flex items-center">
           <Image
@@ -68,9 +59,13 @@ export default function PersonImage({
         >
           <ChevronLeftIcon />
         </Button>
-        <div className="absolute right-2 top-4 flex items-center gap-[2px] rounded-full bg-white px-2 py-[2px] font-medium text-[#323232]">
-          <p className="text-sm ">{latestWorkTitle || latestWorkName}</p>
-        </div>
+
+        <Button
+          size="icon"
+          className="absolute right-4 top-4 rounded-full text-black bg-white hover:text-white hover:bg-gradient-to-b from-[#3a3cff] to-[#2a18ff]"
+        >
+          <DrawerComponent />
+        </Button>
       </div>
     </div>
   );

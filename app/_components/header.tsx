@@ -23,17 +23,10 @@ import {
 
 import { useTheme } from "next-themes";
 import { useState } from "react";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTrigger
-} from "./ui/drawer";
 
-import { Command, CommandGroup, CommandItem, CommandList } from "./ui/command";
 import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
+import { DrawerComponent } from "./drawer-component";
 
 export function Header() {
   const { theme, setTheme } = useTheme();
@@ -81,6 +74,7 @@ export function Header() {
               <Button
                 variant="ghost"
                 size="icon"
+                className="hidden lg:flex justify-center items-center"
                 type="button"
                 aria-label="Abrir a configurações do projeto"
               >
@@ -135,66 +129,7 @@ export function Header() {
         </Menubar>
 
         <div className="flex lg:hidden gap-2">
-          <Drawer>
-            <DrawerTrigger>
-              <MenuIcon />
-            </DrawerTrigger>
-            <DrawerContent>
-              <DrawerHeader>
-                <Command>
-                  <CommandList>
-                    <CommandGroup>
-                      <ul className="flex flex-col gap-2">
-                        <CommandItem
-                          className={`${pathname === "/" ? "bg-muted" : ""}`}
-                        >
-                          <li className="flex items-center gap-3">
-                            <HomeIcon className="size-4" />
-                            <Link href="/">Inicio</Link>
-                          </li>
-                        </CommandItem>
-                        <CommandItem
-                          className={`${pathname === "/movies" ? "bg-muted" : ""}`}
-                        >
-                          <li className="flex items-center gap-3">
-                            <Film className="size-4" />
-                            <Link href="/movies">Filmes</Link>
-                          </li>
-                        </CommandItem>
-                        <CommandItem
-                          className={`${pathname === "/series" ? "bg-muted" : ""}`}
-                        >
-                          <li className="flex items-center  gap-3">
-                            <MonitorPlay className="size-4" />
-                            <Link href="/series">Séries</Link>
-                          </li>
-                        </CommandItem>
-                        <CommandItem
-                          className={`${pathname === "/search" ? "bg-muted" : ""}`}
-                        >
-                          <li className="flex items-center  gap-3">
-                            <Search className="size-4" />
-                            <Link href="/search">Procure por tudo</Link>
-                          </li>
-                        </CommandItem>
-                      </ul>
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </DrawerHeader>
-              <DrawerFooter>
-                <div className="flex gap-2 pl-4 items-center">
-                  <GithubIcon className="size-4" />
-                  <a
-                    href="https://www.github.com/rogervalentim"
-                    target="_blank"
-                  >
-                    github
-                  </a>
-                </div>
-              </DrawerFooter>
-            </DrawerContent>
-          </Drawer>
+          <DrawerComponent />
         </div>
       </div>
     </header>

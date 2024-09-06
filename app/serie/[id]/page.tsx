@@ -13,8 +13,9 @@ interface SeriePageProps {
 export default function SeriePage({ params: { id } }: SeriePageProps) {
   return (
     <>
-      <Header />
-
+      <div className="hidden lg:block">
+        <Header />
+      </div>
       <SerieDetails id={id} />
 
       <div className="pt-10">

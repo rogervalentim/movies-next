@@ -1,5 +1,6 @@
 "use client";
 
+import { DrawerComponent } from "@/app/_components/drawer-component";
 import { Button } from "@/app/_components/ui/button";
 import { ChevronLeftIcon } from "lucide-react";
 import Image from "next/image";
@@ -50,13 +51,22 @@ export default function SerieImage({
         </div>
       </div>
 
-      <Button
-        className="absolute left-4 top-4 rounded-full text-black bg-white hover:text-white hover:bg-gradient-to-b from-[#3a3cff] to-[#2a18ff]"
-        size="icon"
-        onClick={handleBackClick}
-      >
-        <ChevronLeftIcon />
-      </Button>
+      <div className="flex">
+        <Button
+          className="absolute left-4 top-4 rounded-full text-black bg-white hover:text-white hover:bg-gradient-to-b from-[#3a3cff] to-[#2a18ff]"
+          size="icon"
+          onClick={handleBackClick}
+        >
+          <ChevronLeftIcon />
+        </Button>
+
+        <Button
+          size="icon"
+          className="absolute right-4 top-4 rounded-full text-black bg-white hover:text-white hover:bg-gradient-to-b from-[#3a3cff] to-[#2a18ff]"
+        >
+          <DrawerComponent />
+        </Button>
+      </div>
     </div>
   );
 }

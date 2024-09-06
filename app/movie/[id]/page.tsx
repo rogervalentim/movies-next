@@ -13,8 +13,9 @@ interface MoviePageProps {
 export default function MoviePage({ params: { id } }: MoviePageProps) {
   return (
     <>
-      <Header />
-
+      <div className="hidden lg:block">
+        <Header />
+      </div>
       <MovieDetails id={id} />
 
       <div className="pt-10">
