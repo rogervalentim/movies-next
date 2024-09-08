@@ -20,6 +20,7 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import { Button } from "./ui/button";
 
 export function DrawerComponent() {
   const { theme, setTheme } = useTheme();
@@ -28,7 +29,7 @@ export function DrawerComponent() {
   return (
     <Drawer>
       <DrawerTrigger>
-        <MenuIcon />
+        <MenuIcon className="text-primary" />
       </DrawerTrigger>
       <DrawerContent className="px-3">
         <DrawerHeader>

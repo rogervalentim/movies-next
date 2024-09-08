@@ -72,9 +72,9 @@ export function Header() {
           <MenubarMenu>
             <MenubarTrigger asChild>
               <Button
-                variant="ghost"
                 size="icon"
-                className="hidden lg:flex justify-center items-center"
+                className="hidden transition lg:flex justify-center items-center"
+                variant="outline"
                 type="button"
                 aria-label="Abrir a configurações do projeto"
               >

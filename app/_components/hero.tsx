@@ -64,7 +64,7 @@ export function Hero({ contentType }: HeroProps) {
         </div>
 
         <div className="max-w-3xl text-center mx-auto">
-          <h1 className="block font-medium text-gray-200 text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="block font-medium text-gray-200 text-4xl sm:text-5xl md:text-6xl lg:text-7xl line-clamp-1">
             {data?.title || data?.name}
           </h1>
         </div>

@@ -13,7 +13,7 @@ const Overview = React.lazy(() => import("@/app/_components/overview"));
 const Cast = React.lazy(() => import("@/app/_components/cast"));
 const Images = React.lazy(() => import("@/app/_components/images"));
 const Videos = React.lazy(() => import("@/app/_components/videos"));
-const SerieImage = React.lazy(() => import("./serie-image"));
+const MediaImage = React.lazy(() => import("@/app/_components/media-image"));
 
 interface SerieDetailsProps {
   id: number;
@@ -91,7 +91,7 @@ export function SerieDetails({ id }: SerieDetailsProps) {
       {serieDetails ? (
         <>
           <Suspense fallback={<Loading />}>
-            <SerieImage
+            <MediaImage
               poster_path={serieDetails.poster_path}
               backdrop_path={serieDetails.backdrop_path}
               name={serieDetails.name}

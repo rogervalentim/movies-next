@@ -1,0 +1,84 @@
+"use client";
+
+import { DrawerComponent } from "@/app/_components/drawer-component";
+import { Button } from "@/app/_components/ui/button";
+import { ChevronLeftIcon, Clapperboard } from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+interface MediaImageProps {
+  backdrop_path: string | undefined;
+  profile_path?: string;
+  poster_path?: string;
+  name?: string;
+  title?: string;
+}
+
+export default function MediaImage({
+  backdrop_path,
+  profile_path,
+  poster_path,
+  name,
+  title
+}: MediaImageProps) {
+  const router = useRouter();
+
+  function handleBackClick() {
+    router.back();
+  }
+
+  return (
+    <div className="relative w-full lg:hidden">
+      <div className="relative h-[25rem]  w-full">
+        {backdrop_path ? (
+          <Image
+            src={`https://image.tmdb.org/t/p/w1280${backdrop_path}`}
+            alt={name || "" || title || ""}
+            width={0}
+            height={0}
+            quality={100}
+            sizes="100vh"
+            className="h-full w-full object-cover brightness-50 bg-muted "
+            loading="lazy"
+          />
+        ) : (
+          <div className="flex justify-center items-center h-[25rem] w-full  bg-[#3a3cff]  shadow-md">
+            <Clapperboard size={40} className="text-white" />
+          </div>
+        )}
+
+        <div className="absolute bottom-4 left-4 flex items-center">
+          <Image
+            src={`https://image.tmdb.org/t/p/w342${profile_path || poster_path}`}
+            alt={name || "" || title || ""}
+            width={0}
+            height={0}
+            quality={100}
+            sizes="100vh"
+            className="h-56 w-40 object-cover bg-muted rounded-lg  shadow-md"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <div className="flex items-center">
+        <Button
+          className="absolute left-4 top-4 text-primary transition"
+          size="icon"
+          variant="outline"
+          onClick={handleBackClick}
+        >
+          <ChevronLeftIcon />
+        </Button>
+
+        <Button
+          size="icon"
+          className="absolute right-4 top-4 text-primary transition"
+          variant="outline"
+        >
+          <DrawerComponent />
+        </Button>
+      </div>
+    </div>
+  );
+}

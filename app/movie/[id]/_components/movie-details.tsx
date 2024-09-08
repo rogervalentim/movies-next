@@ -5,14 +5,13 @@ import { AdditionalContent } from "./additional-content";
 import { Loading } from "@/app/_components/loading";
 import { useMovieDetails } from "@/app/_hooks/use-movie-details";
 import Image from "next/image";
-import { ScrollTop } from "@/app/_components/scroll-top";
 import { Clapperboard } from "lucide-react";
 
 const Overview = React.lazy(() => import("@/app/_components/overview"));
 const Cast = React.lazy(() => import("@/app/_components/cast"));
 const Images = React.lazy(() => import("@/app/_components/images"));
 const Videos = React.lazy(() => import("@/app/_components/videos"));
-const MovieImage = React.lazy(() => import("./movie-image"));
+const MediaImage = React.lazy(() => import("@/app/_components/media-image"));
 
 interface MovieDetailsProps {
   id: number;
@@ -83,7 +82,7 @@ export function MovieDetails({ id }: MovieDetailsProps) {
       {movieDetails ? (
         <>
           <Suspense fallback={<Loading />}>
-            <MovieImage
+            <MediaImage
               poster_path={movieDetails.poster_path}
               backdrop_path={movieDetails.backdrop_path}
               title={movieDetails.title}

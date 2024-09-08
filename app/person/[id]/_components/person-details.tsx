@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState, Suspense } from "react";
-import PersonImage from "./person-image";
 import { Loading } from "@/app/_components/loading";
 import { Credits } from "./credits";
 import { formatDate } from "@/app/utils/format-date";
@@ -10,6 +9,7 @@ import { Images } from "./images";
 import { usePersonDetails } from "@/app/_hooks/use-person-details";
 import { useCombinedCredits } from "@/app/_hooks/use-combined-credits";
 import { Clapperboard } from "lucide-react";
+import MediaImage from "@/app/_components/media-image";
 
 interface PersonDetailsProps {
   id: number;
@@ -45,7 +45,7 @@ export function PersonDetails({ id }: PersonDetailsProps) {
       {personDetails ? (
         <>
           <Suspense fallback={<Loading />}>
-            <PersonImage
+            <MediaImage
               profile_path={personDetails.profile_path}
               name={personDetails.name}
               backdrop_path={latestWork?.backdrop_path}
