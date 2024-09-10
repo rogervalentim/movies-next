@@ -65,7 +65,7 @@ export function Collection({
   return (
     <div className="relative overflow-hidden">
       <div
-        className="absolute bg-gradient-to-t brightness-50 from-black to-transparent rounded-lg inset-0"
+        className="absolute bg-gradient-to-t border border-border brightness-50 from-black to-transparent rounded-lg inset-0"
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/w1280${backdrop_path || poster_path})`,
           backgroundSize: "cover",
@@ -121,11 +121,11 @@ export function Collection({
                         height={0}
                         quality={100}
                         sizes="100vh"
-                        className="h-72 w-full object-cover rounded-t-lg brightness-50"
+                        className="h-72 w-full object-cover border border-border rounded-t-lg brightness-50"
                         loading="lazy"
                       />
 
-                      <div className="absolute bottom-1 left-4 ">
+                      <div className="absolute mt-[-8rem] left-4 ">
                         <Image
                           src={`https://image.tmdb.org/t/p/w342${item.poster_path}`}
                           alt={item.title}
@@ -139,7 +139,7 @@ export function Collection({
                       </div>
                     </div>
 
-                    <div className="flex flex-col justify-between p-4 leading-normal">
+                    <div className="flex flex-col justify-between p-4 pt-10 leading-normal">
                       <h5 className="mb-2 text-2xl font-bold tracking-tight text-primary">
                         {item.title}
                       </h5>

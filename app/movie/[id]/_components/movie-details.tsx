@@ -4,8 +4,6 @@ import { Header } from "./header";
 import { AdditionalContent } from "./additional-content";
 import { Loading } from "@/app/_components/loading";
 import { useMovieDetails } from "@/app/_hooks/use-movie-details";
-import Image from "next/image";
-import { Clapperboard } from "lucide-react";
 
 const Overview = React.lazy(() => import("@/app/_components/overview"));
 const Cast = React.lazy(() => import("@/app/_components/cast"));
@@ -88,41 +86,8 @@ export function MovieDetails({ id }: MovieDetailsProps) {
               title={movieDetails.title}
             />
           </Suspense>
-          <Suspense fallback={<Loading />}>
-            <div className="relative  lg:flex justify-center hidden items-center">
-              <div className="relative w-full px-32">
-                {movieDetails?.backdrop_path ? (
-                  <Image
-                    src={`https://image.tmdb.org/t/p/w1280/${movieDetails.backdrop_path}`}
-                    alt={movieDetails.title}
-                    width={0}
-                    height={0}
-                    quality={100}
-                    sizes="100vw"
-                    className="object-cover h-[80dvh] w-full rounded-b-lg"
-                  />
-                ) : (
-                  <div className="flex justify-center items-center w-full bg-[#3a3cff] rounded-lg shadow-md">
-                    <Clapperboard size={24} className="text-white" />
-                  </div>
-                )}
-              </div>
 
-              <div className="absolute left-32 bottom-0  transform translate-x-0 translate-y-0">
-                <Image
-                  src={`https://image.tmdb.org/t/p/w342/${movieDetails.poster_path}`}
-                  alt={movieDetails.title}
-                  width={0}
-                  height={0}
-                  quality={100}
-                  sizes="100vh"
-                  className="w-32 md:w-40 lg:w-48 xl:w-56 h-auto rounded-lg shadow-lg"
-                />
-              </div>
-            </div>
-          </Suspense>
-
-          <div className="relative z-50 mt-[-1.0rem] lg:mt-0 rounded-tl-3xl space-y-4 rounded-tr-3xl lg:rounded-none bg-background py-5 ">
+          <div className="relative z-50 mt-28 space-y-4 lg:rounded-none bg-background py-5">
             <Header movieDetails={movieDetails} />
 
             <div className="flex gap-2 overflow-x-scroll px-5 lg:px-32 [&::-webkit-scrollbar]:hidden">

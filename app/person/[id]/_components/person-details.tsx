@@ -52,51 +52,7 @@ export function PersonDetails({ id }: PersonDetailsProps) {
             />
           </Suspense>
 
-          <Suspense fallback={<Loading />}>
-            <div className="relative lg:flex justify-center hidden items-center  px-32">
-              <div className="relative w-full">
-                {latestWork ? (
-                  <>
-                    {latestWork?.backdrop_path ? (
-                      <Image
-                        src={`https://image.tmdb.org/t/p/w1280/${latestWork?.backdrop_path}`}
-                        alt={personDetails.name}
-                        width={0}
-                        height={0}
-                        quality={100}
-                        sizes="100vw"
-                        className="object-cover h-[80dvh] w-full rounded-b-lg"
-                      />
-                    ) : (
-                      <div className="flex justify-center items-center  h-[80dvh] w-full bg-[#3a3cff] rounded-lg shadow-md">
-                        <Clapperboard size={100} className="text-white" />
-                      </div>
-                    )}
-                    <div className="absolute right-2 top-2 flex items-center gap-[2px] rounded-full bg-white px-2 py-[2px] font-medium text-[#323232]">
-                      <p className="text-sm">
-                        Este foi o último trabalho de {personDetails.name}:{" "}
-                        {latestWork.title}
-                      </p>
-                    </div>
-                  </>
-                ) : null}
-              </div>
-
-              <div className="absolute left-32 bottom-0 transform translate-x-0 translate-y-0">
-                <Image
-                  src={`https://image.tmdb.org/t/p/w342/${personDetails.profile_path}`}
-                  alt={personDetails.name}
-                  width={0}
-                  height={0}
-                  quality={100}
-                  sizes="100vh"
-                  className="w-32 md:w-40 lg:w-48 xl:w-56 h-auto rounded-lg shadow-lg"
-                />
-              </div>
-            </div>
-          </Suspense>
-
-          <div className="relative z-50 mt-[-1.0rem] lg:mt-0 rounded-tl-3xl space-y-4 rounded-tr-3xl lg:rounded-none bg-background py-5 ">
+          <div className="relative z-50 mt-28 space-y-4 lg:rounded-none bg-background py-5">
             <div className="px-5 lg:px-32 space-y-4">
               <h1 className="text-2xl font-semibold">{personDetails.name}</h1>
 

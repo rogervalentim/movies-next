@@ -28,8 +28,8 @@ export default function MediaImage({
   }
 
   return (
-    <div className="relative w-full lg:hidden">
-      <div className="relative h-[25rem]  w-full">
+    <div className="relative w-full lg:px-32 lg:pt-4 flex flex-col">
+      <div className="relative h-[15rem] lg:h-auto w-full">
         {backdrop_path ? (
           <Image
             src={`https://image.tmdb.org/t/p/w1280${backdrop_path}`}
@@ -38,32 +38,32 @@ export default function MediaImage({
             height={0}
             quality={100}
             sizes="100vh"
-            className="h-full w-full object-cover brightness-50 bg-muted "
+            className="h-[15rem] lg:h-[20rem] w-full brightness-50 border border-border lg:rounded-lg bg-muted "
             loading="lazy"
           />
         ) : (
-          <div className="flex justify-center items-center h-[25rem] w-full  bg-[#3a3cff]  shadow-md">
+          <div className="flex justify-center items-center h-[15rem] lg:h-[20rem] w-full  bg-[#3a3cff]  shadow-md">
             <Clapperboard size={40} className="text-white" />
           </div>
         )}
 
-        <div className="absolute bottom-4 left-4 flex items-center">
+        <div className="absolute mt-[-8rem] left-4 flex items-center">
           <Image
-            src={`https://image.tmdb.org/t/p/w342${profile_path || poster_path}`}
+            src={`https://image.tmdb.org/t/p/w500${profile_path || poster_path}`}
             alt={name || "" || title || ""}
             width={0}
             height={0}
             quality={100}
             sizes="100vh"
-            className="h-56 w-40 object-cover bg-muted rounded-lg  shadow-md"
+            className="h-56  w-40  object-cover bg-muted border border-border rounded-lg shadow-md"
             loading="lazy"
           />
         </div>
       </div>
 
-      <div className="flex items-center">
+      <div className="flex flex-col items-center">
         <Button
-          className="absolute left-4 top-4 text-primary transition"
+          className="absolute lg:hidden left-4 top-4 text-primary transition"
           size="icon"
           variant="outline"
           onClick={handleBackClick}
@@ -73,7 +73,7 @@ export default function MediaImage({
 
         <Button
           size="icon"
-          className="absolute right-4 top-4 text-primary transition"
+          className="absolute lg:hidden right-4 top-4 text-primary transition"
           variant="outline"
         >
           <DrawerComponent />
