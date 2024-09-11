@@ -49,7 +49,7 @@ export default function MediaImage({
 
         <div className="absolute mt-[-8rem] left-4 flex items-center">
           <Image
-            src={`https://image.tmdb.org/t/p/w500${profile_path || poster_path}`}
+            src={`https://image.tmdb.org/t/p/w342${profile_path || poster_path}`}
             alt={name || "" || title || ""}
             width={0}
             height={0}

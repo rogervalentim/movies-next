@@ -2,7 +2,6 @@
 
 import { apiKey } from "@/app/utils/api-key";
 import Image from "next/image";
-import { useState, useEffect } from "react";
 import { Loading } from "./loading";
 import { useQuery } from "@tanstack/react-query";
 
@@ -46,12 +45,12 @@ export default function Images({ id, contentType }: ImagesProps) {
       <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 pt-4 gap-4">
         {images?.backdrops.map((item) => (
           <a
-            href={`https://image.tmdb.org/t/p/w1280/${item.file_path}`}
+            href={`https://image.tmdb.org/t/p/w500/${item.file_path}`}
             key={item.file_path}
             target="_blank"
           >
             <Image
-              src={`https://image.tmdb.org/t/p/w1280/${item.file_path}`}
+              src={`https://image.tmdb.org/t/p/w500/${item.file_path}`}
               alt="image"
               width={0}
               height={0}
@@ -70,13 +69,13 @@ export default function Images({ id, contentType }: ImagesProps) {
       <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 pt-4 items-center gap-4">
         {images?.posters.map((item) => (
           <a
-            href={`https://image.tmdb.org/t/p/w780/${item.file_path}`}
+            href={`https://image.tmdb.org/t/p/w500/${item.file_path}`}
             key={item.file_path}
             target="_blank"
           >
             <Image
               key={item.file_path}
-              src={`https://image.tmdb.org/t/p/w780/${item.file_path}`}
+              src={`https://image.tmdb.org/t/p/w500/${item.file_path}`}
               alt="image"
               width={0}
               height={0}
