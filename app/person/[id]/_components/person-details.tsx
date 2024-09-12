@@ -52,7 +52,7 @@ export function PersonDetails({ id }: PersonDetailsProps) {
             />
           </Suspense>
 
-          <div className="relative z-50 mt-28 space-y-4 lg:rounded-none bg-background py-5">
+          <div className="relative z-50 mt-40 space-y-4 lg:rounded-none bg-background py-5">
             <div className="px-5 lg:px-32 space-y-4">
               <h1 className="text-2xl font-semibold">{personDetails.name}</h1>
 

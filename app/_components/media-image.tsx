@@ -38,7 +38,7 @@ export default function MediaImage({
             height={0}
             quality={100}
             sizes="100vh"
-            className="h-[18rem] lg:h-[20rem] w-full brightness-50 dark:border dark:border-border lg:rounded-lg bg-muted "
+            className="h-[16rem] lg:h-[20rem] w-full shadow-md dark:border dark:border-border lg:rounded-lg bg-muted "
             loading="lazy"
           />
         ) : (
