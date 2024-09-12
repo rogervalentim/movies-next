@@ -29,7 +29,7 @@ export default function MediaImage({
 
   return (
     <div className="relative w-full lg:px-32 lg:pt-4 flex flex-col">
-      <div className="relative h-[20rem]  lg:h-auto w-full">
+      <div className="relative lg:h-auto w-full">
         {backdrop_path ? (
           <Image
             src={`https://image.tmdb.org/t/p/w1280${backdrop_path}`}
