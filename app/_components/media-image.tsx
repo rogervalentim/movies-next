@@ -29,7 +29,7 @@ export default function MediaImage({
 
   return (
     <div className="relative w-full lg:px-32 lg:pt-4 flex flex-col">
-      <div className="relative h-[15rem] lg:h-auto w-full">
+      <div className="relative  lg:h-auto w-full">
         {backdrop_path ? (
           <Image
             src={`https://image.tmdb.org/t/p/w1280${backdrop_path}`}
@@ -38,7 +38,7 @@ export default function MediaImage({
             height={0}
             quality={100}
             sizes="100vh"
-            className="h-[15rem] lg:h-[20rem] w-full brightness-50 border border-border lg:rounded-lg bg-muted "
+            className="h-[18rem] lg:h-[20rem] w-full brightness-50 dark:border dark:border-border lg:rounded-lg bg-muted "
             loading="lazy"
           />
         ) : (
@@ -47,7 +47,7 @@ export default function MediaImage({
           </div>
         )}
 
-        <div className="absolute mt-[-8rem] left-4 flex items-center">
+        <div className="absolute mt-[-4rem] left-4 flex items-center">
           <Image
             src={`https://image.tmdb.org/t/p/w342${profile_path || poster_path}`}
             alt={name || "" || title || ""}
@@ -55,7 +55,7 @@ export default function MediaImage({
             height={0}
             quality={100}
             sizes="100vh"
-            className="h-56  w-40  object-cover bg-muted border border-border rounded-lg shadow-md"
+            className="h-56  w-40  object-cover bg-muted dark:border dark:border-border rounded-lg shadow-md"
             loading="lazy"
           />
         </div>

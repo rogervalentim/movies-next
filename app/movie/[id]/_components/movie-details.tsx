@@ -87,7 +87,7 @@ export function MovieDetails({ id }: MovieDetailsProps) {
             />
           </Suspense>
 
-          <div className="relative z-50 mt-28 space-y-4 lg:rounded-none bg-background py-5">
+          <div className="relative z-50 mt-40 space-y-4 lg:rounded-none bg-background py-5">
             <Header movieDetails={movieDetails} />
 
             <div className="flex gap-2 overflow-x-scroll px-5 lg:px-32 [&::-webkit-scrollbar]:hidden">

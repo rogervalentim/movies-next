@@ -121,7 +121,7 @@ export function Collection({
                         height={0}
                         quality={100}
                         sizes="100vh"
-                        className="h-72 w-full object-cover border border-border rounded-t-lg brightness-50"
+                        className="h-52 w-full object-cover dark:border dark:border-border rounded-t-lg brightness-50"
                         loading="lazy"
                       />
 
