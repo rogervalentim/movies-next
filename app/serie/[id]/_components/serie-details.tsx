@@ -97,39 +97,7 @@ export function SerieDetails({ id }: SerieDetailsProps) {
               name={serieDetails.name}
             />
           </Suspense>
-          <Suspense fallback={<Loading />}>
-            <div className="relative  lg:flex justify-center hidden items-center">
-              <div className="relative w-full px-32">
-                {serieDetails.backdrop_path ? (
-                  <Image
-                    src={`https://image.tmdb.org/t/p/w1280/${serieDetails.backdrop_path}`}
-                    alt={serieDetails.name}
-                    width={0}
-                    height={0}
-                    quality={100}
-                    sizes="100vw"
-                    className="object-cover h-[80dvh] w-full rounded-b-lg"
-                  />
-                ) : (
-                  <div className="flex justify-center items-center w-full bg-[#3a3cff] rounded-lg shadow-md">
-                    <Clapperboard size={24} className="text-white" />
-                  </div>
-                )}
-              </div>
 
-              <div className="absolute left-32 bottom-0  transform translate-x-0 translate-y-0">
-                <Image
-                  src={`https://image.tmdb.org/t/p/w342/${serieDetails.poster_path}`}
-                  alt={serieDetails.name}
-                  width={0}
-                  height={0}
-                  quality={100}
-                  sizes="100vh"
-                  className="w-32 md:w-40 lg:w-48 xl:w-56 h-auto rounded-lg shadow-lg"
-                />
-              </div>
-            </div>
-          </Suspense>
           <div className="relative z-50 mt-40 space-y-4 lg:rounded-none bg-background py-5">
             <Header serieDetails={serieDetails} />
 
