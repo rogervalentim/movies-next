@@ -79,7 +79,7 @@ export function Collection({
       <div className="relative px-5 lg:px-0 py-24 space-y-8">
         <div className="w-full mx-auto px-4 rounded-lg sm:px-6 lg:px-8">
           <div className="max-w-3xl text-center mx-auto">
-            <h1 className="block font-bold text-gray-100 text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight drop-shadow-lg">
+            <h1 className="block font-extrabold text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight drop-shadow-xl">
               {name}
             </h1>
           </div>
@@ -92,7 +92,7 @@ export function Collection({
 
         <Dialog modal>
           <div className="text-center">
-            <DialogTrigger className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-[#3a3cff] to-[#2a18ff] shadow-lg shadow-transparent hover:shadow-blue-700/50 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:shadow-blue-700/50 py-3 px-6">
+            <DialogTrigger className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-[#3a3cff] to-[#2a18ff] hover:from-[#2a18ff] hover:to-[#1e0ae3] shadow-lg border border-transparent text-white text-sm font-medium rounded-full focus:outline-none  py-3 px-6 transition-all">
               Ver Coleção
             </DialogTrigger>
           </div>

@@ -4,7 +4,6 @@ import { Header } from "./header";
 import { AdditionalContent } from "./additional-content";
 import { Loading } from "@/app/_components/loading";
 import { useSerieDetails } from "@/app/_hooks/use-serie-details";
-import Image from "next/image";
 import { Seasons } from "./seasons";
 import { Episodes } from "@/app/_components/episodes";
 import { Clapperboard } from "lucide-react";

@@ -38,11 +38,12 @@ export function Hero({ contentType }: HeroProps) {
   }
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden rounded-lg shadow-lg">
+      {/* Background image with gradient overlay */}
       <div
-        className="absolute inset-0 brightness-50 rounded-lg"
+        className="absolute inset-0 brightness-75"
         style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/w1280${data?.backdrop_path})`,
+          backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(https://image.tmdb.org/t/p/w1280${data?.backdrop_path})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           width: "100%",
@@ -50,32 +51,36 @@ export function Hero({ contentType }: HeroProps) {
           zIndex: -1
         }}
       />
-      <div className="relative px-5 lg:px-0 rounded-lg lg:rounded-none py-24 space-y-8">
+      <div className="relative px-6 py-20 space-y-10 text-center lg:px-0 lg:py-32">
+        {/* Call to action for search */}
         <div className="flex justify-center">
           <Link
-            className="group inline-flex items-center bg-white/10 hover:bg-white/10 border border-white/10 p-1 ps-4 rounded-full shadow-md focus:outline-none focus:bg-white/10"
+            className="group flex items-center bg-white/20 hover:bg-white/30 border border-white/20 p-1 ps-4 rounded-full shadow-md transition-all duration-300 focus:outline-none"
             href="/search"
           >
-            <p className="me-2 text-white text-sm">Buscar mais.</p>
-            <span className="group-hover:bg-white/10 py-1.5 px-2.5 flex justify-center items-center gap-x-2 rounded-full bg-white/10 font-semibold text-white text-sm">
-              <ArrowRight size={16} />
+            <p className="mr-2 text-white text-sm">Buscar mais</p>
+            <span className="flex items-center gap-x-2 rounded-full bg-white/20 p-2 transition-all duration-300 group-hover:bg-white/30">
+              <ArrowRight size={16} className="text-white" />
             </span>
           </Link>
         </div>
 
-        <div className="max-w-3xl text-center mx-auto">
-          <h1 className="block font-medium text-gray-200 text-4xl sm:text-5xl md:text-6xl lg:text-7xl line-clamp-1">
+        {/* Title */}
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-100 line-clamp-1">
             {data?.title || data?.name}
           </h1>
         </div>
 
-        <div className="max-w-3xl text-center mx-auto">
+        {/* Overview */}
+        <div className="max-w-2xl mx-auto">
           <p className="text-lg text-gray-300 line-clamp-3">{data?.overview}</p>
         </div>
 
-        <div className="text-center">
+        {/* "Ver detalhes" Button */}
+        <div>
           <Link
-            className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-[#3a3cff] to-[#2a18ff] shadow-lg shadow-transparent hover:shadow-blue-700/50 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:shadow-blue-700/50 py-3 px-6"
+            className="inline-flex items-center justify-center gap-x-3 bg-gradient-to-tl from-[#3a3cff] to-[#2a18ff] hover:shadow-lg hover:shadow-blue-700/50 border-transparent text-white text-sm font-medium rounded-full focus:outline-none py-3 px-6 transition-all duration-300"
             href={
               contentType === "tv" ? `/serie/${data?.id}` : `/movie/${data?.id}`
             }
