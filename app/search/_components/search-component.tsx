@@ -6,7 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 import { ChangeEvent, useState } from "react";
 import Link from "next/link";
 import { extractYear } from "@/app/utils/format-date";
-import { SearchItem } from "./search-item";
 import { PaginationLists } from "@/app/_components/pagination-lists";
 import { InfoCard } from "@/app/_components/info-card";
 
