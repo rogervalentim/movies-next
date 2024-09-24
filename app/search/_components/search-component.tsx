@@ -8,6 +8,7 @@ import Link from "next/link";
 import { extractYear } from "@/app/utils/format-date";
 import { SearchItem } from "./search-item";
 import { PaginationLists } from "@/app/_components/pagination-lists";
+import { InfoCard } from "@/app/_components/info-card";
 
 interface SearchResult {
   id: number;
@@ -111,7 +112,7 @@ export function SearchComponent() {
                     key={result.id}
                     className="relative aspect-square w-full group"
                   >
-                    <SearchItem
+                    <InfoCard
                       title={result?.title}
                       name={result?.name}
                       poster_path={result?.poster_path || ""}

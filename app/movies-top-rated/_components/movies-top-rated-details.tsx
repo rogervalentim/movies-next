@@ -6,8 +6,8 @@ import { PaginationLists } from "@/app/_components/pagination-lists";
 import { extractYear } from "@/app/utils/format-date";
 import { apiKey } from "@/app/utils/api-key";
 import Link from "next/link";
-import { MoviesTopRatedItem } from "./movies-top-rated-item";
 import { Loading } from "@/app/_components/loading";
+import { InfoCard } from "@/app/_components/info-card";
 
 interface Movie {
   id: number;
@@ -66,7 +66,7 @@ export function MoviesTopRatedDetails() {
                   key={movie.id}
                   className="relative aspect-square w-full group"
                 >
-                  <MoviesTopRatedItem
+                  <InfoCard
                     title={movie.title}
                     poster_path={movie.poster_path || ""}
                     vote_average={movie.vote_average}

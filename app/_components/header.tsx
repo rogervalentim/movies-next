@@ -34,40 +34,50 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="flex justify-between  gap-4  items-center bg-card border-border border-b px-5 lg:px-32 p-3">
+    <header className="flex justify-between items-center bg-card p-4 lg:px-32 shadow-lg">
       <Link href="/">
-        <div className="flex ">
-          <Clapperboard size={25} className="text-[#2a18ff]" />
+        <div className="flex items-center gap-2 cursor-pointer">
+          <Clapperboard size={30} className="text-[#2a18ff]" />
+          <span className="text-lg font-bold text-primary">MovieApp</span>
         </div>
       </Link>
 
-      <div className="flex gap-4">
-        <ul className="hidden lg:flex gap-4">
+      <div className="flex gap-6 items-center">
+        <ul className="hidden lg:flex gap-6">
           <li
-            className={`flex items-center gap-2 hover:bg-muted px-2 ${pathname === "/" ? "bg-muted" : ""} rounded-lg`}
+            className={`flex items-center gap-2 p-2 hover:bg-muted transition rounded-lg ${
+              pathname === "/" ? "bg-muted" : ""
+            }`}
           >
-            <HomeIcon className="size-4" />
-            <Link href="/">Inicio</Link>
+            <HomeIcon size={20} className="text-primary" />
+            <Link href="/">Início</Link>
           </li>
           <li
-            className={`flex items-center gap-2 hover:bg-muted px-2 ${pathname === "/movies" ? "bg-muted" : ""} rounded-lg`}
+            className={`flex items-center gap-2 p-2 hover:bg-muted transition rounded-lg ${
+              pathname === "/movies" ? "bg-muted" : ""
+            }`}
           >
-            <Film className="size-4" />
+            <Film size={20} className="text-primary" />
             <Link href="/movies">Filmes</Link>
           </li>
           <li
-            className={`flex items-center gap-2 hover:bg-muted px-2 ${pathname === "/series" ? "bg-muted" : ""} rounded-lg`}
+            className={`flex items-center gap-2 p-2 hover:bg-muted transition rounded-lg ${
+              pathname === "/series" ? "bg-muted" : ""
+            }`}
           >
-            <MonitorPlay className="size-4" />
+            <MonitorPlay size={20} className="text-primary" />
             <Link href="/series">Séries</Link>
           </li>
           <li
-            className={`flex items-center gap-2 hover:bg-muted px-2 ${pathname === "/search" ? "bg-muted" : ""} rounded-lg`}
+            className={`flex items-center gap-2 p-2 hover:bg-muted transition rounded-lg ${
+              pathname === "/search" ? "bg-muted" : ""
+            }`}
           >
-            <Search className="size-4" />
-            <Link href="/search">Procure por tudo</Link>
+            <Search size={20} className="text-primary" />
+            <Link href="/search">Procurar</Link>
           </li>
         </ul>
+
         <Menubar className="border-none bg-transparent">
           <MenubarMenu>
             <MenubarTrigger asChild>

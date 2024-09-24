@@ -6,14 +6,15 @@ import { PaginationLists } from "@/app/_components/pagination-lists";
 import { extractYear } from "@/app/utils/format-date";
 import { apiKey } from "@/app/utils/api-key";
 import Link from "next/link";
-import { SeriesNowPlayingItem } from "./series-now-playing-item";
 import { Loading } from "@/app/_components/loading";
+import { InfoCard } from "@/app/_components/info-card";
 
 interface Serie {
   id: number;
   name: string;
   poster_path: string | null;
   release_date: string;
+  first_air_date: string;
   vote_average: number;
   media_type: string;
 }
@@ -58,15 +59,15 @@ export function SeriesNowPlayingDetails() {
         <>
           <section className="grid grid-cols-2 lg:grid-cols-4 gap-x-3 gap-y-5 pt-4">
             {seriesData.results.map((serie) => {
-              const year = extractYear(serie.release_date);
-
+              const year = extractYear(serie.first_air_date);
+              console.log(seriesData);
               return (
                 <Link
                   href={`/serie/${serie.id}`}
                   key={serie.id}
                   className="relative aspect-square w-full group"
                 >
-                  <SeriesNowPlayingItem
+                  <InfoCard
                     name={serie.name}
                     poster_path={serie.poster_path || ""}
                     vote_average={serie.vote_average}
