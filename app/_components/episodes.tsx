@@ -82,20 +82,12 @@ export function Episodes({ id, onShowSeasons }: EpisodesProps) {
             <h1 className="text-white text-5xl sm:text-6xl font-extrabold tracking-tight leading-tight drop-shadow-lg">
               {episodeData.name}
             </h1>
-            <p className="text-white/90 mt-4 text-lg sm:text-xl leading-relaxed drop-shadow-md">
+            <p className="text-white/90 mt-4 text-lg sm:text-xl line-clamp-3 leading-relaxed drop-shadow-md">
               {episodeData.overview}
             </p>
           </div>
 
           <div className="relative z-10 flex flex-col items-center space-y-4">
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/80 text-gray-900 rounded-full shadow-lg">
-              <span className="font-semibold">
-                Temporada {episodeData.season_number}
-              </span>
-              <span>•</span>
-              <span>Episódio {episodeData.episode_number}</span>
-            </div>
-
             <Button
               className="px-10 py-3 bg-gradient-to-tr from-[#4e46ff] to-[#1e00ff] shadow-xl text-white text-sm font-medium rounded-full hover:scale-105 hover:shadow-2xl transition-transform duration-300 ease-in-out"
               onClick={onShowSeasons}
