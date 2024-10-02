@@ -1,9 +1,9 @@
 "use client";
 
+import { InfoCard } from "@/app/_components/info-card";
 import { apiKey } from "@/app/utils/api-key";
 import { extractYear } from "@/app/utils/format-date";
 import { useEffect, useState } from "react";
-import { CreditsItem } from "./credits-item";
 
 interface CreditsProps {
   id: number;
@@ -61,7 +61,7 @@ export function Credits({ id }: CreditsProps) {
           );
 
           return (
-            <CreditsItem
+            <InfoCard
               id={credit.id}
               key={credit.id}
               name={credit.name}
