@@ -3,6 +3,7 @@
 import { InfoCard } from "@/app/_components/info-card";
 import { apiKey } from "@/app/utils/api-key";
 import { extractYear } from "@/app/utils/format-date";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface CreditsProps {
@@ -61,16 +62,15 @@ export function Credits({ id }: CreditsProps) {
           );
 
           return (
-            <InfoCard
-              id={credit.id}
-              key={credit.id}
-              name={credit.name}
-              title={credit.title}
-              poster_path={credit.poster_path}
-              href={href}
-              year={year}
-              vote_average={credit.vote_average}
-            />
+            <Link href={`${href}/${id}`} key={credit.id}>
+              <InfoCard
+                name={credit.name}
+                title={credit.title}
+                poster_path={credit.poster_path}
+                year={year}
+                vote_average={credit.vote_average}
+              />
+            </Link>
           );
         })}
       </section>

@@ -1,11 +1,8 @@
 import { Clapperboard, Star } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 
 interface InfoCardProps {
-  id?: number;
   title?: string;
-  href?: string;
   name?: string;
   poster_path?: string;
   profile_path?: string;
@@ -16,10 +13,8 @@ interface InfoCardProps {
 }
 
 export function InfoCard({
-  id,
   title,
   name,
-  href,
   poster_path,
   profile_path,
   media_type,
@@ -28,7 +23,6 @@ export function InfoCard({
   known_for_department
 }: InfoCardProps) {
   return (
-    <Link href={`${href}/${id}`}>
       <div className="relative transition-transform duration-300 group-hover:scale-105 hover:shadow-lg rounded-lg overflow-hidden">
         {poster_path || profile_path ? (
           <Image
@@ -80,6 +74,5 @@ export function InfoCard({
           )}
         </div>
       </div>
-    </Link>
   );
 }
