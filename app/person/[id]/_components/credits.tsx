@@ -62,7 +62,7 @@ export function Credits({ id }: CreditsProps) {
           );
 
           return (
-            <Link href={`${href}/${id}`} key={credit.id}>
+            <Link href={`${href}/${credit.id}`} key={credit.id}>
               <InfoCard
                 name={credit.name}
                 title={credit.title}
