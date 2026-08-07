@@ -17,20 +17,20 @@ export function Images({ id }: ImagesProps) {
   const [imagesData, setImagesData] = useState<ImagesData[]>([]);
 
   useEffect(() => {
-    fetchImagesData();
-  }, []);
-
-  async function fetchImagesData() {
-    try {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/person/${id}/images?api_key=${apiKey}&language=pt-BR`
-      );
-      const data = await response.json();
-      setImagesData(data.profiles);
-    } catch (error) {
-      console.log(error);
+    async function fetchImagesData() {
+      try {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/person/${id}/images?api_key=${apiKey}&language=pt-BR`
+        );
+        const data = await response.json();
+        setImagesData(data.profiles);
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
+
+    fetchImagesData();
+  }, [id]);
 
   return (
     <>

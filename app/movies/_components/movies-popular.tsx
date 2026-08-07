@@ -14,6 +14,7 @@ interface MoviesPopularData {
   poster_path: string;
   title: string;
   vote_average: number;
+  release_date: string;
 }
 
 export function MoviesPopular() {
@@ -67,7 +68,7 @@ export function MoviesPopular() {
 
         <Button
           variant="ghost"
-          className="h-fit p-0 text-[#3a3cff] hover:bg-transparent"
+          className="h-fit p-0 text-red-400 hover:bg-transparent hover:text-red-300"
           asChild
         >
           <Link href="/movies-popular">
@@ -76,7 +77,7 @@ export function MoviesPopular() {
           </Link>
         </Button>
       </div>
-      <section className="flex gap-4 overflow-x-scroll  lg:gap-5 [&::-webkit-scrollbar]:hidden">
+      <section ref={carouselRef} className="scrollbar-none flex gap-4 overflow-x-auto pb-3 lg:gap-5">
         {moviesPopularData.map((item) => (
           <Card
             key={item.id}
@@ -84,6 +85,8 @@ export function MoviesPopular() {
             poster_path={item.poster_path}
             title={item.title}
             vote_average={item.vote_average}
+            release_date={item.release_date}
+            mediaLabel="Filme"
             href="/movie"
           />
         ))}

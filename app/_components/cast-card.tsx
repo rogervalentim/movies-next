@@ -1,7 +1,6 @@
 import Image from "next/image";
-import { Button } from "./ui/button";
-import { User } from "lucide-react";
 import Link from "next/link";
+import { User } from "lucide-react";
 
 interface CastCardProps {
   id: number;
@@ -12,36 +11,20 @@ interface CastCardProps {
 
 export function CastCard({ id, name, character, profile_path }: CastCardProps) {
   return (
-    <div className="w-44 min-w-44">
-      <div className="w-full space-y-2 lg:h-96 lg:w-[180px]">
-        <div className="relative aspect-square w-full">
+    <article className="group w-40 min-w-40 shrink-0 sm:w-44 sm:min-w-44">
+      <Link href={`/person/${id}`} className="block rounded-2xl focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-4 focus-visible:ring-offset-[#080808]" aria-label={`Ver perfil de ${name}`}>
+        <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-white/10 bg-[#151515] shadow-card transition duration-300 group-hover:-translate-y-1 group-hover:border-red-500/50 motion-reduce:transform-none">
           {profile_path ? (
-            <Image
-              src={`https://image.tmdb.org/t/p/w500/${profile_path}`}
-              alt={name}
-              width={0}
-              height={0}
-              quality={100}
-              sizes="100vh"
-              className="rounded-lg shadow-md  border border-border w-full h-56 object-cover"
-              loading="lazy"
-            />
+            <Image src={`https://image.tmdb.org/t/p/w500${profile_path}`} alt={`Foto de ${name}`} fill sizes="176px" className="object-cover transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transform-none" />
           ) : (
-            <div className="flex justify-center items-center w-full h-56 bg-[#3a3cff] rounded-lg shadow-md">
-              <User size={24} className="text-white" />
-            </div>
+            <div className="flex h-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-red-950 to-[#151515] text-red-200"><User className="size-9" /><span className="text-xs text-slate-400">Sem foto</span></div>
           )}
         </div>
-
-        <span className="block text-lg truncate text-primary">{name}</span>
-        <span className="block text-base truncate text-muted-foreground">
-          {character === "" ? "Sem o nome do personagem" : character}
-        </span>
-
-        <Button className="bg-gradient-to-b text-white w-full rounded-md from-[#3a3cff] to-[#2a18ff] hover:bg-gradient-to-b hover:from[#2a18ff] hover:to-[#1e0ae3]">
-          <Link href={`/person/${id}`}>Ver detalhes</Link>
-        </Button>
-      </div>
-    </div>
+        <div className="min-h-[74px] pt-3">
+          <h3 className="truncate text-sm font-semibold text-white group-hover:text-red-400" title={name}>{name}</h3>
+          <p className="mt-1 line-clamp-2 text-xs leading-5 text-slate-400">{character || "Personagem não informado"}</p>
+        </div>
+      </Link>
+    </article>
   );
 }

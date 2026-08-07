@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./_context/theme-provider";
 import { ReactQueryProvider } from "./react-query-provider";
 import { ScrollTop } from "./_components/scroll-top";
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["100", "300", "400", "500", "600", "700", "800"]
-});
 
 export const metadata: Metadata = {
-  title: "Movies",
-  description: "Movies and series from tmdb api"
+  title: {
+    default: "CineVerse — Filmes e séries",
+    template: "%s | CineVerse"
+  },
+  description:
+    "Descubra filmes e séries, explore tendências e encontre sua próxima história no CineVerse."
 };
 
 export default function RootLayout({
@@ -21,11 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
-      <body className={poppins.className}>
+      <body>
         <ReactQueryProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
           >

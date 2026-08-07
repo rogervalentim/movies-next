@@ -1,40 +1,42 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, FormEvent } from "react";
+import { Search as SearchIcon, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { Search as SearchIcon, X as ClearIcon } from "lucide-react";
 
 interface SearchProps {
   handleSearch: (event: ChangeEvent<HTMLInputElement>) => void;
   searchData: string;
   clearSearch: () => void;
+  onSubmit?: (event: FormEvent<HTMLFormElement>) => void;
 }
 
-export function Search({ handleSearch, searchData, clearSearch }: SearchProps) {
+export function Search({ handleSearch, searchData, clearSearch, onSubmit }: SearchProps) {
   return (
-    <form className="relative flex gap-2 lg:gap-0">
-      <div className="relative flex-grow">
+    <form className="relative" role="search" onSubmit={onSubmit}>
+      <label htmlFor="catalog-search" className="sr-only">Buscar filmes, séries e pessoas</label>
+      <div className="relative">
+        <SearchIcon className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-slate-400" />
         <Input
-          placeholder="Busque por filmes ou séries"
-          className="border-none lg:rounded lg:rounded-l-md pr-10"
+          id="catalog-search"
+          placeholder="Busque por filmes, séries ou pessoas"
+          className="h-14 rounded-2xl border-white/10 bg-white/[0.06] pl-12 pr-14 text-base shadow-card"
           onChange={handleSearch}
           value={searchData}
+          autoComplete="off"
         />
         {searchData && (
-          <button
+          <Button
             type="button"
             onClick={clearSearch}
-            className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-500"
+            size="icon"
+            variant="ghost"
+            className="absolute right-1.5 top-1/2 -translate-y-1/2 text-slate-400"
+            aria-label="Limpar busca"
           >
-            <ClearIcon size={20} />
-          </button>
+            <X className="size-5" />
+          </Button>
         )}
       </div>
-      <Button
-        className="lg:rounded-l-none lg:rounded-r-md bg-gradient-to-b from-[#3a3cff] to-[#2a18ff] hover:bg-gradient-to-b hover:from-[#2a18ff] hover:to-[#1e0ae3]"
-        size="icon"
-      >
-        <SearchIcon size={20} className="text-white" />
-      </Button>
     </form>
   );
 }

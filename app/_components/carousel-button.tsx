@@ -19,7 +19,8 @@ export function CarouselButton({
       size="icon"
       variant="outline"
       disabled={disabled}
-      className="h-8 w-8"
+      className="size-11 rounded-xl"
+      aria-label={direction === "left" ? "Anterior" : "Próximo"}
     >
       {direction === "left" ? (
         <ChevronLeftIcon size={16} />

@@ -10,10 +10,10 @@ interface AdditionalContentProps {
 export function AdditionalContent({ id }: AdditionalContentProps) {
   return (
     <>
-      <div className="space-y-4 px-5 lg:px-32">
+      <div className="page-container section-spacing">
         <Recommended id={id} title="Séries recomendadas" contentType="tv" />
       </div>
-      <div className="space-y-4 px-5 lg:px-32">
+      <div className="page-container section-spacing pt-2">
         <Similar id={id} title="Séries como essa" contentType="tv" />
       </div>
     </>

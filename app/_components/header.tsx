@@ -1,18 +1,20 @@
 "use client";
 
 import {
+  ChevronDown,
   Clapperboard,
   Film,
-  GithubIcon,
-  HomeIcon,
-  MenuIcon,
+  Home,
+  Menu,
   MonitorPlay,
   Search,
-  Settings,
-  SunIcon,
+  Sparkles,
   SunMoon
 } from "lucide-react";
 import Link from "next/link";
+import { FormEvent, useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
 import {
   Menubar,
   MenubarContent,
@@ -20,127 +22,223 @@ import {
   MenubarMenu,
   MenubarTrigger
 } from "./ui/menubar";
-
-import { useTheme } from "next-themes";
-import { useState } from "react";
-
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger
+} from "./ui/sheet";
 import { Button } from "./ui/button";
-import { usePathname } from "next/navigation";
-import { DrawerComponent } from "./drawer-component";
+import { Input } from "./ui/input";
+import { cn } from "../_lib/utils";
+
+const movieLinks = [
+  { href: "/movies", label: "Explorar filmes" },
+  { href: "/movies-trending", label: "Em tendência" },
+  { href: "/movies-popular", label: "Populares" },
+  { href: "/movies-top-rated", label: "Mais bem avaliados" },
+  { href: "/movies-now-playing", label: "Em cartaz" }
+];
+
+const serieLinks = [
+  { href: "/series", label: "Explorar séries" },
+  { href: "/series-trending", label: "Em tendência" },
+  { href: "/series-popular", label: "Populares" },
+  { href: "/series-top-rated", label: "Mais bem avaliadas" },
+  { href: "/series-now-playing", label: "No ar" }
+];
+
+function isSectionActive(pathname: string, section: "movies" | "series") {
+  const prefixes = section === "movies" ? ["/movie", "/movies"] : ["/serie", "/series"];
+  return prefixes.some((prefix) => pathname.startsWith(prefix));
+}
 
 export function Header() {
-  const { theme, setTheme } = useTheme();
-  const [selectedTheme, setSelectedTheme] = useState(theme);
   const pathname = usePathname();
+  const router = useRouter();
+  const { resolvedTheme, setTheme } = useTheme();
+  const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    if (pathname === "/search") {
+      setQuery(new URLSearchParams(window.location.search).get("q") ?? "");
+    }
+  }, [pathname]);
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const normalizedQuery = query.trim();
+    router.push(normalizedQuery ? `/search?q=${encodeURIComponent(normalizedQuery)}` : "/search");
+  }
+
+  const navLinkClass = (active: boolean) =>
+    cn(
+      "relative inline-flex min-h-11 items-center gap-2 rounded-xl px-3 text-sm font-medium text-slate-300 transition hover:bg-white/[0.06] hover:text-white",
+      active && "bg-red-500/10 text-white after:absolute after:inset-x-3 after:-bottom-px after:h-0.5 after:rounded-full after:bg-red-500"
+    );
 
   return (
-    <header className="flex justify-between items-center bg-card p-4 lg:px-32 shadow-lg">
-      <Link href="/">
-        <div className="flex items-center gap-2 cursor-pointer">
-          <Clapperboard size={30} className="text-[#2a18ff]" />
-          <span className="text-lg font-bold text-primary">MovieApp</span>
-        </div>
-      </Link>
+    <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#080808]/80 backdrop-blur-xl supports-[backdrop-filter]:bg-[#080808]/70">
+      <div className="page-container flex min-h-[72px] items-center gap-3">
+        <Link
+          href="/"
+          className="group mr-auto inline-flex min-h-11 items-center gap-2.5 rounded-xl focus-visible:outline-none"
+          aria-label="CineVerse — página inicial"
+        >
+          <span className="relative grid size-10 place-items-center overflow-hidden rounded-xl bg-gradient-to-br from-red-500 to-red-800 shadow-glow">
+            <Clapperboard className="size-5 text-white transition-transform group-hover:-rotate-6" />
+            <span className="absolute inset-0 bg-white/10 opacity-0 transition-opacity group-hover:opacity-100" />
+          </span>
+          <span className="text-lg font-extrabold tracking-tight text-white sm:text-xl">
+            Cine<span className="text-red-500">Verse</span>
+          </span>
+        </Link>
 
-      <div className="flex gap-6 items-center">
-        <ul className="hidden lg:flex gap-6">
-          <li
-            className={`flex items-center gap-2 p-2 hover:bg-muted transition rounded-lg ${
-              pathname === "/" ? "bg-muted" : ""
-            }`}
-          >
-            <HomeIcon size={20} className="text-primary" />
-            <Link href="/">Início</Link>
-          </li>
-          <li
-            className={`flex items-center gap-2 p-2 hover:bg-muted transition rounded-lg ${
-              pathname === "/movies" ? "bg-muted" : ""
-            }`}
-          >
-            <Film size={20} className="text-primary" />
-            <Link href="/movies">Filmes</Link>
-          </li>
-          <li
-            className={`flex items-center gap-2 p-2 hover:bg-muted transition rounded-lg ${
-              pathname === "/series" ? "bg-muted" : ""
-            }`}
-          >
-            <MonitorPlay size={20} className="text-primary" />
-            <Link href="/series">Séries</Link>
-          </li>
-          <li
-            className={`flex items-center gap-2 p-2 hover:bg-muted transition rounded-lg ${
-              pathname === "/search" ? "bg-muted" : ""
-            }`}
-          >
-            <Search size={20} className="text-primary" />
-            <Link href="/search">Procurar</Link>
-          </li>
-        </ul>
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Navegação principal">
+          <Link href="/" className={navLinkClass(pathname === "/")}>
+            <Home className="size-4" /> Início
+          </Link>
 
-        <Menubar className="border-none bg-transparent">
-          <MenubarMenu>
-            <MenubarTrigger asChild>
-              <Button
-                size="icon"
-                className="hidden transition lg:flex justify-center items-center"
-                variant="outline"
-                type="button"
-                aria-label="Abrir a configurações do projeto"
+          <Menubar className="h-auto border-0 bg-transparent p-0">
+            <MenubarMenu>
+              <MenubarTrigger
+                className={navLinkClass(isSectionActive(pathname, "movies"))}
+                aria-label="Abrir menu de filmes"
               >
-                <Settings className="size-5 text-primary" />
-              </Button>
-            </MenubarTrigger>
-            <MenubarContent>
-              <p className="px-2 py-1.5 font-bold">Tema</p>
-              <MenubarItem
-                className={`flex gap-2 items-center cursor-pointer ${selectedTheme === "light" ? "bg-accent" : ""}`}
-                onClick={() => {
-                  setTheme("light");
-                  setSelectedTheme("light");
-                }}
-              >
-                <SunIcon className="text-amber-400 size-5" /> Claro
-              </MenubarItem>
-              <MenubarItem
-                className={`flex gap-2 items-center cursor-pointer ${selectedTheme === "dark" ? "bg-accent" : ""}`}
-                onClick={() => {
-                  setTheme("dark");
-                  setSelectedTheme("dark");
-                }}
-              >
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 15 15"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M2.89998 0.499976C2.89998 0.279062 2.72089 0.0999756 2.49998 0.0999756C2.27906 0.0999756 2.09998 0.279062 2.09998 0.499976V1.09998H1.49998C1.27906 1.09998 1.09998 1.27906 1.09998 1.49998C1.09998 1.72089 1.27906 1.89998 1.49998 1.89998H2.09998V2.49998C2.09998 2.72089 2.27906 2.89998 2.49998 2.89998C2.72089 2.89998 2.89998 2.72089 2.89998 2.49998V1.89998H3.49998C3.72089 1.89998 3.89998 1.72089 3.89998 1.49998C3.89998 1.27906 3.72089 1.09998 3.49998 1.09998H2.89998V0.499976ZM5.89998 3.49998C5.89998 3.27906 5.72089 3.09998 5.49998 3.09998C5.27906 3.09998 5.09998 3.27906 5.09998 3.49998V4.09998H4.49998C4.27906 4.09998 4.09998 4.27906 4.09998 4.49998C4.09998 4.72089 4.27906 4.89998 4.49998 4.89998H5.09998V5.49998C5.09998 5.72089 5.27906 5.89998 5.49998 5.89998C5.72089 5.89998 5.89998 5.72089 5.89998 5.49998V4.89998H6.49998C6.72089 4.89998 6.89998 4.72089 6.89998 4.49998C6.89998 4.27906 6.72089 4.09998 6.49998 4.09998H5.89998V3.49998ZM1.89998 6.49998C1.89998 6.27906 1.72089 6.09998 1.49998 6.09998C1.27906 6.09998 1.09998 6.27906 1.09998 6.49998V7.09998H0.499976C0.279062 7.09998 0.0999756 7.27906 0.0999756 7.49998C0.0999756 7.72089 0.279062 7.89998 0.499976 7.89998H1.09998V8.49998C1.09998 8.72089 1.27906 8.89997 1.49998 8.89997C1.72089 8.89997 1.89998 8.72089 1.89998 8.49998V7.89998H2.49998C2.72089 7.89998 2.89998 7.72089 2.89998 7.49998C2.89998 7.27906 2.72089 7.09998 2.49998 7.09998H1.89998V6.49998ZM8.54406 0.98184L8.24618 0.941586C8.03275 0.917676 7.90692 1.1655 8.02936 1.34194C8.17013 1.54479 8.29981 1.75592 8.41754 1.97445C8.91878 2.90485 9.20322 3.96932 9.20322 5.10022C9.20322 8.37201 6.82247 11.0878 3.69887 11.6097C3.45736 11.65 3.20988 11.6772 2.96008 11.6906C2.74563 11.702 2.62729 11.9535 2.77721 12.1072C2.84551 12.1773 2.91535 12.2458 2.98667 12.3128L3.05883 12.3795L3.31883 12.6045L3.50684 12.7532L3.62796 12.8433L3.81491 12.9742L3.99079 13.089C4.11175 13.1651 4.23536 13.2375 4.36157 13.3059L4.62496 13.4412L4.88553 13.5607L5.18837 13.6828L5.43169 13.7686C5.56564 13.8128 5.70149 13.8529 5.83857 13.8885C5.94262 13.9155 6.04767 13.9401 6.15405 13.9622C6.27993 13.9883 6.40713 14.0109 6.53544 14.0298L6.85241 14.0685L7.11934 14.0892C7.24637 14.0965 7.37436 14.1002 7.50322 14.1002C11.1483 14.1002 14.1032 11.1453 14.1032 7.50023C14.1032 7.25044 14.0893 7.00389 14.0623 6.76131L14.0255 6.48407C13.991 6.26083 13.9453 6.04129 13.8891 5.82642C13.8213 5.56709 13.7382 5.31398 13.6409 5.06881L13.5279 4.80132L13.4507 4.63542L13.3766 4.48666C13.2178 4.17773 13.0353 3.88295 12.8312 3.60423L12.6782 3.40352L12.4793 3.16432L12.3157 2.98361L12.1961 2.85951L12.0355 2.70246L11.8134 2.50184L11.4925 2.24191L11.2483 2.06498L10.9562 1.87446L10.6346 1.68894L10.3073 1.52378L10.1938 1.47176L9.95488 1.3706L9.67791 1.2669L9.42566 1.1846L9.10075 1.09489L8.83599 1.03486L8.54406 0.98184ZM10.4032 5.30023C10.4032 4.27588 10.2002 3.29829 9.83244 2.40604C11.7623 3.28995 13.1032 5.23862 13.1032 7.50023C13.1032 10.593 10.596 13.1002 7.50322 13.1002C6.63646 13.1002 5.81597 12.9036 5.08355 12.5522C6.5419 12.0941 7.81081 11.2082 8.74322 10.0416C8.87963 10.2284 9.10028 10.3497 9.34928 10.3497C9.76349 10.3497 10.0993 10.0139 10.0993 9.59971C10.0993 9.24256 9.84965 8.94373 9.51535 8.86816C9.57741 8.75165 9.63653 8.63334 9.6926 8.51332C9.88358 8.63163 10.1088 8.69993 10.35 8.69993C11.0403 8.69993 11.6 8.14028 11.6 7.44993C11.6 6.75976 11.0406 6.20024 10.3505 6.19993C10.3853 5.90487 10.4032 5.60464 10.4032 5.30023Z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>{" "}
-                Escuro
-              </MenubarItem>
-              <MenubarItem
-                className={`flex gap-2 items-center cursor-pointer ${selectedTheme === "system" ? "bg-accent" : ""}`}
-                onClick={() => {
-                  setTheme("system");
-                  setSelectedTheme("system");
-                }}
-              >
-                <SunMoon className="size-5" /> Sistema
-              </MenubarItem>
-            </MenubarContent>
-          </MenubarMenu>
-        </Menubar>
+                <Film className="size-4" /> Filmes <ChevronDown className="size-3.5" />
+              </MenubarTrigger>
+              <MenubarContent className="min-w-56 border-white/10 bg-[#151515]/95 p-2 text-slate-100 shadow-2xl backdrop-blur-xl">
+                {movieLinks.map((item) => (
+                  <MenubarItem key={item.href} asChild className="min-h-10 cursor-pointer rounded-lg focus:bg-red-500/15 focus:text-white">
+                    <Link href={item.href}>{item.label}</Link>
+                  </MenubarItem>
+                ))}
+              </MenubarContent>
+            </MenubarMenu>
 
-        <div className="flex lg:hidden gap-2">
-          <DrawerComponent />
-        </div>
+            <MenubarMenu>
+              <MenubarTrigger
+                className={navLinkClass(isSectionActive(pathname, "series"))}
+                aria-label="Abrir menu de séries"
+              >
+                <MonitorPlay className="size-4" /> Séries <ChevronDown className="size-3.5" />
+              </MenubarTrigger>
+              <MenubarContent className="min-w-56 border-white/10 bg-[#151515]/95 p-2 text-slate-100 shadow-2xl backdrop-blur-xl">
+                {serieLinks.map((item) => (
+                  <MenubarItem key={item.href} asChild className="min-h-10 cursor-pointer rounded-lg focus:bg-red-500/15 focus:text-white">
+                    <Link href={item.href}>{item.label}</Link>
+                  </MenubarItem>
+                ))}
+              </MenubarContent>
+            </MenubarMenu>
+          </Menubar>
+        </nav>
+
+        <form onSubmit={handleSubmit} role="search" className="hidden w-full max-w-[260px] md:block xl:max-w-[310px]">
+          <label htmlFor="global-search" className="sr-only">Buscar filmes, séries e pessoas</label>
+          <div className="relative">
+            <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
+            <Input
+              id="global-search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Buscar no CineVerse"
+              className="h-11 bg-white/[0.05] pl-10 pr-4"
+            />
+          </div>
+        </form>
+
+        <Button
+          type="button"
+          size="icon"
+          variant="ghost"
+          className="hidden text-slate-300 md:inline-flex"
+          aria-label="Alternar intensidade do tema"
+          onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+        >
+          <SunMoon className="size-5" />
+        </Button>
+
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button size="icon" variant="outline" className="lg:hidden" aria-label="Abrir menu de navegação">
+              <Menu className="size-5" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-[88%] max-w-sm border-white/10 bg-[#0c0c0c] p-5 text-white">
+            <SheetHeader className="text-left">
+              <SheetTitle className="flex items-center gap-2 text-white">
+                <Sparkles className="size-5 text-red-500" /> Navegar no CineVerse
+              </SheetTitle>
+            </SheetHeader>
+
+            <form onSubmit={handleSubmit} role="search" className="mt-6 md:hidden">
+              <label htmlFor="mobile-search" className="sr-only">Buscar filmes, séries e pessoas</label>
+              <div className="relative">
+                <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
+                <Input
+                  id="mobile-search"
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder="Filme, série ou pessoa"
+                  className="pl-10"
+                />
+              </div>
+            </form>
+
+            <nav className="mt-6 space-y-6" aria-label="Navegação mobile">
+              <div className="space-y-1">
+                <SheetClose asChild>
+                  <Link href="/" className={navLinkClass(pathname === "/") + " w-full justify-start"}>
+                    <Home className="size-4" /> Início
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link href="/search" className={navLinkClass(pathname === "/search") + " w-full justify-start"}>
+                    <Search className="size-4" /> Buscar
+                  </Link>
+                </SheetClose>
+              </div>
+
+              <div>
+                <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Filmes</p>
+                <div className="space-y-1">
+                  {movieLinks.map((item) => (
+                    <SheetClose asChild key={item.href}>
+                      <Link href={item.href} className={navLinkClass(pathname === item.href) + " w-full justify-start"}>
+                        {item.label}
+                      </Link>
+                    </SheetClose>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Séries</p>
+                <div className="space-y-1">
+                  {serieLinks.map((item) => (
+                    <SheetClose asChild key={item.href}>
+                      <Link href={item.href} className={navLinkClass(pathname === item.href) + " w-full justify-start"}>
+                        {item.label}
+                      </Link>
+                    </SheetClose>
+                  ))}
+                </div>
+              </div>
+            </nav>
+
+            <Button
+              type="button"
+              variant="outline"
+              className="mt-6 w-full justify-start"
+              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            >
+              <SunMoon className="size-4" /> Alternar intensidade do tema
+            </Button>
+          </SheetContent>
+        </Sheet>
       </div>
     </header>
   );

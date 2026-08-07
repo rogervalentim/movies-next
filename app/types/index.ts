@@ -8,6 +8,7 @@ export interface MovieDetailsData {
   release_date: string;
   runtime: number;
   original_title: string;
+  imdb_id?: string;
   budget: number;
   revenue: number;
   spoken_languages: [

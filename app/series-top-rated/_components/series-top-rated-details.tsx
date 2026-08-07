@@ -57,7 +57,7 @@ export function SeriesTopRatedDetails() {
 
       {moviesData && (
         <>
-          <section className="grid grid-cols-2 lg:grid-cols-4 gap-x-3 gap-y-5 pt-4">
+          <section className="grid grid-cols-2 gap-x-3 gap-y-7 pt-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4 xl:grid-cols-5">
             {moviesData.results.map((serie) => {
               const year = extractYear(serie.first_air_date);
 
@@ -65,7 +65,7 @@ export function SeriesTopRatedDetails() {
                 <Link
                   href={`/serie/${serie.id}`}
                   key={serie.id}
-                  className="relative aspect-square w-full group"
+                  className="group rounded-2xl focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-4 focus-visible:ring-offset-[#080808]"
                 >
                   <InfoCard
                     name={serie.name}

@@ -14,6 +14,7 @@ interface SeriesPopularData {
   poster_path: string;
   name: string;
   vote_average: number;
+  first_air_date: string;
 }
 
 export function SeriesPopular() {
@@ -68,7 +69,7 @@ export function SeriesPopular() {
         </div>
         <Button
           variant="ghost"
-          className="h-fit p-0 text-[#3a3cff] hover:bg-transparent"
+          className="h-fit p-0 text-red-400 hover:bg-transparent hover:text-red-300"
           asChild
         >
           <Link href="/series-popular">
@@ -88,6 +89,8 @@ export function SeriesPopular() {
             poster_path={item.poster_path}
             name={item.name}
             vote_average={item.vote_average}
+            first_air_date={item.first_air_date}
+            mediaLabel="Série"
             href="/serie"
           />
         ))}

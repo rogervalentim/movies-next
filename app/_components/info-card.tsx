@@ -1,4 +1,4 @@
-import { Clapperboard, Star } from "lucide-react";
+import { Clapperboard, Star, User } from "lucide-react";
 import Image from "next/image";
 
 interface InfoCardProps {
@@ -22,57 +22,46 @@ export function InfoCard({
   year,
   known_for_department
 }: InfoCardProps) {
+  const label = title || name || "Nome não informado";
+  const isPerson = media_type === "person" || Boolean(profile_path && !poster_path);
+  const typeLabel = media_type === "movie" ? "Filme" : media_type === "tv" ? "Série" : isPerson ? "Pessoa" : undefined;
+
   return (
-      <div className="relative transition-transform duration-300 group-hover:scale-105 hover:shadow-lg rounded-lg overflow-hidden">
+    <article className="group">
+      <div className="relative aspect-[2/3] overflow-hidden rounded-2xl border border-white/10 bg-[#151515] shadow-card transition duration-300 group-hover:-translate-y-1 group-hover:border-red-500/50 group-hover:shadow-glow motion-reduce:transform-none">
         {poster_path || profile_path ? (
           <Image
-            src={`https://image.tmdb.org/t/p/w500/${poster_path || profile_path}`}
-            alt={(title || name) ?? ""}
-            width={500}
-            height={750}
-            quality={100}
-            className="rounded-lg w-full h-64 lg:h-96 object-cover border border-border"
+            src={`https://image.tmdb.org/t/p/w500${poster_path || profile_path}`}
+            alt={isPerson ? `Foto de ${label}` : `Pôster de ${label}`}
+            fill
+            sizes="(max-width: 639px) 46vw, (max-width: 1023px) 30vw, (max-width: 1279px) 22vw, 18vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transform-none"
           />
         ) : (
-          <div className="flex justify-center items-center w-full h-64 lg:h-96 bg-gradient-to-r bg-[#3a3cff] rounded-lg text-white text-lg">
-            <Clapperboard />
+          <div className="flex h-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-red-950 to-[#151515] text-red-200">
+            {isPerson ? <User className="size-9" /> : <Clapperboard className="size-9" />}
+            <span className="text-xs text-slate-400">Imagem indisponível</span>
           </div>
         )}
-
-        <div className="absolute inset-0 flex flex-col justify-end p-4 bg-gradient-to-t from-black/80 to-transparent text-white">
-          <h3 className="text-lg font-medium mb-2 line-clamp-2">
-            {title || name}
-          </h3>
-
-          <div className="flex justify-between items-center text-sm">
-            {year && (
-              <span className="bg-white text-black px-2 py-1 rounded-md">
-                {year}
-              </span>
-            )}
-
-            {media_type && (
-              <span className="bg-[#3a3cff] text-gray-300 px-2 py-1 rounded-md">
-                {media_type === "movie"
-                  ? "Filme"
-                  : media_type === "tv"
-                    ? "Série"
-                    : known_for_department === "Acting"
-                      ? "Pessoa"
-                      : "Indefinido"}
-              </span>
-            )}
-          </div>
-
-          {vote_average > 0 && (
-            <div className="absolute left-2 top-2 flex items-center gap-1 bg-white px-2 py-1 rounded-full text-gray-800 shadow-sm">
-              <Star size={16} className="text-yellow-500 fill-yellow-500" />
-              <span className="font-semibold text-sm">
-                {vote_average.toFixed(2)}
-              </span>
-            </div>
-          )}
-        </div>
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent" />
+        {vote_average > 0 && !isPerson && (
+          <span className="absolute right-2.5 top-2.5 inline-flex items-center gap-1 rounded-full border border-white/10 bg-black/75 px-2 py-1 text-xs font-bold text-white backdrop-blur-md">
+            <Star className="size-3.5 fill-emerald-400 text-emerald-400" />
+            {vote_average.toFixed(1)}
+          </span>
+        )}
+        {typeLabel && (
+          <span className="absolute bottom-3 left-3 rounded-full border border-white/10 bg-black/60 px-2.5 py-1 text-[11px] font-semibold text-slate-100 backdrop-blur-md">
+            {typeLabel}
+          </span>
+        )}
       </div>
+      <div className="pt-3">
+        <h2 className="truncate text-sm font-semibold text-white transition-colors group-hover:text-red-400 sm:text-base" title={label}>{label}</h2>
+        <p className="mt-1 truncate text-xs text-slate-400 sm:text-sm">
+          {year || (isPerson ? known_for_department || "Pessoa" : "Data não informada")}
+        </p>
+      </div>
+    </article>
   );
 }

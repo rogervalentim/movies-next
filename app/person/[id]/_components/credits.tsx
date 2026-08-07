@@ -25,32 +25,32 @@ export function Credits({ id }: CreditsProps) {
   const [creditsData, setCreditsData] = useState<CreditsData[]>([]);
 
   useEffect(() => {
-    fetchCreditsData();
-  }, []);
+    async function fetchCreditsData() {
+      try {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/person/${id}/combined_credits?api_key=${apiKey}&language=pt-BR`
+        );
+        const data = await response.json();
 
-  async function fetchCreditsData() {
-    try {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/person/${id}/combined_credits?api_key=${apiKey}&language=pt-BR`
-      );
-      const data = await response.json();
+        const uniqueCredits = data.cast.reduce(
+          (acc: CreditsData[], current: CreditsData) => {
+            const x = acc.find((item) => item.id === current.id);
+            if (!x) {
+              acc.push(current);
+            }
+            return acc;
+          },
+          []
+        );
 
-      const uniqueCredits = data.cast.reduce(
-        (acc: CreditsData[], current: CreditsData) => {
-          const x = acc.find((item) => item.id === current.id);
-          if (!x) {
-            acc.push(current);
-          }
-          return acc;
-        },
-        []
-      );
-
-      setCreditsData(uniqueCredits);
-    } catch (error) {
-      console.log(error);
+        setCreditsData(uniqueCredits);
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
+
+    fetchCreditsData();
+  }, [id]);
 
   return (
     <>

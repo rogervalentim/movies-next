@@ -14,6 +14,7 @@ interface MoviesNowPlayingData {
   poster_path: string;
   title: string;
   vote_average: number;
+  release_date: string;
 }
 
 export function MoviesNowPlaying() {
@@ -67,7 +68,7 @@ export function MoviesNowPlaying() {
         </div>
         <Button
           variant="ghost"
-          className="h-fit p-0 text-[#3a3cff] hover:bg-transparent"
+          className="h-fit p-0 text-red-400 hover:bg-transparent hover:text-red-300"
           asChild
         >
           <Link href="/movies-now-playing">
@@ -87,6 +88,8 @@ export function MoviesNowPlaying() {
             poster_path={item.poster_path}
             title={item.title}
             vote_average={item.vote_average}
+            release_date={item.release_date}
+            mediaLabel="Filme"
             href="/movie"
           />
         ))}

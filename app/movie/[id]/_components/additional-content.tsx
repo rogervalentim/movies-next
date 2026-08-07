@@ -14,14 +14,14 @@ export function AdditionalContent({
 }: AdditionalContentProps) {
   return (
     <>
-      <div className="space-y-4 px-5 lg:px-32">
+      <div className="page-container section-spacing">
         <Recommended id={id} title="Filmes recomendados" contentType="movie" />
       </div>
-      <div className="space-y-4 px-5 lg:px-32">
+      <div className="page-container section-spacing pt-2">
         <Similar id={id} title="Filmes como este" contentType="movie" />
       </div>
       {movieDetails?.belongs_to_collection && (
-        <div className="space-y-4 px-5 lg:px-32">
+        <div className="page-container section-spacing pt-2">
           <Collection
             key={movieDetails?.belongs_to_collection?.id}
             id={movieDetails?.belongs_to_collection?.id}

@@ -42,7 +42,7 @@ export default function MediaImage({
             loading="lazy"
           />
         ) : (
-          <div className="flex  justify-center items-center h-[15rem] lg:h-[20rem] w-full  bg-[#3a3cff] lg:rounded-lg  shadow-md">
+          <div className="flex h-[15rem] w-full items-center justify-center bg-gradient-to-br from-red-950 to-[#151515] shadow-md lg:h-[20rem] lg:rounded-lg">
             <Clapperboard size={40} className="text-white" />
           </div>
         )}

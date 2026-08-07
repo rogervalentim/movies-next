@@ -1,4 +1,4 @@
-import { Clapperboard } from "lucide-react";
+import { ArrowUpRight, UserRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,37 +17,43 @@ export function CrewItem({
   name,
   job
 }: CrewItemProps) {
-  return (
-    <Link href={`/person/${id}`}>
-      <div className="relative transition-transform duration-300 group-hover:scale-105">
-        {profile_path ? (
-          <Image
-            src={`https://image.tmdb.org/t/p/w500/${profile_path}`}
-            alt={name}
-            width={0}
-            height={0}
-            quality={100}
-            sizes="100vh"
-            className="rounded-lg w-full border border-border  h-64 lg:h-80 object-cover"
-          />
-        ) : (
-          <div className="flex justify-center items-center w-full h-64 lg:h-80 bg-[#3a3cff] rounded-lg relative transition-transform duration-300 group-hover:scale-105">
-            <Clapperboard size={24} className="text-white" />
-          </div>
-        )}
+  const role = character || job || "Participação não informada";
 
-        <div className="absolute inset-0 flex flex-col justify-end p-4 bg-gradient-to-t from-black to-transparent rounded-lg">
-          <div className="flex flex-col space-y-1">
-            <span className="text-lg font-bold text-white truncate">
-              {name}
-            </span>
-            <span className="text-sm text-gray-300 font-semibold truncate">
-              {character === "" ? "Sem nome do personagem" : character}
-              {job === "" ? "Sem o nome da função" : job}
-            </span>
-          </div>
+  return (
+    <Link
+      href={`/person/${id}`}
+      className="group block rounded-2xl focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-4 focus-visible:ring-offset-[#080808]"
+      aria-label={`Ver perfil de ${name}`}
+    >
+      <article className="overflow-hidden rounded-2xl border border-white/10 bg-[#151515] shadow-card transition duration-300 group-hover:-translate-y-1 group-hover:border-red-500/40 motion-reduce:transform-none">
+        <div className="relative aspect-[3/4] overflow-hidden bg-[#1c1c1c]">
+          {profile_path ? (
+            <Image
+              src={`https://image.tmdb.org/t/p/w500${profile_path}`}
+              alt={`Foto de ${name}`}
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+              className="object-cover transition duration-500 group-hover:scale-105"
+            />
+          ) : (
+            <div className="flex h-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-red-950 to-[#151515] text-red-300">
+              <UserRound className="size-9" />
+              <span className="text-xs text-zinc-400">Sem foto</span>
+            </div>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
         </div>
-      </div>
+
+        <div className="flex items-start justify-between gap-3 p-4">
+          <div className="min-w-0">
+            <h4 className="truncate font-bold text-white transition-colors group-hover:text-red-300">
+              {name}
+            </h4>
+            <p className="mt-1 truncate text-sm text-zinc-400">{role}</p>
+          </div>
+          <ArrowUpRight className="mt-0.5 size-4 shrink-0 text-zinc-600 transition-colors group-hover:text-red-400" />
+        </div>
+      </article>
     </Link>
   );
 }

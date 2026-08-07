@@ -9,24 +9,29 @@ export function useMovieDetails(id: number) {
     null
   );
   const [error, setError] = useState<string | null>(null);
+  const [retryKey, setRetryKey] = useState(0);
 
   useEffect(() => {
+    const controller = new AbortController();
     async function fetchMovieDetail() {
+      setError(null);
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=pt-BR`
+          `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=pt-BR`,
+          { signal: controller.signal }
         );
         if (!response.ok) throw new Error("Failed to fetch");
 
         const data = await response.json();
         setMovieDetails(data);
       } catch (error) {
-        setError("Error fetching movie details.");
+        if ((error as Error).name !== "AbortError") setError("Não foi possível carregar os detalhes deste filme.");
       }
     }
 
     fetchMovieDetail();
-  }, [id]);
+    return () => controller.abort();
+  }, [id, retryKey]);
 
-  return { movieDetails, error };
+  return { movieDetails, error, refetch: () => setRetryKey((value) => value + 1) };
 }

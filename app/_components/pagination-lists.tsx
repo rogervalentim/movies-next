@@ -6,7 +6,9 @@ import {
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
-  PaginationLink
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious
 } from "@/app/_components/ui/pagination";
 
 interface PaginationProps {
@@ -65,7 +67,18 @@ export function PaginationLists({
 
   return (
     <Pagination>
-      <PaginationContent className="pt-10">
+      <PaginationContent className="flex-wrap pt-10">
+        <PaginationItem className="hidden sm:block">
+          <PaginationPrevious
+            href="#"
+            aria-disabled={currentPage === 1}
+            className={currentPage === 1 ? "pointer-events-none opacity-40" : ""}
+            onClick={(event) => {
+              event.preventDefault();
+              if (currentPage > 1) onPageChange(currentPage - 1);
+            }}
+          />
+        </PaginationItem>
         {getPaginationRange(currentPage, totalPages).map((pageNumber) => (
           <PaginationItem key={pageNumber}>
             <PaginationLink
@@ -88,6 +101,17 @@ export function PaginationLists({
             <PaginationEllipsis />
           </PaginationItem>
         )}
+        <PaginationItem className="hidden sm:block">
+          <PaginationNext
+            href="#"
+            aria-disabled={currentPage === totalPages}
+            className={currentPage === totalPages ? "pointer-events-none opacity-40" : ""}
+            onClick={(event) => {
+              event.preventDefault();
+              if (currentPage < totalPages) onPageChange(currentPage + 1);
+            }}
+          />
+        </PaginationItem>
       </PaginationContent>
     </Pagination>
   );

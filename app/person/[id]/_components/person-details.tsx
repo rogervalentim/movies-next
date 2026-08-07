@@ -91,8 +91,8 @@ export function PersonDetails({ id }: PersonDetailsProps) {
                 type="button"
                 className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
                   showCredits
-                    ? "bg-[#3a3cff] text-white active:bg-[#3a3cff]"
-                    : "bg-secondary text-secondary-foreground hover:bg-[#3a3cff] hover:text-white"
+                    ? "bg-red-600 text-white active:bg-red-700"
+                    : "bg-secondary text-secondary-foreground hover:bg-red-600 hover:text-white"
                 }`}
                 onClick={toggleCredits}
               >
@@ -102,8 +102,8 @@ export function PersonDetails({ id }: PersonDetailsProps) {
                 type="button"
                 className={`flex items-center justify-center gap-3 rounded-full px-4 py-3 shadow-md ${
                   showImages
-                    ? "bg-[#3a3cff] text-white active:bg-[#3a3cff]"
-                    : "bg-secondary text-secondary-foreground hover:bg-[#3a3cff] hover:text-white"
+                    ? "bg-red-600 text-white active:bg-red-700"
+                    : "bg-secondary text-secondary-foreground hover:bg-red-600 hover:text-white"
                 }`}
                 onClick={toggleImages}
               >

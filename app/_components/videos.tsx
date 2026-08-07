@@ -1,94 +1,45 @@
-import { Loading } from "@/app/_components/loading";
-import { Play, X } from "lucide-react";
-import Image from "next/image";
-import { useState } from "react";
-import { useVideos } from "../_hooks/use-videos";
+"use client";
 
-interface VideosProps {
-  id: number;
-  contentType: string;
-}
+import { Play } from "lucide-react";
+import Image from "next/image";
+import { useVideos } from "../_hooks/use-videos";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { SectionHeading } from "./section-heading";
+
+interface VideosProps { id: number; contentType: string; }
 
 export default function Videos({ id, contentType }: VideosProps) {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedVideoId, setSelectedVideoId] = useState("");
+  const { data: videos = [], isLoading, isError } = useVideos(id, contentType);
 
-  const openModal = (videoId: string) => {
-    setSelectedVideoId(videoId);
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setSelectedVideoId("");
-    setModalOpen(false);
-  };
-
-  const { data: videos, isLoading } = useVideos(id, contentType);
-
-  if (isLoading) {
-    return <Loading />;
-  }
+  if (isLoading) return <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">{Array.from({ length: 3 }).map((_, index) => <div key={index} className="skeleton-shimmer aspect-video rounded-2xl" />)}</div>;
+  if (isError) return <p className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-slate-400">Não foi possível carregar os vídeos.</p>;
+  if (!videos.length) return <p className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-slate-400">Nenhum vídeo disponível para este título.</p>;
 
   return (
-    <section>
-      {videos && videos.length > 0 ? (
-        <ul className="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {videos?.map((video) => (
-            <li className="relative aspect-video" key={video.key}>
-              <div className="relative aspect-video cursor-pointer">
-                <Image
-                  src={
-                    video.key
-                      ? `https://img.youtube.com/vi/${video.key}/hqdefault.jpg`
-                      : "/youtube-6.svg"
-                  }
-                  alt={video.name}
-                  unoptimized
-                  fill
-                  className="rounded-md border border-border object-cover"
-                  loading="lazy"
-                />
-                <button
-                  className="absolute inset-0 flex justify-center items-center"
-                  onClick={() => openModal(video.key)}
-                >
-                  <div className="rounded-full bg-black/60 flex items-center justify-center w-10 h-10">
-                    <Play className="text-gray-300 fill-gray-300 size-6" />
-                  </div>
+    <section aria-labelledby="videos-title">
+      <SectionHeading title="Vídeos" description={`${videos.length} vídeos disponíveis`} />
+      <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {videos.map((video) => (
+          <li key={video.key}>
+            <Dialog>
+              <DialogTrigger asChild>
+                <button type="button" className="group w-full text-left focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-4 focus-visible:ring-offset-[#080808] rounded-2xl" aria-label={`Assistir ${video.name}`}>
+                  <span className="relative block aspect-video overflow-hidden rounded-2xl border border-white/10 bg-[#151515]">
+                    <Image src={`https://img.youtube.com/vi/${video.key}/hqdefault.jpg`} alt={`Miniatura de ${video.name}`} fill unoptimized sizes="(max-width: 640px) 100vw, (max-width: 1024px) 48vw, 32vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+                    <span className="absolute inset-0 bg-black/20 transition group-hover:bg-black/5" />
+                    <span className="absolute left-1/2 top-1/2 grid size-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-black/65 text-white backdrop-blur"><Play className="ml-0.5 size-5 fill-current" /></span>
+                  </span>
+                  <span className="mt-3 line-clamp-2 block text-sm font-semibold text-white group-hover:text-red-400">{video.name}</span>
                 </button>
-              </div>
-              <h2 className="font-semibold text-primary mt-2">{video.name}</h2>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>
-          {contentType === "tv"
-            ? "sem videos para essa série selecionada"
-            : "sem videos para esse filme selecionado"}
-        </p>
-      )}
-      {modalOpen && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 flex justify-center items-center z-50">
-          <div className="p-4 rounded-lg">
-            <button
-              className="absolute top-1 right-1 z-100 p-3 text-3xl bg-black/60 rounded-full hover:text-primary transition"
-              onClick={closeModal}
-            >
-              <X className="text-2xl text-white" />
-            </button>
-            <div className="flex justify-center items-center">
-              <iframe
-                title="YouTube Video"
-                allow="autoplay; encrypted-media"
-                className="max-w-full w-[800px] h-screen m-5 lg:m-20 border-none"
-                src={`https://www.youtube.com/embed/${selectedVideoId}?autoplay=1`}
-                allowFullScreen={true}
-              />
-            </div>
-          </div>
-        </div>
-      )}
+              </DialogTrigger>
+              <DialogContent className="w-[calc(100%_-_2rem)] max-w-5xl border-white/10 bg-[#0c0c0c] p-2 sm:p-4">
+                <DialogHeader className="sr-only"><DialogTitle>{video.name}</DialogTitle></DialogHeader>
+                <div className="aspect-video overflow-hidden rounded-xl bg-black"><iframe title={video.name} src={`https://www.youtube.com/embed/${video.key}?autoplay=1`} className="h-full w-full border-0" allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen /></div>
+              </DialogContent>
+            </Dialog>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

@@ -1,18 +1,19 @@
 import { Footer } from "../_components/footer";
 import { Header } from "../_components/header";
 import { SearchComponent } from "./_components/search-component";
+import { Suspense } from "react";
+import { Loading } from "../_components/loading";
 
 export default function SearchPage() {
   return (
     <>
       <Header />
-      <div className="pt-4 px-5  lg:px-32">
-        <SearchComponent />
-      </div>
-
-      <div className="pt-4">
-        <Footer />
-      </div>
+      <main className="page-container">
+        <Suspense fallback={<div className="py-12"><Loading /></div>}>
+          <SearchComponent />
+        </Suspense>
+      </main>
+      <Footer />
     </>
   );
 }
