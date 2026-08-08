@@ -7,14 +7,14 @@ import { ScrollTop } from "./_components/scroll-top";
 export const metadata: Metadata = {
   title: {
     default: "CineVerse — Filmes e séries",
-    template: "%s | CineVerse"
+    template: "%s | CineVerse",
   },
   description:
-    "Descubra filmes e séries, explore tendências e encontre sua próxima história no CineVerse."
+    "Descubra filmes e séries, explore tendências e encontre sua próxima história no CineVerse.",
 };
 
 export default function RootLayout({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -24,7 +24,7 @@ export default function RootLayout({
         <ReactQueryProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="dark"
+            defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >

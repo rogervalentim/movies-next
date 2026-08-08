@@ -14,12 +14,12 @@ export interface MovieDetailsData {
   spoken_languages: [
     {
       name: string;
-    }
+    },
   ];
   production_companies: [
     {
       name: string;
-    }
+    },
   ];
   belongs_to_collection?: {
     id: number;
@@ -31,7 +31,7 @@ export interface MovieDetailsData {
     {
       id: number;
       name: string;
-    }
+    },
   ];
 }
 
@@ -51,39 +51,39 @@ export interface SerieDetailsData {
   production_companies: [
     {
       name: string;
-    }
+    },
   ];
   networks: [
     {
       name: string;
-    }
+    },
   ];
   created_by: [
     {
       id: number;
       name: string;
-    }
+    },
   ];
   spoken_languages: [
     {
       name: string;
-    }
+    },
   ];
   genres: [
     {
       id: number;
       name: string;
-    }
+    },
   ];
 }
 
 export interface PersonDetailsData {
   id: number;
   name: string;
-  profile_path: string;
+  profile_path: string | null;
   biography: string;
-  birthday: string;
+  birthday: string | null;
   deathday: string | null;
-  place_of_birth: string;
+  place_of_birth: string | null;
   known_for_department: string;
 }

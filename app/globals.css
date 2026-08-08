@@ -33,6 +33,9 @@
     --positive: #22c55e;
     --shadow-card: 0 20px 50px -24px rgb(0 0 0 / 0.8);
     --shadow-glow: 0 16px 44px -20px rgb(229 9 20 / 0.52);
+    --body-glow-primary: rgb(229 9 20 / 0.12);
+    --body-glow-secondary: rgb(127 7 15 / 0.07);
+    --shimmer-color: rgb(255 255 255 / 0.08);
     --transition-ui: 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
@@ -41,13 +44,29 @@
   }
 
   .light {
-    color-scheme: dark;
-    --background: 0 0% 5%;
-    --card: 0 0% 8%;
-    --popover: 0 0% 9%;
-    --secondary: 0 0% 12%;
-    --muted: 0 0% 14%;
-    --input: 0 0% 14%;
+    color-scheme: light;
+    --background: 0 0% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --secondary: 220 14% 94%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 220 14% 94%;
+    --muted-foreground: 215 16% 42%;
+    --accent: 355 100% 96%;
+    --accent-foreground: 357 78% 38%;
+    --border: 220 13% 86%;
+    --input: 220 14% 94%;
+    --surface: #ffffff;
+    --surface-elevated: #f4f4f5;
+    --text-secondary: #52525b;
+    --shadow-card: 0 20px 45px -28px rgb(15 23 42 / 0.28);
+    --shadow-glow: 0 16px 38px -22px rgb(229 9 20 / 0.36);
+    --body-glow-primary: rgb(229 9 20 / 0.07);
+    --body-glow-secondary: rgb(148 163 184 / 0.12);
+    --shimmer-color: rgb(15 23 42 / 0.07);
   }
 }
 
@@ -62,11 +81,24 @@
 
   body {
     @apply min-h-screen overflow-x-hidden bg-background text-foreground antialiased;
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif;
-    background-image:
-      radial-gradient(circle at 15% -10%, rgb(229 9 20 / 0.12), transparent 28rem),
-      radial-gradient(circle at 90% 30%, rgb(127 7 15 / 0.07), transparent 32rem);
+    font-family:
+      Inter,
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+    background-image: radial-gradient(
+        circle at 15% -10%,
+        var(--body-glow-primary),
+        transparent 28rem
+      ),
+      radial-gradient(
+        circle at 90% 30%,
+        var(--body-glow-secondary),
+        transparent 32rem
+      );
   }
 
   ::selection {
@@ -91,7 +123,7 @@
   }
 
   .glass-panel {
-    @apply border border-white/10 bg-[#101010]/85 backdrop-blur-xl;
+    @apply border border-border bg-card/85 backdrop-blur-xl;
   }
 
   .cinematic-button {
@@ -111,13 +143,18 @@
   }
 
   .skeleton-shimmer {
-    @apply relative overflow-hidden bg-white/[0.07];
+    @apply relative overflow-hidden bg-muted;
   }
 
   .skeleton-shimmer::after {
     content: "";
     @apply absolute inset-0 -translate-x-full;
-    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.08), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--shimmer-color),
+      transparent
+    );
     animation: shimmer 1.5s infinite;
   }
 }
