@@ -63,10 +63,12 @@ export function Header() {
   const { resolvedTheme, setTheme } = useTheme();
   const [query, setQuery] = useState("");
   const [mounted, setMounted] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
+    setMobileMenuOpen(false);
     if (pathname === "/search") {
       setQuery(new URLSearchParams(window.location.search).get("q") ?? "");
     }
@@ -75,6 +77,7 @@ export function Header() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const normalizedQuery = query.trim();
+    setMobileMenuOpen(false);
     router.push(
       normalizedQuery
         ? `/search?q=${encodeURIComponent(normalizedQuery)}`
@@ -92,9 +95,17 @@ export function Header() {
         "bg-primary/10 text-foreground after:absolute after:inset-x-3 after:-bottom-px after:h-0.5 after:rounded-full after:bg-primary",
     );
 
+  const mobileNavLinkClass = (active: boolean) =>
+    cn(
+      "flex min-h-11 items-center rounded-xl border border-transparent px-3 py-2.5 text-sm font-medium text-muted-foreground transition active:scale-[0.98]",
+      active
+        ? "border-primary/20 bg-primary/10 text-foreground shadow-sm"
+        : "bg-muted/35 hover:bg-muted hover:text-foreground",
+    );
+
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur-xl supports-[backdrop-filter]:bg-background/75">
-      <div className="page-container flex min-h-[72px] items-center gap-3">
+      <div className="page-container flex min-h-16 items-center gap-2 sm:min-h-[72px] sm:gap-3">
         <Link
           href="/"
           className="group mr-auto inline-flex min-h-11 items-center gap-2.5 rounded-xl focus-visible:outline-none"
@@ -104,7 +115,7 @@ export function Header() {
             <Clapperboard className="size-5 text-white transition-transform group-hover:-rotate-6" />
             <span className="absolute inset-0 bg-white/10 opacity-0 transition-opacity group-hover:opacity-100" />
           </span>
-          <span className="text-lg font-extrabold tracking-tight text-foreground sm:text-xl">
+          <span className="hidden text-lg font-extrabold tracking-tight text-foreground min-[360px]:inline sm:text-xl">
             Cine<span className="text-red-500">Verse</span>
           </span>
         </Link>
@@ -194,7 +205,19 @@ export function Header() {
           {isDark ? <Sun className="size-5" /> : <Moon className="size-5" />}
         </Button>
 
-        <Sheet>
+        <Button
+          size="icon"
+          variant="ghost"
+          className="md:hidden"
+          aria-label="Buscar no CineVerse"
+          asChild
+        >
+          <Link href="/search">
+            <Search className="size-5" />
+          </Link>
+        </Button>
+
+        <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger asChild>
             <Button
               size="icon"
@@ -207,116 +230,182 @@ export function Header() {
           </SheetTrigger>
           <SheetContent
             side="right"
-            className="w-[88%] max-w-sm border-border bg-background p-5 text-foreground"
+            className="flex w-[92%] max-w-[420px] flex-col gap-0 overflow-hidden border-border bg-background/98 p-0 text-foreground backdrop-blur-2xl"
           >
-            <SheetHeader className="text-left">
-              <SheetTitle className="flex items-center gap-2 text-foreground">
-                <Sparkles className="size-5 text-red-500" /> Navegar no
-                CineVerse
+            <SheetHeader className="border-b border-border px-5 py-5 pr-14 text-left">
+              <SheetTitle className="flex items-center gap-3 text-foreground">
+                <span className="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-red-500 to-red-800 shadow-glow">
+                  <Sparkles className="size-5 text-white" />
+                </span>
+                <span>
+                  <span className="block text-base font-extrabold">
+                    Cine<span className="text-red-500">Verse</span>
+                  </span>
+                  <span className="block text-xs font-normal text-muted-foreground">
+                    O que você quer assistir?
+                  </span>
+                </span>
               </SheetTitle>
             </SheetHeader>
 
-            <form
-              onSubmit={handleSubmit}
-              role="search"
-              className="mt-6 md:hidden"
-            >
-              <label htmlFor="mobile-search" className="sr-only">
-                Buscar filmes, séries e pessoas
-              </label>
-              <div className="relative">
-                <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                  id="mobile-search"
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Filme, série ou pessoa"
-                  className="pl-10"
-                />
-              </div>
-            </form>
+            <div className="border-b border-border p-4">
+              <form onSubmit={handleSubmit} role="search">
+                <label htmlFor="mobile-search" className="sr-only">
+                  Buscar filmes, séries e pessoas
+                </label>
+                <div className="relative">
+                  <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input
+                    id="mobile-search"
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                    placeholder="Filme, série ou pessoa"
+                    className="h-12 rounded-xl bg-muted/60 pl-10 pr-4"
+                  />
+                </div>
+              </form>
+            </div>
 
-            <nav className="mt-6 space-y-6" aria-label="Navegação mobile">
-              <div className="space-y-1">
+            <nav
+              className="scrollbar-none flex-1 space-y-4 overflow-y-auto p-4"
+              aria-label="Navegação mobile"
+            >
+              <div className="grid grid-cols-2 gap-2">
                 <SheetClose asChild>
                   <Link
                     href="/"
-                    className={
-                      navLinkClass(pathname === "/") + " w-full justify-start"
-                    }
+                    aria-current={pathname === "/" ? "page" : undefined}
+                    className={cn(
+                      mobileNavLinkClass(pathname === "/"),
+                      "gap-2.5",
+                    )}
                   >
-                    <Home className="size-4" /> Início
+                    <Home className="size-4 text-red-500" /> Início
                   </Link>
                 </SheetClose>
                 <SheetClose asChild>
                   <Link
                     href="/search"
-                    className={
-                      navLinkClass(pathname === "/search") +
-                      " w-full justify-start"
+                    aria-current={
+                      pathname === "/search" ? "page" : undefined
                     }
+                    className={cn(
+                      mobileNavLinkClass(pathname === "/search"),
+                      "gap-2.5",
+                    )}
                   >
-                    <Search className="size-4" /> Buscar
+                    <Search className="size-4 text-red-500" /> Buscar
                   </Link>
                 </SheetClose>
               </div>
 
-              <div>
-                <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                  Filmes
-                </p>
-                <div className="space-y-1">
-                  {movieLinks.map((item) => (
-                    <SheetClose asChild key={item.href}>
-                      <Link
-                        href={item.href}
-                        className={
-                          navLinkClass(pathname === item.href) +
-                          " w-full justify-start"
-                        }
-                      >
-                        {item.label}
-                      </Link>
-                    </SheetClose>
-                  ))}
+              <section
+                className={cn(
+                  "rounded-2xl border bg-card/55 p-3",
+                  isSectionActive(pathname, "movies")
+                    ? "border-primary/25"
+                    : "border-border",
+                )}
+                aria-labelledby="mobile-movies-title"
+              >
+                <div className="mb-3 flex items-center gap-3 px-1">
+                  <span className="grid size-9 place-items-center rounded-xl bg-red-500/10 text-red-500">
+                    <Film className="size-4" />
+                  </span>
+                  <div>
+                    <h2
+                      id="mobile-movies-title"
+                      className="text-sm font-bold text-foreground"
+                    >
+                      Filmes
+                    </h2>
+                    <p className="text-xs text-muted-foreground">
+                      Descubra seu próximo favorito
+                    </p>
+                  </div>
                 </div>
-              </div>
+                <div className="grid grid-cols-2 gap-1.5">
+                  {movieLinks.map((item) => {
+                    const isActive = pathname === item.href;
+                    return (
+                      <SheetClose asChild key={item.href}>
+                        <Link
+                          href={item.href}
+                          aria-current={isActive ? "page" : undefined}
+                          className={mobileNavLinkClass(isActive)}
+                        >
+                          {item.label}
+                        </Link>
+                      </SheetClose>
+                    );
+                  })}
+                </div>
+              </section>
 
-              <div>
-                <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                  Séries
-                </p>
-                <div className="space-y-1">
-                  {serieLinks.map((item) => (
-                    <SheetClose asChild key={item.href}>
-                      <Link
-                        href={item.href}
-                        className={
-                          navLinkClass(pathname === item.href) +
-                          " w-full justify-start"
-                        }
-                      >
-                        {item.label}
-                      </Link>
-                    </SheetClose>
-                  ))}
+              <section
+                className={cn(
+                  "rounded-2xl border bg-card/55 p-3",
+                  isSectionActive(pathname, "series")
+                    ? "border-primary/25"
+                    : "border-border",
+                )}
+                aria-labelledby="mobile-series-title"
+              >
+                <div className="mb-3 flex items-center gap-3 px-1">
+                  <span className="grid size-9 place-items-center rounded-xl bg-red-500/10 text-red-500">
+                    <MonitorPlay className="size-4" />
+                  </span>
+                  <div>
+                    <h2
+                      id="mobile-series-title"
+                      className="text-sm font-bold text-foreground"
+                    >
+                      Séries
+                    </h2>
+                    <p className="text-xs text-muted-foreground">
+                      Encontre sua próxima maratona
+                    </p>
+                  </div>
                 </div>
-              </div>
+                <div className="grid grid-cols-2 gap-1.5">
+                  {serieLinks.map((item) => {
+                    const isActive = pathname === item.href;
+                    return (
+                      <SheetClose asChild key={item.href}>
+                        <Link
+                          href={item.href}
+                          aria-current={isActive ? "page" : undefined}
+                          className={mobileNavLinkClass(isActive)}
+                        >
+                          {item.label}
+                        </Link>
+                      </SheetClose>
+                    );
+                  })}
+                </div>
+              </section>
             </nav>
 
-            <Button
-              type="button"
-              variant="outline"
-              className="mt-6 w-full justify-start"
-              onClick={toggleTheme}
-            >
-              {isDark ? (
-                <Sun className="size-4" />
-              ) : (
-                <Moon className="size-4" />
-              )}
-              {isDark ? "Usar modo claro" : "Usar modo escuro"}
-            </Button>
+            <div className="border-t border-border bg-background/95 p-4">
+              <Button
+                type="button"
+                variant="outline"
+                className="h-11 w-full justify-between rounded-xl"
+                onClick={toggleTheme}
+              >
+                <span className="inline-flex items-center gap-2">
+                  {isDark ? (
+                    <Sun className="size-4" />
+                  ) : (
+                    <Moon className="size-4" />
+                  )}
+                  Aparência
+                </span>
+                <span className="text-xs font-normal text-muted-foreground">
+                  {isDark ? "Modo claro" : "Modo escuro"}
+                </span>
+              </Button>
+            </div>
           </SheetContent>
         </Sheet>
       </div>
