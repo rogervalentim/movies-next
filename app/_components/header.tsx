@@ -6,16 +6,13 @@ import {
   Film,
   Home,
   Menu,
-  Moon,
   MonitorPlay,
   Search,
   Sparkles,
-  Sun,
 } from "lucide-react";
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { useTheme } from "next-themes";
 import {
   Menubar,
   MenubarContent,
@@ -60,12 +57,8 @@ function isSectionActive(pathname: string, section: "movies" | "series") {
 export function Header() {
   const pathname = usePathname();
   const router = useRouter();
-  const { resolvedTheme, setTheme } = useTheme();
   const [query, setQuery] = useState("");
-  const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     setMobileMenuOpen(false);
@@ -84,9 +77,6 @@ export function Header() {
         : "/search",
     );
   }
-
-  const isDark = mounted ? resolvedTheme === "dark" : true;
-  const toggleTheme = () => setTheme(isDark ? "light" : "dark");
 
   const navLinkClass = (active: boolean) =>
     cn(
@@ -192,18 +182,6 @@ export function Header() {
             />
           </div>
         </form>
-
-        <Button
-          type="button"
-          size="icon"
-          variant="ghost"
-          className="hidden md:inline-flex"
-          aria-label={isDark ? "Ativar modo claro" : "Ativar modo escuro"}
-          title={isDark ? "Ativar modo claro" : "Ativar modo escuro"}
-          onClick={toggleTheme}
-        >
-          {isDark ? <Sun className="size-5" /> : <Moon className="size-5" />}
-        </Button>
 
         <Button
           size="icon"
@@ -386,26 +364,6 @@ export function Header() {
               </section>
             </nav>
 
-            <div className="border-t border-border bg-background/95 p-4">
-              <Button
-                type="button"
-                variant="outline"
-                className="h-11 w-full justify-between rounded-xl"
-                onClick={toggleTheme}
-              >
-                <span className="inline-flex items-center gap-2">
-                  {isDark ? (
-                    <Sun className="size-4" />
-                  ) : (
-                    <Moon className="size-4" />
-                  )}
-                  Aparência
-                </span>
-                <span className="text-xs font-normal text-muted-foreground">
-                  {isDark ? "Modo claro" : "Modo escuro"}
-                </span>
-              </Button>
-            </div>
           </SheetContent>
         </Sheet>
       </div>

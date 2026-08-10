@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ThemeProvider } from "./_context/theme-provider";
 import { ReactQueryProvider } from "./react-query-provider";
 import { ScrollTop } from "./_components/scroll-top";
 
@@ -19,19 +18,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang="pt-BR">
       <body>
         <ReactQueryProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-
-            <ScrollTop />
-          </ThemeProvider>
+          {children}
+          <ScrollTop />
         </ReactQueryProvider>
       </body>
     </html>
