@@ -170,9 +170,15 @@ export function Seasons({ id }: SeasonsProps) {
   const renderContent = () => {
     if (isLoadingEpisodes) {
       return (
-        <div className="grid gap-4 lg:grid-cols-2" aria-label="Carregando episódios">
+        <div
+          className="grid gap-4 lg:grid-cols-2"
+          aria-label="Carregando episódios"
+        >
           {Array.from({ length: 4 }).map((_, index) => (
-            <div key={index} className="overflow-hidden rounded-2xl border border-white/10 bg-[#151515]">
+            <div
+              key={index}
+              className="overflow-hidden rounded-2xl border border-white/10 bg-[#151515]"
+            >
               <div className="skeleton-shimmer aspect-video" />
               <div className="space-y-3 p-5">
                 <div className="skeleton-shimmer h-5 w-3/5 rounded-md" />
@@ -189,11 +195,15 @@ export function Seasons({ id }: SeasonsProps) {
       return (
         <div className="rounded-2xl border border-red-500/20 bg-red-500/10 p-8 text-center text-red-100">
           <AlertCircle className="mx-auto size-8 text-red-400" />
-          <p className="mt-3 font-semibold">Não foi possível carregar esta temporada.</p>
+          <p className="mt-3 font-semibold">
+            Não foi possível carregar esta temporada.
+          </p>
           <button
             type="button"
             className="mt-4 min-h-11 rounded-xl border border-red-500/35 px-4 text-sm font-semibold hover:bg-red-500/15"
-            onClick={() => selectedSeason !== null && fetchEpisodes(selectedSeason)}
+            onClick={() =>
+              selectedSeason !== null && fetchEpisodes(selectedSeason)
+            }
           >
             Tentar novamente
           </button>
@@ -238,7 +248,7 @@ export function Seasons({ id }: SeasonsProps) {
     }
 
     return episodesData.length ? (
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {episodesData.map((item) => (
           <EpisodeItem
             key={item.id}
@@ -261,7 +271,9 @@ export function Seasons({ id }: SeasonsProps) {
     return (
       <div className="rounded-2xl border border-red-500/20 bg-red-500/10 p-8 text-center text-red-100">
         <AlertCircle className="mx-auto size-8 text-red-400" />
-        <p className="mt-3 font-semibold">Não foi possível carregar as temporadas.</p>
+        <p className="mt-3 font-semibold">
+          Não foi possível carregar as temporadas.
+        </p>
       </div>
     );
   }
@@ -273,30 +285,44 @@ export function Seasons({ id }: SeasonsProps) {
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-red-400">
             Guia de episódios
           </p>
-          <h2 id="seasons-title" className="mt-2 text-2xl font-black tracking-tight text-white sm:text-3xl">
+          <h2
+            id="seasons-title"
+            className="mt-2 text-2xl font-black tracking-tight text-white sm:text-3xl"
+          >
             Temporadas
           </h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-400 sm:text-base">
-            Escolha uma temporada para ver episódios, equipe e participações especiais.
+            Escolha uma temporada para ver episódios, equipe e participações
+            especiais.
           </p>
         </div>
 
         {!isLoadingSeasons && (
           <span className="inline-flex min-h-10 w-fit items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 text-sm font-semibold text-zinc-300">
             <Layers3 className="size-4 text-red-400" />
-            {seasonsData.length} {seasonsData.length === 1 ? "temporada" : "temporadas"}
+            {seasonsData.length}{" "}
+            {seasonsData.length === 1 ? "temporada" : "temporadas"}
           </span>
         )}
       </div>
 
       {isLoadingSeasons ? (
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5" aria-label="Carregando temporadas">
+        <div
+          className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+          aria-label="Carregando temporadas"
+        >
           {Array.from({ length: 5 }).map((_, index) => (
-            <div key={index} className="skeleton-shimmer aspect-[2/3] rounded-2xl" />
+            <div
+              key={index}
+              className="skeleton-shimmer aspect-[2/3] rounded-2xl"
+            />
           ))}
         </div>
       ) : seasonsData.length ? (
-        <div id="seasons" className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div
+          id="seasons"
+          className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+        >
           {seasonsData.map((season) => (
             <button
               type="button"
@@ -341,7 +367,11 @@ export function Seasons({ id }: SeasonsProps) {
                 </DialogDescription>
               </DialogHeader>
 
-              <div className="scrollbar-none mt-6 flex gap-2 overflow-x-auto pb-2" role="tablist" aria-label="Conteúdo da temporada">
+              <div
+                className="scrollbar-none mt-6 flex gap-2 overflow-x-auto pb-2"
+                role="tablist"
+                aria-label="Conteúdo da temporada"
+              >
                 <TabButton
                   onClick={() => handleTabClick(TABS.EPISODES)}
                   isActive={activeTab === TABS.EPISODES}
